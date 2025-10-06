@@ -8,6 +8,7 @@ const { fetchAndNormalizeAssets } = require('./api-utils');
 const axios = require('axios');
 const { findOrCreateUser } = require('./auth-utils');
 const { checkRole } = require('./auth-middleware');
+const { setupForestAdmin } = require('./forest-admin');
 
 
 const startOfDayUtc = (value) => {
@@ -286,6 +287,44 @@ app.get('/api/projects/:id/czml/:layerType', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`El servidor está corriendo en el puerto: ${port}`);
-});
+// Inicializar ForestAdmin
+const initializeForestAdmin = async () => {
+  try {
+    if (process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET) {
+      console.log('[ForestAdmin] Inicializando Forest Admin...');
+      const agent = await setupForestAdmin();
+      
+      // Montar ForestAdmin en la ruta /forest
+      app.use('/forest', agent.mountOnExpress(app).expressRouter);
+      
+      console.log('[ForestAdmin] Forest Admin disponible en /forest');
+    } else {
+      console.log('[ForestAdmin] Variables de entorno de Forest Admin no configuradas. Saltando inicialización.');
+    }
+  } catch (error) {
+    console.error('[ForestAdmin] Error inicializando Forest Admin:', error);
+  }
+};
+
+// Inicializar servidor
+const startServer = async () => {
+  try {
+    // Inicializar ForestAdmin
+    await initializeForestAdmin();
+    
+    // Iniciar servidor
+    app.listen(port, () => {
+      console.log(`El servidor está corriendo en el puerto: ${port}`);
+      console.log(`API disponible en: http://localhost:${port}`);
+      if (process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET) {
+        console.log(`Forest Admin disponible en: http://localhost:${port}/forest`);
+      }
+    });
+  } catch (error) {
+    console.error('Error iniciando el servidor:', error);
+    process.exit(1);
+  }
+};
+
+// Iniciar la aplicación
+startServer();

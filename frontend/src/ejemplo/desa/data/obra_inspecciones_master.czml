@@ -1,0 +1,31 @@
+[
+  {
+    "id": "document",
+    "name": "Seguimiento de Obra: [Nombre de la Obra]",
+    "version": "1.0",
+    "description": "Visualización de inspecciones de drones a lo largo del tiempo para la obra [Nombre de la Obra].",
+    "clock": {
+      "interval": "2023-01-01T00:00:00Z/2025-12-31T23:59:59Z",
+      "currentTime": "2023-01-01T00:00:00Z",
+      "multiplier": 1000,
+      "range": "LOOP_STOP"
+    }
+  },
+  {
+    "id": "sitio_obra",
+    "name": "Ubicación de la Obra",
+    "description": "Límites generales del sitio de construcción.",
+    "rectangle": {
+      "coordinates": {
+        "cartographicDegrees": [-68.5, -39.2, -67.5, -38.5]
+      },
+      "material": {
+        "solidColor": {
+          "color": { "rgba": [0, 0, 255, 50] }
+        }
+      },
+      "height": 0,
+      "heightReference": "CLAMP_TO_GROUND"
+    }
+  }
+]

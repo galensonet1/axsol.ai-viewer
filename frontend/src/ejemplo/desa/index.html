@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizador de Inspecciones 3D</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.116/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.116/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <!-- Blueimp Gallery CSS y JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/3.4.0/css/blueimp-gallery.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/3.4.0/js/blueimp-gallery.min.js"></script>
+  <!-- FontAwesome CDN para iconos galería -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Viewer.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
+  <!-- JSZip para crear archivos ZIP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- Shepherd.js tour library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.2.0/dist/css/shepherd.css">
+  <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.2.0/dist/js/shepherd.min.js"></script>
+</head>
+<body>
+  <div id="camera-recorder-controls" style="position: absolute; top: 20px; right: 20px; z-index: 1000; display: none; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+    <button id="start-recording-btn">Iniciar grabación</button>
+    <button id="stop-recording-btn" disabled>Detener grabación</button>
+    <button id="export-czml-btn" disabled>Exportar CZML</button>
+  </div>
+  <div id="cesiumContainer" style="width: 100vw; height: 100vh;"></div>
+  <input type="file" id="file-input" accept=".czml,.kml" style="display: none;" />
+  <script type="module" src="app.js"></script>
+  <script type="module" src="components/ChatModule.js"></script>
+  <!-- Contenedor para blueimp Gallery -->
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" tabindex="-1" aria-label="Galería de fotos" style="display:none;">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+  </div>
+  <axsol-chat-module id="chat-module"></axsol-chat-module>
+</body>
+</html>

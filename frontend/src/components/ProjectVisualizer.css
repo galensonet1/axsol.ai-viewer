@@ -1,0 +1,72 @@
+.visualizer-root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.visualizer-container {
+  width: 100%;
+  height: 100%;
+}
+
+.axsol-watermark {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  opacity: 0.55;
+  z-index: 5;
+}
+
+.axsol-watermark img {
+  width: 120px;
+  max-width: 20vw;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+}
+
+.clock-label {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  z-index: 7;
+  pointer-events: none;
+}
+
+/* Estilos básicos para el timeline de Cesium */
+.visualizer-container .cesium-timeline-main {
+  visibility: visible !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.visualizer-container .cesium-animation-container {
+  visibility: visible !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Ocultar el InfoBox nativo de Cesium */
+.visualizer-container .cesium-infoBox {
+  display: none !important;
+}
+
+.visualizer-container .cesium-infoBox-container {
+  display: none !important;
+}

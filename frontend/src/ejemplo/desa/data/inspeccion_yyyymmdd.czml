@@ -1,0 +1,174 @@
+[
+  {
+    "id": "document",
+    "name": "Inspección de Drones - [Fecha de Inspección]",
+    "version": "1.0",
+    "description": "Datos de la inspección con drones realizada el [Fecha de Inspección].",
+    "clock": {
+      // El clock aquí puede ser redundante si se carga como un DataSource externo,
+      // pero puede ser útil si este CZML se visualiza de forma independiente.
+      "interval": "2024-05-26T10:00:00Z/2024-05-26T11:00:00Z", // Duración de la inspección
+      "currentTime": "2024-05-26T10:00:00Z",
+      "multiplier": 1
+    }
+  },
+  // Posición del dron (trayectoria)
+  {
+    "id": "drone_path_inspeccion_20240526",
+    "name": "Trayectoria del Dron - 26 Mayo 2024",
+    "availability": "2024-05-26T10:00:00Z/2024-05-26T11:00:00Z", // Solo visible durante la inspección
+    "position": {
+      "epoch": "2024-05-26T10:00:00Z", // Tiempo de inicio de la secuencia
+      "cartographicDegrees": [
+        0, -68.000, -38.900, 100, // tiempo (segundos desde epoch), lon, lat, alt
+        60, -68.001, -38.905, 110,
+        120, -68.005, -38.910, 105,
+        // ... más puntos de la trayectoria del dron con sus tiempos
+        3600, -68.010, -38.915, 95
+      ]
+    },
+    "path": {
+      "material": {
+        "polylineOutline": {
+          "color": { "rgba": [0, 255, 0, 200] },
+          "outlineColor": { "rgba": [255, 255, 255, 100] },
+          "outlineWidth": 2
+        }
+      },
+      "width": 3,
+      "show": true,
+      "leadTime": 0, // No mostrar el futuro
+      "trailTime": 300 // Mostrar los últimos 5 minutos de la trayectoria
+    },
+    "model": { // Para representar el dron en su trayectoria
+      "uri": "ruta/a/modelo_dron.glb",
+      "scale": 5.0,
+      "minimumPixelSize": 64,
+      "maximumScale": 20000,
+      "orientation": {
+        "velocityReference": "#drone_path_inspeccion_20240526" // El modelo se orienta según la dirección de movimiento
+      }
+    }
+  },
+
+  // Fotos geotagged (por cada foto relevante de la inspección)
+  {
+    "id": "foto_obra_20240526_001",
+    "name": "Foto de Inspección #001 - 26 Mayo 2024",
+    "description": "Estado del [elemento inspeccionado] el 26 de Mayo de 2024.",
+    "availability": "2024-05-26T10:15:00Z/2024-05-26T10:15:01Z", // Visible solo al momento de la toma
+    "position": {
+      "cartographicDegrees": [-68.002, -38.907, 98]
+    },
+    "billboard": {
+      "image": "url_a_tu_foto_001.jpg",
+      "scale": 0.5, // Ajusta el tamaño de la imagen en el visor
+      "pixelOffset": { "cartesian2": [0, -50] },
+      "show": true,
+      "heightReference": "CLAMP_TO_GROUND" // O "RELATIVE_TO_GROUND" con altura específica
+    },
+    "properties": { // Propiedades personalizadas para análisis
+      "TipoDano": "Grieta",
+      "Severidad": "Media",
+      "Comentarios": "Grieta superficial en viga principal."
+    }
+  },
+  // ... más fotos de la inspección
+
+  // Videos (un video por cada zona importante)
+  {
+    "id": "video_obra_20240526_zonaA",
+    "name": "Video Zona A - 26 Mayo 2024",
+    "description": "Grabación de video de la Zona A durante la inspección.",
+    "availability": "2024-05-26T10:30:00Z/2024-05-26T10:35:00Z", // Visible solo durante la duración del video
+    "position": {
+      "cartographicDegrees": [-68.007, -38.912, 102]
+    },
+    "rectangle": {
+      "coordinates": {
+        "cartographicDegrees": [-68.008, -38.913, -68.006, -38.911]
+      },
+      "material": {
+        "image": {
+          "image": "url_a_tu_video_zonaA.mp4",
+          "color": { "rgba": [255, 255, 255, 255] },
+          "transparent": true,
+          "repeat": false
+        }
+      },
+      "height": 10 // Altura del plano donde se proyecta el video
+    },
+    "properties": {
+      "FocoInspeccion": "Área de fundaciones",
+      "DuracionSegundos": 300
+    }
+  },
+
+  // Fotos 360 (panoramas de puntos clave)
+  {
+    "id": "foto360_obra_20240526_puntoX",
+    "name": "Panorama 360 - Punto X - 26 Mayo 2024",
+    "description": "Vista panorámica 360 de un punto de interés.",
+    "availability": "2024-05-26T10:40:00Z/2024-05-26T10:40:01Z", // Visible en el momento de la toma
+    "position": {
+      "cartographicDegrees": [-68.009, -38.914, 99]
+    },
+    "ellipsoid": {
+      "radii": { "cartesian": [50.0, 50.0, 50.0] }, // Radio de la esfera 360
+      "material": {
+        "image": {
+          "image": "url_a_tu_foto360_puntoX.jpg"
+        }
+      },
+      "show": true,
+      "fill": true,
+      "heightReference": "CLAMP_TO_GROUND"
+    },
+    "properties": {
+      "AlturaCaptura": "99m",
+      "CondicionIluminacion": "Soleado"
+    }
+  },
+
+  // 3D Tiles (modelo fotogramétrico de la inspección)
+  {
+    "id": "3dtiles_inspeccion_20240526",
+    "name": "Modelo 3D Tiles - 26 Mayo 2024",
+    "description": "Modelo 3D de la zona de inspección procesado de la inspección del 26 de Mayo.",
+    "availability": "2024-05-26T10:00:00Z/2024-05-27T00:00:00Z", // Visible desde la inspección hasta el día siguiente (ajustar)
+    "position": {
+      "cartographicDegrees": [-68.005, -38.905, 0.0] // Punto de anclaje para el tileset
+    },
+    "tileset": {
+      "uri": "https://assets.cesium.com/YOUR_TILESET_ID_20240526/tileset.json", // ID específico de este tileset en Ion
+      "maximumScreenSpaceError": 16,
+      "show": true,
+      "luminanceAtZenith": 0.2, // Ajustar para iluminación
+      "maximumMemoryUsage": 512 // MB, para controlar el uso de memoria
+    }
+  },
+  // Opcional: Entidad para el perímetro del 3D Tiles
+  {
+    "id": "perimetro_tileset_20240526",
+    "name": "Perímetro 3D Tiles",
+    "availability": "2024-05-26T10:00:00Z/2024-05-27T00:00:00Z",
+    "polygon": {
+        "positions": {
+            "cartographicDegrees": [
+                -68.010, -38.910, 0,
+                -68.000, -38.910, 0,
+                -68.000, -38.900, 0,
+                -68.010, -38.900, 0,
+                -68.010, -38.910, 0
+            ]
+        },
+        "material": {
+            "solidColor": {
+                "color": { "rgba": [255, 255, 0, 100] } // Amarillo semitransparente
+            }
+        },
+        "heightReference": "CLAMP_TO_GROUND",
+        "extrudedHeight": 5 // Si quieres un volumen
+    }
+  }
+]

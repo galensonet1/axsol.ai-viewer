@@ -1,0 +1,840 @@
+/* --- OVERRIDE Viewer.js MODAL --- */
+
+/* === TEMAS PARA CAPTIONS MÁS VISIBLES === */
+
+/* TEMA 1: Fondo oscuro con texto blanco (por defecto) */
+.viewer-dark-theme .viewer-title {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* TEMA 2: Fondo claro con texto oscuro */
+.viewer-light-theme .viewer-title {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #333333 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* TEMA 3: Fondo azul con texto blanco */
+.viewer-blue-theme .viewer-title {
+  background: rgba(37, 99, 235, 0.9) !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+}
+
+/* TEMA 4: Fondo verde con texto blanco */
+.viewer-green-theme .viewer-title {
+  background: rgba(34, 197, 94, 0.9) !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+}
+
+/* Estilos generales para mejorar la visibilidad */
+.viewer-container .viewer-title {
+  position: absolute !important;
+  bottom: 60px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 10001 !important;
+  max-width: 80% !important;
+  text-align: center !important;
+  line-height: 1.4 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Asegurar que el título sea siempre visible */
+.viewer-container .viewer-title:empty {
+  display: none !important;
+}
+
+/* Animación suave para la aparición del título */
+.viewer-container .viewer-title {
+  animation: fadeInTitle 0.3s ease-in-out !important;
+}
+
+@keyframes fadeInTitle {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* === ESTILOS PARA BOTÓN DE DESCARGA PERSONALIZADO === */
+
+/* Estilos para el botón de descarga integrado en la barra de herramientas */
+.viewer-button-download {
+  background: #dc3545 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 8px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  font-size: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3) !important;
+}
+
+.viewer-button-download:hover {
+  background: #c82333 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4) !important;
+}
+
+.viewer-button-download:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 3px rgba(220, 53, 69, 0.3) !important;
+}
+
+.viewer-button-download:disabled {
+  background: #6c757d !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  opacity: 0.7 !important;
+}
+
+/* Estilos para mejorar la modal de Viewer.js - ancho completo */
+.viewer-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.viewer-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Asegurar que la barra de herramientas sea visible */
+.viewer-toolbar {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+}
+
+/* Icono del botón de descarga */
+.viewer-button-download i {
+  color: #ffffff !important;
+  font-size: 16px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Icono del botón de descarga con mejor contraste */
+.viewer-button-download i,
+.platform-red i,
+#btn-descargar-galeria i {
+  color: #ffffff !important;
+  font-size: 16px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* === FIN ESTILOS BOTÓN DESCARGA === */
+
+.viewer-container, .viewer-container.viewer-fixed {
+  max-width: 70vw !important;
+  max-height: 70vh !important;
+  width: 70vw !important;
+  height: 70vh !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+  z-index: 9999 !important;
+  background: rgba(34,34,34,0.98) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 48px #000a !important;
+  display: block !important;
+}
+.viewer-container .viewer-toolbar,
+.viewer-container .viewer-navbar,
+.viewer-container .viewer-title,
+.viewer-container .viewer-button {
+  z-index: 10000 !important;
+}
+/* --- FIN OVERRIDE Viewer.js --- */
+
+.viewer-container .viewer-stage {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+.viewer-container .viewer-canvas img, .viewer-container .viewer-canvas {
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1) !important;
+  opacity: 1 !important;
+
+  margin: 0 auto !important;
+  display: block !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #222;
+}
+#cesiumContainer {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+#blueimp-gallery {
+  max-width: 70vw !important;
+  max-height: 70vh !important;
+  width: 70vw !important;
+  height: 70vh !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+  z-index: 3000 !important;
+  background: rgba(34,34,34,0.98) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 48px #000a !important;
+  display: none;
+}
+#blueimp-gallery .fa {
+  color: #fff;
+  font-size: 1.7em;
+  margin-left: 18px;
+  margin-right: 0;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#blueimp-gallery .fa:hover {
+  color: #ffd700;
+}
+#blueimp-gallery .custom-actions {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  top: 18px;
+  right: 38px;
+  z-index: 4010;
+}
+#blueimp-gallery .caption-container {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 4100;
+  padding: 8px 18px 8px 18px;
+  background: #1a2236cc;
+  border-radius: 10px 10px 14px 0;
+  max-width: 75%;
+  min-width: 220px;
+  pointer-events: none;
+  font-family: monospace;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 3px #000, 0 0 2px #000;
+  border: 2px solid #000;
+  letter-spacing: 0.04em;
+}
+#blueimp-gallery .caption-container .title,
+#blueimp-gallery .caption-container .caption-date {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-shadow: inherit;
+  background: none;
+  box-shadow: none;
+  pointer-events: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* Selector faltante - agregando clase para arreglar sintaxis */
+.missing-selector {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 4100;
+  padding: 16px 24px 14px 18px;
+  background: linear-gradient(90deg, rgba(30,30,30,0.9) 80%, rgba(30,30,30,0.0) 100%);
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 14px;
+  max-width: 70%;
+  min-width: 220px;
+  pointer-events: none;
+}
+#blueimp-gallery .title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  padding: 0 0 3px 0;
+  text-align: left;
+  line-height: 1.2;
+  white-space: pre-line;
+  background: none;
+  box-shadow: none;
+  pointer-events: auto;
+}
+#blueimp-gallery .caption-date {
+  font-size: 1em;
+  font-weight: 400;
+  color: #ffe082;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: none;
+  box-shadow: none;
+  pointer-events: auto;
+}
+#blueimp-gallery .controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: 18px;
+  right: 38px;
+  width: auto;
+  z-index: 4100;
+  gap: 0.5em;
+}
+#blueimp-gallery .custom-actions {
+  display: flex;
+  align-items: center;
+  position: static;
+  gap: 0.5em;
+  height: 38px;
+  margin-left: 0.5em;
+}
+#blueimp-gallery .fa {
+  color: #fff;
+  font-size: 1.2em;
+  margin: 0 4px;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  outline: none;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+#blueimp-gallery .fa:hover {
+  color: #ffd700;
+}
+
+/* Estilos para títulos de caption */
+#blueimp-gallery .caption-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  padding: 0 0 6px 0;
+  text-align: left;
+  line-height: 1.2;
+  white-space: pre-line;
+  background: none;
+  box-shadow: none;
+}
+
+#blueimp-gallery .caption-date {
+  font-size: 1em;
+  font-weight: 400;
+  color: #ffe082;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: none;
+  box-shadow: none;
+}
+
+/* Estilos para contenedor de galería */
+#blueimp-gallery .modal-dialog {
+  max-width: 70vw !important;
+  max-height: 70vh !important;
+  width: 70vw !important;
+  height: 70vh !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+  z-index: 3000 !important;
+  background: rgba(34,34,34,0.98) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.6) !important;
+  display: none;
+}
+
+.viewer-title, .viewer-container .viewer-title {
+  display: block !important;
+  background: rgba(34, 34, 34, 0.92) !important;
+  color: #ffe082 !important;
+  font-family: monospace !important;
+  font-size: 1.2em !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  position: absolute !important;
+  left: 0; right: 0;
+  top: 0;
+  z-index: 10001 !important;
+  padding: 10px 0 8px 0 !important;
+  border-radius: 0 0 16px 16px !important;
+  pointer-events: none;
+}
+
+/* Marcas de inspección en la línea de tiempo */
+.timeline-inspection-marker {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: #ff9800;
+  border-radius: 3px;
+  z-index: 20;
+  cursor: pointer;
+  box-shadow: 0 0 6px #ff9800;
+  transition: background 0.2s;
+}
+.timeline-inspection-marker:hover {
+  background: #e65100;
+}
+.timeline-inspection-tooltip {
+  position: absolute;
+  left: 50%;
+  top: -38px;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.timeline-inspection-marker:hover .timeline-inspection-tooltip {
+  opacity: 1;
+}
+#sidePanel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: auto;
+  background: none;
+  color: #fff;
+  z-index: 120;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+#sidePanel.closed {
+  left: -240px;
+}
+#sidePanel h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+#sidePanel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1em;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+#sidePanel input[type="checkbox"] {
+  accent-color: #1976d2;
+  width: 18px;
+  height: 18px;
+}
+#sidePanelToggle {
+  position: absolute;
+  top: 18px;
+  left: 260px;
+  z-index: 110;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: left 0.3s;
+}
+#sidePanel.closed ~ #sidePanelToggle {
+  left: 0;
+}
+/* --- HEADER Y OVERLAYS MEJORADOS PARA NO TAPAR CESIUM --- */
+#headerBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 120px); /* deja libre la esquina superior derecha */
+  height: 48px;
+  background: rgba(26,34,54,0.92);
+  color: #fff;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 0 16px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+#headerBar .header-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffb300;
+  flex: 1 1 auto;
+  text-align: center;
+}
+#headerBar .header-date {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  font-size: 1.1em;
+  color: #fff;
+  background: #1a2236cc;
+  border-radius: 8px;
+  padding: 2px 18px;
+  font-weight: 500;
+}
+#headerBar .header-login {
+  position: absolute;
+  right: 24px;
+  top: 14px;
+  background: #ffb300;
+  color: #1a2236;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+#headerBar .header-login:hover {
+  background: #ffcb60;
+}
+#headerDateOverlay {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 120;
+  background: transparent;
+  color: #fff;
+  border-radius: 8px;
+  padding: 2px 16px;
+  font-size: 1.1em;
+  font-weight: 700;
+  text-shadow: 0 0 3px #000, 0 0 2px #000;
+  border: 2px solid #000;
+  box-shadow: none;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+#headerDateOverlay span {
+  color: #fff;
+  text-shadow: 0 0 3px #000, 0 0 2px #000;
+  font-weight: 700;
+}
+#headerLoginOverlay {
+  position: fixed;
+  top: 56px;
+  right: 24px;
+  background: #ffb300;
+  color: #1a2236;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 120;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+#headerLoginOverlay:hover {
+  background: #ffcb60;
+}
+#logoPhoenixOverlay {
+  position: fixed;
+  top: 0;
+  left: 18px;
+  height: 48px; /* igual al header de Cesium */
+  width: auto;
+  object-fit: cover;
+  z-index: 120;
+  background: none;
+  border-radius: 0 0 8px 8px;
+}
+#logoAXSOL {
+  position: fixed;
+  bottom: 38px; /* subido para no superponerse con la timeline */
+  right: 18px;
+  height: 44px;
+  opacity: 0.7;
+  z-index: 120;
+  background: none;
+}
+#projectSelectorOverlay {
+  margin-top: 10px;
+  background: #fff;
+  color: #1a2236;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1em;
+  padding: 6px 12px;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+#logoSIMA, #logoSpark {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  height: 32px;
+  width: auto;
+  opacity: 0.7;
+  z-index: 120;
+  background: none;
+  display: block;
+}
+#logoSpark {
+  bottom: 54px;
+  left: 18px;
+}
+#toolboxBar {
+  position: fixed;
+  left: 50%;
+  bottom: 70px;
+  transform: translateX(-50%);
+  z-index: 120;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  padding: 8px 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  min-width: 220px;
+  border: 2px solid #ffb300;
+}
+.custom-toolbar-btn {
+  margin-left: 8px;
+  background: #222b3a;
+  color: #fff;
+  border: 1px solid #1976d2;
+  border-radius: 6px;
+  font-size: 1.1em;
+  transition: background 0.2s, border 0.2s;
+}
+.custom-toolbar-btn:hover {
+  background: #1976d2;
+  color: #fff;
+  border: 1px solid #fff;
+}
+@media (max-width: 700px) {
+  #headerBar { height: 38px; font-size: 0.95em; }
+  #logoPhoenixOverlay { height: 24px; }
+  #headerLoginOverlay, #projectSelectorOverlay { top: 38px; font-size: 0.9em; padding: 5px 10px; }
+  #headerBar .header-title { font-size: 1.1em; }
+  #headerBar .header-date { font-size: 0.95em; padding: 2px 8px; }
+  #logoPhoenix, #logoAXSOL { height: 32px; }
+  #logoSIMA, #logoSpark { height: 22px; }
+  #toolboxBar { min-width: 120px; padding: 6px 6px; gap: 8px; }
+  #projectSelector { min-width: 100px; font-size: 0.95em; }
+  #headerDateOverlay { font-size: 0.95em; padding: 2px 8px; }
+}
+/* Ajuste para que los controles Cesium (esquina sup. der.) no sean tapados */
+.cesium-viewer-toolbar {
+  z-index: 300 !important;
+}
+.cesium-viewer-toolbar, .cesium-viewer-navigationContainer {
+  top: 0 !important;
+  right: 0 !important;
+}
+/* Opcional: margen extra para controles Cesium */
+.cesium-viewer-toolbar {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+/* Panel derecho estilo Cesium */
+#sidePanel.right {
+  right: 0;
+  left: auto;
+  background: rgba(42, 47, 60, 0.97);
+  border-left: 2px solid #1976d2;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.18);
+  border-radius: 12px 0 0 12px;
+}
+#toolsPanel, #sidePanelRight {
+  position: fixed;
+  top: 56px;
+  right: 18px;
+  width: 320px;
+  min-height: 220px;
+  background: rgba(42, 47, 60, 0.7); /* 70% transparente */
+  color: #fff;
+  z-index: 400 !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: 0 0 16px 16px;
+  display: none;
+  flex-direction: column;
+  font-family: inherit;
+  padding: 0;
+  animation: slideDownPanel 0.35s cubic-bezier(.4,1.4,.6,1) forwards;
+}
+#toolsPanel.open, #sidePanelRight.open {
+  display: flex !important;
+}
+
+.panel-derecho-custom {
+  position: fixed;
+  top: 5vh !important;
+  right: 3vw !important;
+  width: 340px;
+  background: rgba(30, 30, 40, 0.7);
+  color: #fff;
+  z-index: 400 !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  padding: 0 0 18px 0;
+  gap: 0;
+  min-height: 220px;
+  animation: slideDownPanel 0.35s cubic-bezier(.4,1.4,.6,1) forwards;
+}
+.logos-sima-spark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 24px 0 0 24px;
+}
+.logo-sima-spark {
+  height: 38px;
+  width: auto;
+  opacity: 0.9;
+  background: none;
+  border-radius: 6px;
+  margin-bottom: 0;
+}
+@media (max-width: 700px) {
+  .panel-derecho-custom {
+    width: 98vw;
+    right: 1vw !important;
+    left: 1vw !important;
+    min-width: unset;
+    max-width: unset;
+  }
+  .logos-sima-spark {
+    margin-left: 12px;
+  }
+}
+/* ...existing code... */
+
+/* --- ESTILOS PARA MEJORAR EL INFOBOX DE CESIUM --- */
+
+/* Contenedor principal del InfoBox */
+.cesium-infoBox {
+  min-width: 500px; /* Aumentar el ancho mínimo */
+  max-width: 60%; /* Permitir que se expanda */
+  min-height: 400px; /* Aumentar la altura mínima */
+  max-height: 70%; /* Permitir que se expanda */
+  background: rgba(42, 47, 60, 0.95) !important;
+  border: 1px solid #4a5468;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+/* Iframe dentro del InfoBox */
+.cesium-infoBox-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Botón de cierre del InfoBox */
+.cesium-infoBox-close {
+  top: 10px; /* Ajustar posición */
+  right: 10px; /* Ajustar posición */
+  width: 32px; /* Hacerlo más grande */
+  height: 32px; /* Hacerlo más grande */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px; /* Aumentar tamaño del ícono */
+  line-height: 32px;
+  text-align: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.cesium-infoBox-close:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+

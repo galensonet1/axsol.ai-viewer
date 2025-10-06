@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: ASSET API
+  description: API para consulta de assets (images, images360, 3dtile) dentro de polígonos geográficos.
+  version: "1.0.0"
+
+servers:
+  - url: https://api-test.axsol.com.ar/api/v1
+
+paths:
+  /asset:
+    get:
+      summary: Obtener entregas de assets
+      description: | 
+        Devuelve las entregas que contienen assets filtrados por polígono, proyecto, tipos y rango de fechas. 
+        
+        **Importante:** Las imagenes servidas permiten que se puedan dimensionar dinamicamente para generar previsualizaciones y no tener que descargarla completa. 
+        
+        Ejemplo => https://dl0myuhn31sqd.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images/PHOENIX%2BGLOBAL%2BRESOURCES-SIMA%253C%253ESPARK-CPF-Mata-Mora-jpg-20250520-001.jpeg?format=webp&width=500	 será dimensionada a 500px de width manteniendo la relacion. 
+        
+        El siguiente enlace describe las posibilidades del manejo de las imagenes:
+        
+        https://docs.aws.amazon.com/solutions/latest/serverless-image-handler/use-supported-query-param-edits.html
+        
+        **Tips:** Herramienta online para ver, crear, editar poligonos geoJson: https://geojson.io/
+      
+      
+      parameters:
+        - name: polygon
+          in: query
+          required: true
+          description: GeoJSON Polygon para la búsqueda espacial. Un poligono debe tener al menos 4 coordenadas y la primera debe ser igual a la ultima para cerrar el poligono.
+          schema:
+            type: string
+            example: '{"type":"Polygon","coordinates":[[[...]]]}'
+        - name: project
+          in: query
+          required: true
+          description: ID del proyecto.
+          schema:
+            type: string
+            example: "68379c08e6954af9ff9ffa76"
+        - name: types
+          in: query
+          required: true
+          description: Tipos de assets a retornar. Puede ser una lista separada por comas => `images`, `images360`, `3dtile`.
+          schema:
+            type: string
+            example: "images,images360,3dtile"
+        - name: from
+          in: query
+          required: false
+          description: Fecha inicial del rango (ISO 8601).
+          schema:
+            type: string
+            format: date
+            example: "2025-01-01"
+        - name: to
+          in: query
+          required: false
+          description: Fecha final del rango (ISO 8601).
+          schema:
+            type: string
+            format: date
+            example: "2025-06-01"
+        - name: output
+          in: query
+          required: false
+          description: Formato de salida. Actualmente soportado => `json`.
+          schema:
+            type: string
+            example: "json"
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                      timestamp:
+                        type: string
+                        format: date-time
+                      environment:
+                        type: string
+                      request_id:
+                        type: string
+                      duration_ms:
+                        type: integer
+                  deliveries:
+                    type: object
+                    properties:
+                      entregas:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            name:
+                              type: string
+                            date:
+                              type: string
+                              format: date-time
+                            project:
+                              type: string
+                            status:
+                              type: string
+                            thumbnail:
+                              type: string
+                              format: uri
+                            assets:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                    enum: [images, images360, 3dtile]
+                                  data:
+                                    type: array
+                                    items:
+                                      oneOf:
+                                        - type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            url:
+                                              type: string
+                                              format: uri
+                                            metadata:
+                                              type: object
+                                              properties:
+                                                yaw:
+                                                  type: number
+                                                pitch:
+                                                  type: number
+                                                rel_alt:
+                                                  type: number
+                                                abs_alt:
+                                                  type: number
+                                                fov_h:
+                                                  type: number
+                                                aspect_ratio:
+                                                  type: number
+                                                latitude:
+                                                  type: number
+                                                longitude:
+                                                  type: number
+                                        - type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            url:
+                                              type: string
+                                              format: uri
+                                            metadata:
+                                              type: object
+                                              properties:
+                                                yaw:
+                                                  type: number
+                                                pitch:
+                                                  type: number
+                                                roll:
+                                                  type: number
+                                                rel_alt:
+                                                  type: number
+                                                abs_alt:
+                                                  type: number
+                                                projection_type:
+                                                  type: string
+                                                full_width:
+                                                  type: integer
+                                                full_height:
+                                                  type: integer
+                                                latitude:
+                                                  type: number
+                                                longitude:
+                                                  type: number
+                                        - type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            asset_id:
+                                              type: string
+                                            cesium_token:
+                                              type: string
+                                            provider:
+                                              type: string
+                                            metadata:
+                                              type: object
+                                              properties:
+                                                cesium_asset_id:
+                                                  type: integer
+                                                cesium_token:
+                                                  type: string

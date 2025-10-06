@@ -1,0 +1,235 @@
+.layer-panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 6;
+  display: flex;
+  align-items: flex-start;
+}
+
+.layer-panel.collapsed .layer-selector-surface {
+  display: none;
+}
+
+/* Botón cuando está colapsado (fuera del panel) */
+.layer-panel-toggle-collapsed {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease !important;
+  min-width: 36px !important;
+}
+
+.layer-panel-toggle-collapsed:hover {
+  background: rgba(0, 0, 0, 0.85) !important;
+  transform: scale(1.05);
+}
+
+.layer-selector-surface {
+  min-width: 200px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.85) !important;
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.layer-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Header interno con botón de colapso */
+.layer-selector-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+  margin-top: -2px;
+}
+
+.layer-panel-toggle-internal {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.2s ease !important;
+  min-width: 24px !important;
+}
+
+.layer-panel-toggle-internal:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transform: scale(1.05);
+}
+
+.layer-selector-title {
+  font-weight: 600 !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  margin-top: 4px !important;
+  margin-bottom: 2px !important;
+}
+
+.layer-selector-divider {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.layer-selector-container .MuiFormControlLabel-root {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.layer-selector-container .MuiFormControlLabel-label {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.layer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.layer-label-icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.layer-label-icon-img {
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+}
+
+.calendar-wrapper {
+  padding: 6px 8px 4px;
+  border-radius: 10px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.calendar-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(8, 8, 8, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.calendar-toggle {
+  align-self: flex-start;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  background: linear-gradient(135deg, #ffb347, #ffcc33) !important;
+  color: #1a1a1a !important;
+  padding: 3px 8px !important;
+  border-radius: 8px !important;
+  min-height: 24px !important;
+}
+
+.calendar-toggle.Mui-disabled {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.calendar-selected-label {
+  color: rgba(255, 255, 255, 0.75) !important;
+  letter-spacing: 0.04em;
+}
+
+.calendar-title {
+  display: block;
+  margin-bottom: 6px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calendar-wrapper .MuiPickersSlideTransition-root,
+.calendar-wrapper .MuiPickersCalendarHeader-root,
+.calendar-wrapper .MuiPickersDay-root,
+.calendar-wrapper .MuiDayCalendar-weekDayLabel {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.calendar-wrapper .MuiPickersDay-root.Mui-disabled {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.calendar-wrapper .MuiPickersDay-root.Mui-selected,
+.calendar-wrapper .MuiPickersDay-root.Mui-selected:hover {
+  background-color: #ffb347 !important;
+  color: #0b0b0b !important;
+}
+
+.calendar-wrapper .MuiPickersDay-root:not(.Mui-selected):hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Responsive - mantener espaciado mínimo */
+@media (max-width: 768px) {
+  .layer-panel {
+    top: 12px;
+    left: 12px;
+  }
+  
+  .layer-panel-toggle-collapsed {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+  
+  .layer-selector-surface {
+    min-width: 180px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layer-panel {
+    top: 8px;
+    left: 8px;
+  }
+  
+  .layer-panel-toggle-collapsed {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+  }
+  
+  .layer-selector-surface {
+    min-width: 160px;
+    padding: 8px 10px;
+  }
+}
+
+.calendar-wrapper .MuiPickersCalendarHeader-switchViewButton,
+.calendar-wrapper .MuiPickersArrowSwitcher-button {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.calendar-wrapper .MuiPickersCalendarHeader-labelContainer {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.layer-selector-container .MuiCheckbox-root {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.layer-selector-container .MuiCheckbox-root.Mui-checked {
+  color: #ffb347;
+}

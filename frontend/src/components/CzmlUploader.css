@@ -1,0 +1,42 @@
+.czml-uploader-container {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #444;
+}
+
+.czml-uploader-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* Oculta el input de archivo por defecto */
+.czml-uploader-input {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* Estiliza el label para que parezca un botón */
+.czml-uploader-input + label {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.czml-uploader-input:focus + label,
+.czml-uploader-input + label:hover {
+  background-color: #0056b3;
+}

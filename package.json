@@ -1,0 +1,22 @@
+{
+  "name": "axsol-viewer",
+  "version": "1.0.0",
+  "description": "AXSOL.ai Viewer - Visualización de proyectos de construcción",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "setup:db": "cd backend && node init-db.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["axsol", "viewer", "cesium", "construction", "3d"],
+  "author": "AXSOL.ai",
+  "license": "PRIVATE"
+}

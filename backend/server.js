@@ -290,19 +290,34 @@ app.get('/api/projects/:id/czml/:layerType', async (req, res) => {
 // Inicializar ForestAdmin
 const initializeForestAdmin = async () => {
   try {
-    if (process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET) {
-      console.log('[ForestAdmin] Inicializando Forest Admin...');
-      const agent = await setupForestAdmin();
-      
-      // Montar ForestAdmin en la ruta /forest
-      app.use('/forest', agent.mountOnExpress(app).expressRouter);
-      
-      console.log('[ForestAdmin] Forest Admin disponible en /forest');
-    } else {
-      console.log('[ForestAdmin] Variables de entorno de Forest Admin no configuradas. Saltando inicialización.');
+    // Verificar si las variables de entorno están configuradas
+    if (!process.env.FOREST_AUTH_SECRET || !process.env.FOREST_ENV_SECRET) {
+      console.log('[ForestAdmin] Variables de entorno de Forest Admin no configuradas.');
+      console.log('[ForestAdmin] Para habilitar ForestAdmin, configura FOREST_AUTH_SECRET y FOREST_ENV_SECRET en tu archivo .env');
+      return;
     }
+
+    console.log('[ForestAdmin] Inicializando Forest Admin...');
+    const agent = await setupForestAdmin();
+    
+    // Verificar que el agente se creó correctamente
+    if (!agent) {
+      throw new Error('No se pudo crear el agente de ForestAdmin');
+    }
+
+    // Montar ForestAdmin en Express
+    const forestRouter = agent.mountOnExpress(app);
+    
+    if (forestRouter) {
+      app.use('/forest', forestRouter);
+      console.log('[ForestAdmin] ✅ Forest Admin disponible en /forest');
+    } else {
+      throw new Error('No se pudo obtener el router de ForestAdmin');
+    }
+    
   } catch (error) {
-    console.error('[ForestAdmin] Error inicializando Forest Admin:', error);
+    console.error('[ForestAdmin] ❌ Error inicializando Forest Admin:', error.message);
+    console.log('[ForestAdmin] El servidor continuará sin ForestAdmin');
   }
 };
 
@@ -314,11 +329,20 @@ const startServer = async () => {
     
     // Iniciar servidor
     app.listen(port, () => {
-      console.log(`El servidor está corriendo en el puerto: ${port}`);
-      console.log(`API disponible en: http://localhost:${port}`);
+      console.log(`\n🚀 Servidor AXSOL.ai Viewer iniciado correctamente`);
+      console.log(`📡 API disponible en: http://localhost:${port}`);
+      console.log(`📊 Documentación: http://localhost:${port}/api-docs (si está configurada)`);
+      
       if (process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET) {
-        console.log(`Forest Admin disponible en: http://localhost:${port}/forest`);
+        console.log(`🌲 Forest Admin: http://localhost:${port}/forest`);
+      } else {
+        console.log(`🌲 Forest Admin: No configurado (agrega FOREST_AUTH_SECRET y FOREST_ENV_SECRET)`);
       }
+      
+      console.log(`\n💡 Para configurar ForestAdmin:`);
+      console.log(`   1. Crea una cuenta en https://forestadmin.com`);
+      console.log(`   2. Agrega las variables FOREST_AUTH_SECRET y FOREST_ENV_SECRET a tu .env`);
+      console.log(`   3. Reinicia el servidor\n`);
     });
   } catch (error) {
     console.error('Error iniciando el servidor:', error);

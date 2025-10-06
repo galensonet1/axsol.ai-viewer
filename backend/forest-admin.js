@@ -17,6 +17,7 @@ const setupForestAdmin = async () => {
       authSecret: process.env.FOREST_AUTH_SECRET,
       envSecret: process.env.FOREST_ENV_SECRET,
       isProduction: process.env.NODE_ENV === 'production',
+      loggerLevel: 'Info',
     });
 
     // Configurar la fuente de datos SQL (PostgreSQL)

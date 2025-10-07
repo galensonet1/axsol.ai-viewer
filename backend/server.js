@@ -306,14 +306,9 @@ const initializeForestAdmin = async () => {
     }
 
     // Montar ForestAdmin en Express
-    const forestRouter = agent.mountOnExpress(app);
-    
-    if (forestRouter) {
-      app.use('/forest', forestRouter);
-      console.log('[ForestAdmin] ✅ Forest Admin disponible en /forest');
-    } else {
-      throw new Error('No se pudo obtener el router de ForestAdmin');
-    }
+    // Método correcto para ForestAdmin v1.66.0
+    await agent.mountOnExpress(app);
+    console.log('[ForestAdmin] ✅ Forest Admin montado correctamente');
     
   } catch (error) {
     console.error('[ForestAdmin] ❌ Error inicializando Forest Admin:', error.message);

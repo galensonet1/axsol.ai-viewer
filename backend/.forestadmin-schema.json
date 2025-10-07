@@ -1,7 +1,49 @@
 {
   "collections": [
     {
-      "actions": [],
+      "actions": [
+        {
+          "id": "projects-0-generar-reporte",
+          "name": "Generar Reporte",
+          "type": "single",
+          "baseUrl": null,
+          "endpoint": "/forest/_actions/projects/0/generar-reporte",
+          "httpMethod": "POST",
+          "redirect": null,
+          "download": false,
+          "fields": [
+            {
+              "field": "Tipo de Reporte",
+              "label": "Tipo de Reporte",
+              "isRequired": true,
+              "type": "Enum",
+              "enums": ["Progreso", "Financiero", "Técnico", "Completo"],
+              "defaultValue": null
+            },
+            {
+              "field": "Formato",
+              "label": "Formato",
+              "isRequired": true,
+              "type": "Enum",
+              "enums": ["PDF", "Excel", "CSV"],
+              "defaultValue": null
+            }
+          ],
+          "hooks": {"load": false, "change": ["changeHook"]}
+        },
+        {
+          "id": "projects-1-sincronizar-datos",
+          "name": "Sincronizar Datos",
+          "type": "single",
+          "baseUrl": null,
+          "endpoint": "/forest/_actions/projects/1/sincronizar-datos",
+          "httpMethod": "POST",
+          "redirect": null,
+          "download": false,
+          "fields": [],
+          "hooks": {"load": false, "change": ["changeHook"]}
+        }
+      ],
       "fields": [
         {
           "defaultValue": null,
@@ -49,6 +91,22 @@
           "isVirtual": false,
           "reference": null,
           "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "duration_days",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "Number",
           "validations": []
         },
         {
@@ -118,6 +176,22 @@
         {
           "defaultValue": null,
           "enums": [],
+          "field": "location_display",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
           "field": "name",
           "integration": null,
           "inverseOf": null,
@@ -130,6 +204,38 @@
           "reference": null,
           "type": "String",
           "validations": [{"type": "is present", "message": "Field is required"}]
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "project_polygon_geojson",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": true,
+          "isPrimaryKey": false,
+          "isReadOnly": false,
+          "isRequired": false,
+          "isSortable": true,
+          "isVirtual": false,
+          "reference": null,
+          "type": "Json",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": ["Cancelado", "Completado", "En Progreso", "Pausado", "Planificado"],
+          "field": "project_status",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "Enum",
+          "validations": []
         },
         {
           "defaultValue": null,
@@ -159,7 +265,27 @@
       "segments": []
     },
     {
-      "actions": [],
+      "actions": [
+        {
+          "id": "roles-0-clonar-rol",
+          "name": "Clonar Rol",
+          "type": "single",
+          "baseUrl": null,
+          "endpoint": "/forest/_actions/roles/0/clonar-rol",
+          "httpMethod": "POST",
+          "redirect": null,
+          "download": false,
+          "fields": [
+            {
+              "field": "Nombre del Nuevo Rol",
+              "label": "Nombre del Nuevo Rol",
+              "isRequired": true,
+              "type": "String"
+            }
+          ],
+          "hooks": {"load": false, "change": ["changeHook"]}
+        }
+      ],
       "fields": [
         {
           "defaultValue": null,
@@ -195,6 +321,22 @@
         },
         {
           "defaultValue": null,
+          "enums": [],
+          "field": "permissions_summary",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
           "enums": null,
           "field": "users",
           "integration": null,
@@ -208,6 +350,22 @@
           "reference": "users.id",
           "relationship": "BelongsToMany",
           "type": ["Number"],
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "users_count",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "Number",
           "validations": []
         }
       ],
@@ -224,6 +382,22 @@
     {
       "actions": [],
       "fields": [
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "assignment_info",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
+          "validations": []
+        },
         {
           "defaultValue": null,
           "enums": null,
@@ -302,7 +476,41 @@
       "segments": []
     },
     {
-      "actions": [],
+      "actions": [
+        {
+          "id": "users-0-asignar-rol",
+          "name": "Asignar Rol",
+          "type": "single",
+          "baseUrl": null,
+          "endpoint": "/forest/_actions/users/0/asignar-rol",
+          "httpMethod": "POST",
+          "redirect": null,
+          "download": false,
+          "fields": [
+            {
+              "field": "Rol",
+              "label": "Rol",
+              "isRequired": true,
+              "type": "Enum",
+              "enums": ["admin", "manager", "viewer", "guest"],
+              "defaultValue": null
+            }
+          ],
+          "hooks": {"load": false, "change": ["changeHook"]}
+        },
+        {
+          "id": "users-1-toggle-estado",
+          "name": "Toggle Estado",
+          "type": "single",
+          "baseUrl": null,
+          "endpoint": "/forest/_actions/users/1/toggle-estado",
+          "httpMethod": "POST",
+          "redirect": null,
+          "download": false,
+          "fields": [],
+          "hooks": {"load": false, "change": ["changeHook"]}
+        }
+      ],
       "fields": [
         {
           "defaultValue": null,
@@ -334,6 +542,22 @@
           "isVirtual": false,
           "reference": null,
           "type": "Date",
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "display_name",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
           "validations": []
         },
         {
@@ -399,6 +623,22 @@
           "reference": "roles.id",
           "relationship": "BelongsToMany",
           "type": ["Number"],
+          "validations": []
+        },
+        {
+          "defaultValue": null,
+          "enums": [],
+          "field": "roles_list",
+          "integration": null,
+          "inverseOf": null,
+          "isFilterable": false,
+          "isPrimaryKey": false,
+          "isReadOnly": true,
+          "isRequired": false,
+          "isSortable": false,
+          "isVirtual": false,
+          "reference": null,
+          "type": "String",
           "validations": []
         }
       ],

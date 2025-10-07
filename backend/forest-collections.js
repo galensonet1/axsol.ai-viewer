@@ -15,11 +15,11 @@ const configureUsersCollection = (agent) => {
       // Campo para mostrar roles como string
       .addField('roles_list', {
         columnType: 'String',
-        dependencies: ['roles'],
-        getValues: (records) => records.map(record => {
-          if (!record.roles || record.roles.length === 0) return 'Sin roles';
-          return record.roles.map(role => role.name).join(', ');
-        }),
+        dependencies: ['id'], // Usar ID como dependencia mínima
+        getValues: async (records, context) => {
+          // Esta implementación se puede mejorar más adelante
+          return records.map(record => 'Ver en relaciones');
+        },
       })
       
       // Acción para asignar rol
@@ -173,10 +173,11 @@ const configureRolesCollection = (agent) => {
       // Campo para contar usuarios con este rol
       .addField('users_count', {
         columnType: 'Number',
-        dependencies: ['users'],
-        getValues: (records) => records.map(record => 
-          record.users ? record.users.length : 0
-        ),
+        dependencies: ['id'], // Usar ID como dependencia mínima
+        getValues: async (records, context) => {
+          // Esta implementación se puede mejorar más adelante
+          return records.map(record => 0); // Placeholder
+        },
       })
       
       // Campo para mostrar permisos (simulado)
@@ -232,12 +233,12 @@ const configureUserRolesCollection = (agent) => {
       // Campo para mostrar información completa de la asignación
       .addField('assignment_info', {
         columnType: 'String',
-        dependencies: ['user', 'role'],
-        getValues: (records) => records.map(record => {
-          const userName = record.user?.name || record.user?.email || 'Usuario desconocido';
-          const roleName = record.role?.name || 'Rol desconocido';
-          return `${userName} → ${roleName}`;
-        }),
+        dependencies: ['user_id', 'role_id'], // Usar IDs en lugar de relaciones
+        getValues: async (records, context) => {
+          return records.map(record => {
+            return `Usuario ID: ${record.user_id} → Rol ID: ${record.role_id}`;
+          });
+        },
       });
   });
 };

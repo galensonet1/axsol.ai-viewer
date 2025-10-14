@@ -76,7 +76,17 @@ const AppWrapper = () => {
     isAuthenticated
   });
 
-  if (isLoading || loadingUser) {
+  // Fallback de seguridad: si algo queda colgado, liberar el loading tras 8s
+  useEffect(() => {
+    if (!loadingUser) return;
+    const t = setTimeout(() => {
+      console.warn('[AppWrapper] Timeout de carga alcanzado, liberando loadingUser');
+      try { setLoadingUser(false); } catch {}
+    }, 8000);
+    return () => clearTimeout(t);
+  }, [loadingUser, setLoadingUser]);
+
+  if (loadingUser) {
      return <div className="loading-container">Cargando aplicación...</div>;
   }
 

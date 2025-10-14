@@ -7,7 +7,7 @@ import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import './ViewerToolBar.css';
 
-const ViewerToolBar = ({ onToolSelect }) => {
+const ViewerToolBar = ({ onToolSelect, hasMeasurements = false, onClearMeasurements }) => {
   const [measureAnchor, setMeasureAnchor] = useState(null);
 
   const handleMeasureClick = (event) => {
@@ -61,32 +61,41 @@ const ViewerToolBar = ({ onToolSelect }) => {
         transformOrigin={{ vertical: 'center', horizontal: 'right' }}
         PaperProps={{
           sx: {
-            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            backgroundColor: 'var(--ax-panel-bg)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid var(--ax-panel-border)',
             borderRadius: 2,
             minWidth: 180,
           }
         }}
       >
-        <MenuItem onClick={() => handleMeasureSelect('line')} sx={{ color: 'white', py: 1 }}>
+        <MenuItem onClick={() => handleMeasureSelect('line')} sx={{ color: 'var(--ax-panel-text)', py: 1 }}>
           <ListItemIcon>
-            <StraightenIcon fontSize="small" sx={{ color: 'white' }} />
+            <StraightenIcon fontSize="small" sx={{ color: 'var(--ax-panel-contrast)' }} />
           </ListItemIcon>
           <ListItemText primary="Medir Línea" primaryTypographyProps={{ fontSize: '0.85rem' }} />
         </MenuItem>
-        <MenuItem onClick={() => handleMeasureSelect('area')} sx={{ color: 'white', py: 1 }}>
+        <MenuItem onClick={() => handleMeasureSelect('area')} sx={{ color: 'var(--ax-panel-text)', py: 1 }}>
           <ListItemIcon>
-            <SquareFootIcon fontSize="small" sx={{ color: 'white' }} />
+            <SquareFootIcon fontSize="small" sx={{ color: 'var(--ax-panel-contrast)' }} />
           </ListItemIcon>
           <ListItemText primary="Medir Área" primaryTypographyProps={{ fontSize: '0.85rem' }} />
         </MenuItem>
-        <MenuItem onClick={() => handleMeasureSelect('volume')} sx={{ color: 'white', py: 1 }}>
+        <MenuItem disabled sx={{ color: 'var(--ax-panel-text)', py: 1, opacity: 0.6 }}>
           <ListItemIcon>
-            <ViewInArIcon fontSize="small" sx={{ color: 'white' }} />
+            <ViewInArIcon fontSize="small" sx={{ color: 'var(--ax-panel-contrast)' }} />
           </ListItemIcon>
           <ListItemText primary="Medir Volumen" primaryTypographyProps={{ fontSize: '0.85rem' }} />
         </MenuItem>
+        {hasMeasurements && (
+          <MenuItem onClick={() => { onClearMeasurements?.(); handleMeasureClose(); }} sx={{ color: 'var(--ax-panel-text)', py: 1 }}>
+            <ListItemIcon>
+              {/* Reusar icono de Straighten con estilo de borrar para simplicidad */}
+              <StraightenIcon fontSize="small" sx={{ color: 'var(--ax-brand-accent)' }} />
+            </ListItemIcon>
+            <ListItemText primary="Borrar mediciones" primaryTypographyProps={{ fontSize: '0.85rem', color: 'var(--ax-brand-accent)' }} />
+          </MenuItem>
+        )}
       </Menu>
 
       <Tooltip title="Comparar Momentos" placement="left">

@@ -48,7 +48,7 @@ const ProjectList = ({ projects }) => {
           ) : (
             projectList.map((project) => (
             <ListItem key={project.id} disablePadding divider>
-              <ListItemButton component={RouterLink} to={`/projects/${project.id}/dashboard`}>
+              <ListItemButton component={RouterLink} to={`/projects/${project.id}/viewer`}>
                 <ListItemText
                   primary={project.name}
                   secondaryTypographyProps={{ component: 'div' }} // <-- CORRECCIÓN AQUÍ

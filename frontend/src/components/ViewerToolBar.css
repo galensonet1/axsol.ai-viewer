@@ -3,15 +3,15 @@
   top: 50%;
   right: 24px;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 4; /* behind LayerSelector (z-index: 6) */
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 12px 8px;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--ax-panel-bg);
   backdrop-filter: blur(12px);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ax-panel-border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
@@ -19,16 +19,16 @@
   width: 44px !important;
   height: 44px !important;
   border-radius: 12px !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: rgba(255, 255, 255, 0.9) !important;
+  background: var(--ax-panel-button-bg) !important;
+  color: var(--ax-panel-contrast) !important;
   transition: all 0.2s ease !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--ax-panel-border) !important;
 }
 
 .toolbar-button:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: var(--ax-panel-button-bg-hover) !important;
+  color: var(--ax-panel-contrast) !important;
+  border-color: var(--ax-panel-border) !important;
   transform: scale(1.05);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }

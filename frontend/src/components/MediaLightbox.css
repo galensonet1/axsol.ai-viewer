@@ -1,0 +1,277 @@
+:root {
+  --axsol-lightbox-width: 70vw;
+  --axsol-lightbox-height: 70vh;
+}
+
+/* Constrain YARL container to 70% of viewport and center it */
+.yarl__portal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-top: calc(var(--ax-appbar-height, 72px) + 8px) !important;
+  box-sizing: border-box !important;
+  z-index: 1200 !important;
+}
+
+.yarl__portal .yarl__container {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: min(var(--axsol-lightbox-width), calc(100vw - 24px)) !important;
+  height: min(
+    var(--axsol-lightbox-height),
+    calc(100vh - var(--ax-appbar-height, 72px) - 16px)
+  ) !important;
+  max-height: calc(100vh - var(--ax-appbar-height, 72px) - 16px) !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Ensure images fit within constrained box */
+.yarl__slide_image {
+  object-fit: contain !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* Ensure slide wrappers fill and center content vertically */
+.yarl__slides,
+.yarl__slide {
+  height: 100% !important;
+}
+
+.yarl__slide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* No extra padding; let thumbnails attach at the bottom as default */
+.yarl__slides { padding-bottom: 0 !important; box-sizing: border-box !important; }
+
+.yarl__container .pnlm-container,
+.yarl__container .pnlm-ui,
+.yarl__container .pnlm-render-container,
+.yarl__container .pnlm-canvas,
+.yarl__container canvas {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* Custom bottom-centered toolbar */
+.axslb-toolbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* In panorama, center the toolbar narrowly to avoid overlapping Pannellum controls */
+body.axslb-panorama .axslb-toolbar {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%);
+}
+
+.axslb-icon-btn {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important; /* unify as circular */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.axslb-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Remove blue focus ring/ripple look from MUI icon buttons inside modal */
+.axslb-icon-btn:focus, .axslb-icon-btn.Mui-focusVisible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Top-right close button */
+.axslb-close {
+  position: absolute !important;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #fff !important;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.axslb-close:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Toggle visibility via body classes */
+body.axslb-captions-hidden .yarl__captions,
+body.axslb-captions-hidden .yarl__captions_container,
+body.axslb-captions-hidden .yarl__slide_captions {
+  display: none !important;
+}
+
+body.axslb-thumbs-hidden .yarl__thumbnails,
+body.axslb-thumbs-hidden .yarl__thumbnails_container {
+  display: none !important;
+}
+
+.yarl__thumbnails_container {
+  height: 56px !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+.yarl__thumbnails { height: 56px !important; }
+
+.yarl__thumbnails_container *[class*="thumbnail"],
+.yarl__thumbnails_container img {
+  height: 48px !important;
+}
+
+/* Hide navigation arrows when gallery has only a single slide */
+body.axslb-single .yarl__button_prev,
+body.axslb-single .yarl__button_next,
+body.axslb-single .yarl__button--prev,
+body.axslb-single .yarl__button--next,
+body.axslb-single .yarl__navigation,
+body.axslb-single .yarl__controller_prev,
+body.axslb-single .yarl__controller_next {
+  display: none !important;
+}
+
+/* Panorama-specific UI adjustments */
+body.axslb-panorama .yarl__button_prev,
+body.axslb-panorama .yarl__button_next,
+body.axslb-panorama .yarl__button--prev,
+body.axslb-panorama .yarl__button--next,
+body.axslb-panorama .yarl__navigation,
+body.axslb-panorama .yarl__controller_prev,
+body.axslb-panorama .yarl__controller_next {
+  display: none !important;
+}
+
+/* Move Pannellum tool controls group to bottom-left (keep compass separate) */
+body.axslb-panorama .pnlm-controls,
+body.axslb-panorama .pnlm-ui .pnlm-controls,
+body.axslb-panorama .pnlm-controls-container,
+body.axslb-panorama .pnlm-ui .pnlm-controls-container {
+  position: absolute !important;
+  top: auto !important;
+  bottom: 8px !important;
+  left: 8px !important;
+  right: auto !important;
+  z-index: 1002 !important;
+}
+
+/* Ensure orientation / fullscreen toggles follow bottom-left if they render outside main controls */
+body.axslb-panorama .pnlm-fullscreen-toggle,
+body.axslb-panorama .pnlm-orientation {
+  position: absolute !important;
+  top: auto !important;
+  bottom: 8px !important;
+  left: 8px !important;
+  right: auto !important;
+}
+
+/* Offset fullscreen and orientation so they don't overlap zoom controls */
+body.axslb-panorama .pnlm-fullscreen-toggle { left: 56px !important; }
+body.axslb-panorama .pnlm-orientation { left: 96px !important; }
+
+/* Ensure zoom-out is not hidden by any override */
+body.axslb-panorama .pnlm-zoom-controls .pnlm-zoom-out {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Compass to bottom-right */
+body.axslb-panorama .pnlm-compass,
+body.axslb-panorama .pnlm-ui .pnlm-compass {
+  position: absolute !important;
+  top: auto !important;
+  right: 8px !important;
+  bottom: 8px !important;
+  left: auto !important;
+  z-index: 3;
+}
+
+/* Default YARL toolbar (top-right) with clickable close button */
+.yarl__toolbar {
+  position: absolute !important;
+  top: 36px !important;
+  right: 8px !important;
+  left: auto !important;
+  bottom: auto !important;
+  display: flex !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+}
+
+/* Make all YARL top toolbar buttons look like our circular buttons */
+.yarl__toolbar .yarl__button {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.yarl__toolbar .yarl__button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.yarl__toolbar .yarl__button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.axslb-counter {
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.axslb-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.axslb-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

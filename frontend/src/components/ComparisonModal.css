@@ -1,0 +1,175 @@
+.comparison-modal-header {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  z-index: 1000;
+}
+
+.comparison-viewer-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.comparison-viewer {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.comparison-slider-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.comparison-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: ew-resize;
+  pointer-events: auto;
+  transform: translateX(-50%);
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.comparison-slider:hover {
+  background: rgba(255, 255, 255, 1);
+  width: 6px;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.slider-handle:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.slider-handle::before {
+  content: '⋮⋮';
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.comparison-panel {
+  position: absolute;
+  top: 80px;
+  width: 240px;
+  z-index: 200;
+}
+
+.comparison-panel-left {
+  left: 24px;
+}
+
+.comparison-panel-right {
+  right: 24px;
+}
+
+/* Panel derecho se expande hacia la izquierda */
+.comparison-panel-right .layer-selector {
+  transform-origin: right center;
+}
+
+.comparison-panel-right .layer-panel {
+  right: 0;
+  left: auto;
+}
+
+.comparison-panel-right .layer-panel.open {
+  transform: translateX(0);
+}
+
+.comparison-panel-right .layer-panel.collapsed {
+  transform: translateX(calc(100% - 44px));
+}
+
+/* Panel derecho: calendario se abre hacia la izquierda */
+.comparison-panel-right .calendar-mini {
+  position: relative;
+}
+
+.comparison-panel-right .calendar-wrapper {
+  position: absolute;
+  right: 0;
+  left: auto;
+  top: 100%;
+  z-index: 1000;
+  transform-origin: right top;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+}
+
+/* Asegurar que los paneles no se salgan del modal */
+.comparison-panel {
+  max-height: calc(100vh - 120px);
+  overflow: visible;
+}
+
+.comparison-panel .layer-selector {
+  max-height: calc(100vh - 160px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comparison-panel {
+    width: 220px;
+    top: 70px;
+  }
+  
+  .comparison-panel-left {
+    left: 12px;
+  }
+  
+  .comparison-panel-right {
+    right: 12px;
+  }
+  
+  .comparison-modal-header {
+    top: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comparison-panel {
+    width: 200px;
+    top: 60px;
+  }
+  
+  .comparison-panel-left {
+    left: 8px;
+  }
+  
+  .comparison-panel-right {
+    right: 8px;
+  }
+}

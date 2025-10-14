@@ -1,0 +1,133 @@
+.comparison-mode-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.comparison-header {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.comparison-slider-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.comparison-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: ew-resize;
+  pointer-events: auto;
+  z-index: 9;
+  transform: translateX(-50%);
+}
+
+.comparison-slider:hover {
+  background: rgba(255, 255, 255, 1);
+  width: 6px;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider-handle::before {
+  content: '⋮⋮';
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.comparison-panel {
+  position: absolute;
+  top: 80px;
+  width: 200px;
+  pointer-events: auto;
+  z-index: 9;
+}
+
+.comparison-panel-left {
+  left: 24px;
+}
+
+.comparison-panel-right {
+  right: 24px;
+}
+
+.comparison-panel-right .layer-selector {
+  transform: scaleX(-1);
+}
+
+.comparison-panel-right .layer-selector > * {
+  transform: scaleX(-1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comparison-panel {
+    width: 180px;
+    top: 70px;
+  }
+  
+  .comparison-panel-left {
+    left: 12px;
+  }
+  
+  .comparison-panel-right {
+    right: 12px;
+  }
+  
+  .comparison-header {
+    top: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comparison-panel {
+    width: 160px;
+    top: 60px;
+  }
+  
+  .comparison-panel-left {
+    left: 8px;
+  }
+  
+  .comparison-panel-right {
+    right: 8px;
+  }
+}

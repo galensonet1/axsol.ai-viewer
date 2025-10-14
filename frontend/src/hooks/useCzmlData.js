@@ -85,12 +85,13 @@ const useLayerData = (projectId, layerType, { fetchOnMount = true } = {}) => {
     }
   }, [projectId, layerType, shouldFetch, fetchOnMount]);
 
-  const triggerFetch = useCallback(async () => {
+  const triggerFetch = useCallback(async (date = null) => {
     if (!projectId || !layerType) {
       return;
     }
 
-    const cacheKey = `${projectId}:${layerType}`;
+    // Incluir fecha en la clave de caché si se proporciona
+    const cacheKey = date ? `${projectId}:${layerType}:${date}` : `${projectId}:${layerType}`;
     if (layerCache.has(cacheKey)) {
       setLayerData(layerCache.get(cacheKey));
       return;
@@ -101,7 +102,11 @@ const useLayerData = (projectId, layerType, { fetchOnMount = true } = {}) => {
 
     try {
       console.log(`[useLayerData] Triggered manual fetch for ${cacheKey}`);
-      const response = await api.get(`/api/projects/${projectId}/czml/${layerType}`);
+      // Construir URL con parámetro de fecha si se proporciona
+      const url = date 
+        ? `/api/projects/${projectId}/czml/${layerType}?date=${date}`
+        : `/api/projects/${projectId}/czml/${layerType}`;
+      const response = await api.get(url);
       const data = response.data;
       layerCache.set(cacheKey, data);
       setLayerData(data);

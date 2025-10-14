@@ -8,28 +8,51 @@ const pool = require('./db');
 const findOrCreateUser = async (auth0Profile) => {
   const { sub, email, name } = auth0Profile;
 
-  // 1. Check if user exists
+  console.log('[AUTH] Buscando usuario con auth0_sub:', sub);
+  console.log('[AUTH] Email:', email, 'Name:', name);
+
+  // 1. Check if user exists by auth0_sub
   let user = await pool.query('SELECT * FROM users WHERE auth0_sub = $1', [sub]);
 
   if (user.rows.length > 0) {
+    console.log('[AUTH] Usuario encontrado por auth0_sub:', user.rows[0].id);
     return user.rows[0]; // User found
   }
 
-  // 2. If not, create the user
+  // 2. Check if user exists by email (for users created via admin panel)
+  const existingUserByEmail = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+  
+  if (existingUserByEmail.rows.length > 0) {
+    console.log('[AUTH] Usuario encontrado por email, actualizando auth0_sub...');
+    
+    // Update existing user with correct auth0_sub
+    const updatedUser = await pool.query(
+      'UPDATE users SET auth0_sub = $1, name = $2, updated_at = CURRENT_TIMESTAMP WHERE email = $3 RETURNING *',
+      [sub, name || existingUserByEmail.rows[0].name, email]
+    );
+    
+    console.log('[AUTH] Usuario actualizado:', updatedUser.rows[0].id);
+    return updatedUser.rows[0];
+  }
+
+  // 3. Create new user if doesn't exist
+  console.log('[AUTH] Creando nuevo usuario...');
   const newUser = await pool.query(
-    'INSERT INTO users (auth0_sub, email, name) VALUES ($1, $2, $3) RETURNING *',
-    [sub, email, name]
+    'INSERT INTO users (auth0_sub, email, name, active) VALUES ($1, $2, $3, $4) RETURNING *',
+    [sub, email, name, true]
   );
 
-  // 3. Assign a default role (e.g., 'Viewer') to the new user
+  // 4. Assign a default role (e.g., 'Viewer') to the new user
   const viewerRole = await pool.query("SELECT id FROM roles WHERE name = 'Viewer'");
   if (viewerRole.rows.length > 0) {
     await pool.query(
       'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2)',
       [newUser.rows[0].id, viewerRole.rows[0].id]
     );
+    console.log('[AUTH] Rol Viewer asignado al nuevo usuario');
   }
 
+  console.log('[AUTH] Nuevo usuario creado:', newUser.rows[0].id);
   return newUser.rows[0];
 };
 

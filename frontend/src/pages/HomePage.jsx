@@ -63,7 +63,7 @@ const HomePage = () => {
           ) : (
             <Grid container spacing={3} sx={{ flexGrow: 1 }}>
               <Grid xs={12} md={8} sx={{ height: { xs: '50%', md: '100%' } }}>
-                <GlobalMap projects={projects} />
+                <GlobalMap />
               </Grid>
               <Grid xs={12} md={4} sx={{ height: { xs: '50%', md: '100%' } }}>
                 <ProjectList projects={projects} />

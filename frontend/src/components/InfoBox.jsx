@@ -26,6 +26,8 @@ const InfoBox = ({ selectedElement, onClose }) => {
         return <IFCContent data={selectedElement.data} />;
       case 'activity':
         return <ActivityContent data={selectedElement.data} />;
+      case 'geojson':
+        return <GeoJsonContent data={selectedElement.data} />;
       default:
         return <DefaultContent data={selectedElement.data} />;
     }
@@ -54,6 +56,8 @@ const InfoBox = ({ selectedElement, onClose }) => {
         return 'Elemento IFC';
       case 'activity':
         return selectedElement?.data?.name || 'Plan de Actividades';
+      case 'geojson':
+        return selectedElement?.data?.name || 'Elemento';
       default:
         return 'Información';
     }
@@ -457,6 +461,31 @@ const DefaultContent = ({ data }) => (
     )}
   </Box>
 );
+
+const GeoJsonContent = ({ data }) => {
+  const properties = data?.properties || {};
+
+  return (
+    <Box className="geojson-content">
+      {data?.name && (
+        <Typography variant="subtitle1" className="info-item">
+          {data.name}
+        </Typography>
+      )}
+      {Object.keys(properties).length === 0 ? (
+        <Typography variant="body2" className="info-item">
+          Sin metadata disponible
+        </Typography>
+      ) : (
+        Object.entries(properties).map(([key, value]) => (
+          <Typography key={key} variant="body2" className="info-item">
+            <strong>{key}:</strong> {String(value)}
+          </Typography>
+        ))
+      )}
+    </Box>
+  );
+};
 
 export default InfoBox;
 

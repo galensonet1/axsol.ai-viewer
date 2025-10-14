@@ -141,7 +141,8 @@ app.use(cors({
     'http://localhost:3000', 
     'http://localhost:3001',
     'https://app.forestadmin.com',
-    'https://tired-pants-speak.loca.lt'
+    'https://tired-pants-speak.loca.lt',
+    'https://site.ingeia.tech'
   ],
   credentials: true
 }));
@@ -291,6 +292,8 @@ app.get('/api/projects', checkJwt, async (req, res) => {
         p.description, 
         p.start_date, 
         p.end_date,
+        p.initial_location,
+        p.opcions,
         pp.permission_level
       FROM projects p
       INNER JOIN project_permissions pp ON p.id = pp.project_id

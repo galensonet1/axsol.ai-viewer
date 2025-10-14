@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useProject } from '../context/ProjectContext';
 import { Box, CircularProgress } from '@mui/material';
-import { Viewer, GeoJsonDataSource } from 'resium';
+import { Viewer, GeoJsonDataSource as ResiumGeoJsonDataSource } from 'resium';
 import {
   Color,
   Ion,
@@ -23,6 +23,9 @@ import {
   Matrix4,
   sampleTerrainMostDetailed,
   IonResource,
+  GeoJsonDataSource as CesiumGeoJsonDataSource,
+  BoundingSphere,
+  HeadingPitchRange,
 } from 'cesium';
 import useLayerData from '../hooks/useCzmlData';
 import useAssetDates from '../hooks/useAssetDates';
@@ -223,6 +226,7 @@ const ProjectVisualizer = () => {
   } = useProject();
 
   const viewerRef = useRef(null);
+  const baseMapDataSourceRef = useRef(null);
   const imagesPrefetchedRef = useRef(false);
   const watermarkLogoRaw = import.meta.env.VITE_WATERMARK_LOGO || '/logo-axsol-ai.svg';
   const watermarkLogo = useMemo(() => {
@@ -249,6 +253,7 @@ const ProjectVisualizer = () => {
     fotos: false,
     fotos360: false,
     plan: false,
+    baseMap: false,
     ifcs: {},
     terreno: 20, // Opacidad del terreno en porcentaje (0-100)
   });
@@ -294,6 +299,193 @@ const ProjectVisualizer = () => {
     } catch {}
     return null;
   }, [projectData?.weekly_construction_plan, projectId]);
+
+  const projectPolygonFeature = useMemo(() => {
+    const normalizePolygon = (value) => {
+      if (!value) return null;
+      let parsed = value;
+      if (typeof parsed === 'string') {
+        try {
+          parsed = JSON.parse(parsed);
+        } catch (error) {
+          console.warn('[ProjectVisualizer] No se pudo parsear project_polygon_geojson:', error);
+          return null;
+        }
+      }
+
+      if (parsed?.type === 'FeatureCollection') {
+        return parsed.features?.find((feature) => feature?.geometry) || null;
+      }
+
+      if (parsed?.type === 'Feature' && parsed.geometry) {
+        return parsed;
+      }
+
+      if (parsed?.type && parsed?.coordinates) {
+        return {
+          type: 'Feature',
+          properties: {},
+          geometry: parsed,
+        };
+      }
+
+      return null;
+    };
+
+    return normalizePolygon(projectData?.project_polygon_geojson || projectData?.polygon_geojson);
+  }, [projectData?.project_polygon_geojson, projectData?.polygon_geojson]);
+
+  const projectPolygonPositions = useMemo(() => {
+    if (!projectPolygonFeature?.geometry) return [];
+
+    const positions = [];
+    const pushRing = (ring) => {
+      if (!Array.isArray(ring)) return;
+      ring.forEach((pt) => {
+        if (!Array.isArray(pt) || pt.length < 2) return;
+        const [lon, lat, h = 0] = pt;
+        if (Number.isFinite(lon) && Number.isFinite(lat)) {
+          positions.push(Cartesian3.fromDegrees(lon, lat, h));
+        }
+      });
+    };
+
+    const { geometry } = projectPolygonFeature;
+    if (geometry.type === 'Polygon') {
+      const [outer, ..._] = geometry.coordinates || [];
+      pushRing(outer);
+    } else if (geometry.type === 'MultiPolygon') {
+      (geometry.coordinates || []).forEach((poly) => {
+        const [outer, ...__] = poly || [];
+        pushRing(outer);
+      });
+    }
+
+    return positions;
+  }, [projectPolygonFeature]);
+
+  const projectPolygonBoundingSphere = useMemo(() => {
+    if (!projectPolygonPositions || projectPolygonPositions.length === 0) return null;
+    try {
+      return BoundingSphere.fromPoints(projectPolygonPositions);
+    } catch (e) {
+      console.warn('[ProjectVisualizer] No se pudo calcular BoundingSphere del polígono:', e);
+      return null;
+    }
+  }, [projectPolygonPositions]);
+
+  useEffect(() => {
+    console.log('[ProjectVisualizer] useEffect baseMap disparado', {
+      baseMap: layerVisibility.baseMap,
+      hasCesiumViewer: Boolean(cesiumViewer),
+      hasViewerRef: Boolean(viewerRef.current?.cesiumElement),
+    });
+
+    const viewer = viewerRef.current?.cesiumElement || cesiumViewer;
+    if (!viewer) {
+      console.log('[ProjectVisualizer] baseMap: viewer no disponible aún');
+      return;
+    }
+
+    let cancelled = false;
+
+    const removeBaseMap = (destroy = true) => {
+      const dataSource = baseMapDataSourceRef.current;
+      if (!dataSource) return;
+      try {
+        viewer.dataSources.remove(dataSource, destroy);
+        console.log('[ProjectVisualizer] baseMap removido del viewer', { destroy });
+      } catch (err) {
+        console.warn('[ProjectVisualizer] No se pudo remover baseMap:', err);
+      }
+      if (destroy) {
+        try { dataSource.destroy?.(); } catch {}
+      }
+      baseMapDataSourceRef.current = null;
+      try { viewer.scene?.requestRender?.(); } catch {}
+    };
+
+    if (!layerVisibility.baseMap) {
+      console.log('[ProjectVisualizer] baseMap desactivado, removiendo datasource');
+      removeBaseMap(true);
+      return () => { cancelled = true; };
+    }
+
+    const loadBaseMap = async () => {
+      try {
+        console.log('[ProjectVisualizer] Solicitando IonResource 3910570');
+        const resource = await IonResource.fromAssetId(3910570);
+        if (cancelled) return;
+
+        console.log('[ProjectVisualizer] Cargando GeoJsonDataSource Areas Nqn - Oil&Gas');
+        const dataSource = await CesiumGeoJsonDataSource.load(resource, {
+          stroke: Color.fromCssColorString('#2E7D32'),
+          fill: Color.fromAlpha(Color.fromCssColorString('#2E7D32'), 0.2),
+          strokeWidth: 2,
+        });
+
+        if (cancelled) {
+          dataSource.destroy?.();
+          return;
+        }
+
+        baseMapDataSourceRef.current = dataSource;
+        await viewer.dataSources.add(dataSource);
+        console.log('[ProjectVisualizer] GeoJsonDataSource agregado al viewer');
+        viewer.scene?.requestRender?.();
+      } catch (error) {
+        console.error('[ProjectVisualizer] Error cargando capa base (asset 3910570):', error);
+        baseMapDataSourceRef.current = null;
+      }
+    };
+
+    loadBaseMap();
+
+    return () => {
+      cancelled = true;
+      removeBaseMap(true);
+      console.log('[ProjectVisualizer] Cleanup baseMap useEffect ejecutado');
+    };
+  }, [layerVisibility.baseMap, cesiumViewer]);
+
+  useEffect(() => {
+    const viewer = viewerRef.current?.cesiumElement || cesiumViewer;
+    if (!viewer || !projectPolygonBoundingSphere) {
+      return;
+    }
+
+    const flyToPolygon = () => {
+      try {
+        const offset = new HeadingPitchRange(0, -CesiumMath.toRadians(45), projectPolygonBoundingSphere.radius * 2.5);
+        viewer.camera.flyToBoundingSphere(projectPolygonBoundingSphere, {
+          duration: 2,
+          offset,
+        });
+      } catch (error) {
+        console.warn('[ProjectVisualizer] Error ejecutando flyToBoundingSphere:', error);
+      }
+    };
+
+    flyToPolygon();
+
+    const command = viewer?.homeButton?.viewModel?.command;
+    const handler = (event) => {
+      if (event) {
+        event.cancel = true;
+      }
+      flyToPolygon();
+    };
+
+    if (command?.beforeExecute) {
+      command.beforeExecute.addEventListener(handler);
+    }
+
+    return () => {
+      if (command?.beforeExecute) {
+        command.beforeExecute.removeEventListener(handler);
+      }
+    };
+  }, [projectPolygonBoundingSphere, cesiumViewer]);
 
   // Debug: verificar projectId
   useEffect(() => {
@@ -390,9 +582,12 @@ const ProjectVisualizer = () => {
         if (pickedObject) {
           if (pickedObject.id) {
             handleElementSelection(pickedObject.id);
-          } else if (typeof pickedObject.getPropertyIds === 'function') {
-            const meta = extractFeatureMetadata(pickedObject);
-            if (meta) setSelectedElement(meta);
+          } else if (typeof pickedObject.getPropertyIds === 'function' || typeof pickedObject.getPropertyNames === 'function') {
+            const meta = extractCesiumFeatureMetadata(pickedObject);
+            if (meta) {
+              console.log('[ProjectVisualizer] Feature seleccionado, metadata:', meta);
+              setSelectedElement(meta);
+            }
           }
         }
       }, ScreenSpaceEventType.LEFT_CLICK);
@@ -428,6 +623,44 @@ const ProjectVisualizer = () => {
     try {
       return props[key]?.getValue?.() || props[key];
     } catch (e) {
+      return null;
+    }
+  };
+
+  const extractCesiumFeatureMetadata = (feature) => {
+    if (!feature) return null;
+
+    try {
+      const propertyNames = typeof feature.getPropertyNames === 'function'
+        ? feature.getPropertyNames()
+        : typeof feature.getPropertyIds === 'function'
+          ? feature.getPropertyIds()
+          : [];
+
+      const properties = {};
+      propertyNames.forEach((name) => {
+        try {
+          properties[name] = typeof feature.getProperty === 'function'
+            ? feature.getProperty(name)
+            : feature[name];
+        } catch (err) {
+          try {
+            properties[name] = feature[name];
+          } catch {}
+        }
+      });
+
+      const name = (typeof feature.getProperty === 'function' && (feature.getProperty('nombre') || feature.getProperty('name'))) || feature.id || 'Elemento';
+      return {
+        type: 'geojson',
+        data: {
+          name,
+          properties,
+        },
+        entity: feature.id,
+      };
+    } catch (error) {
+      console.warn('[ProjectVisualizer] No se pudo extraer metadata del feature Cesium:', error);
       return null;
     }
   };
@@ -1375,9 +1608,18 @@ const ProjectVisualizer = () => {
             handleViewerReady(viewer);
           }}
           terrainProvider={terrainProvider}
-        >
+      >
+        {projectPolygonFeature && (
+          <ResiumGeoJsonDataSource
+            data={projectPolygonFeature}
+            clampToGround={true}
+            stroke={Color.fromCssColorString('#FF6B00')}
+            fill={Color.fromAlpha(Color.fromCssColorString('#FF6B00'), 0.15)}
+            strokeWidth={2}
+          />
+        )}
         {layerVisibility.layout && layoutData && (
-          <GeoJsonDataSource
+          <ResiumGeoJsonDataSource
             data={layoutData}
             clampToGround={true}
             stroke={Color.WHITE}

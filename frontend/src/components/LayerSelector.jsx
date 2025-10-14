@@ -475,6 +475,24 @@ const LayerSelector = ({
                 )}
               />
 
+              {/* Areas Nqn - Oil&Gas */}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={!!layerVisibility.baseMap}
+                    onChange={handleLayerChange}
+                    name="baseMap"
+                    size="small"
+                  />
+                }
+                label={(
+                  <span className="layer-label">
+                    <MapOutlinedIcon fontSize="small" className="layer-label-icon" />
+                    Areas Nqn - Oil&Gas
+                  </span>
+                )}
+              />
+
               <Divider sx={{ my: 1 }} />
 
               <Box sx={{ px: 1.5, py: 1 }}>

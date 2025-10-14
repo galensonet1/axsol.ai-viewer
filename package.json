@@ -16,7 +16,13 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "keywords": ["axsol", "viewer", "cesium", "construction", "3d"],
+  "keywords": [
+    "axsol",
+    "viewer",
+    "cesium",
+    "construction",
+    "3d"
+  ],
   "author": "AXSOL.ai",
   "license": "PRIVATE"
 }

@@ -11,7 +11,6 @@ const { fetchAndNormalizeAssets } = require('./api-utils');
 const axios = require('axios');
 const { findOrCreateUser } = require('./auth-utils');
 const { checkRole } = require('./auth-middleware');
-const { setupForestAdmin } = require('./forest-admin');
 const ifcRoutes = require('./routes/ifc');
 const { auth } = require('express-oauth2-jwt-bearer');
 
@@ -140,7 +139,6 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 
     'http://localhost:3001',
-    'https://app.forestadmin.com',
     'https://tired-pants-speak.loca.lt',
     'https://site.ingeia.tech'
   ],
@@ -171,27 +169,6 @@ app.use('/api/admin', adminRoutes);
 // GET /api/projects/:projectId/ifc -> listar
 // POST /api/projects/:projectId/ifc -> subir
 app.use('/api/projects', ifcRoutes);
-
-// Endpoint de diagnóstico para ForestAdmin
-app.get('/forest-status', (req, res) => {
-  console.log('[FOREST-STATUS] Solicitud de estado de ForestAdmin');
-  console.log('[FOREST-STATUS] Headers:', req.headers);
-  
-  res.json({
-    status: 'ok',
-    forestAdmin: {
-      configured: !!(process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET),
-      authSecretLength: process.env.FOREST_AUTH_SECRET?.length || 0,
-      envSecretLength: process.env.FOREST_ENV_SECRET?.length || 0,
-    },
-    database: {
-      connected: true,
-      uri: process.env.DATABASE_URL ? 'configured' : 'using individual vars'
-    },
-    timestamp: new Date().toISOString(),
-    tunnel: 'https://thin-times-do.loca.lt'
-  });
-});
 
 // Endpoint para obtener KPIs de un proyecto (devuelve una estructura por defecto)
 app.get('/api/projects/:id/kpis', (req, res) => {
@@ -436,56 +413,14 @@ app.get('/api/projects/:id/czml/:layerType', async (req, res) => {
   }
 });
 
-// Inicializar ForestAdmin
-const initializeForestAdmin = async () => {
-  try {
-    // Verificar si las variables de entorno están configuradas
-    if (!process.env.FOREST_AUTH_SECRET || !process.env.FOREST_ENV_SECRET) {
-      console.log('[ForestAdmin] Variables de entorno de Forest Admin no configuradas.');
-      console.log('[ForestAdmin] Para habilitar ForestAdmin, configura FOREST_AUTH_SECRET y FOREST_ENV_SECRET en tu archivo .env');
-      return;
-    }
-
-    console.log('[ForestAdmin] Inicializando Forest Admin...');
-    const agent = await setupForestAdmin();
-    
-    // Verificar que el agente se creó correctamente
-    if (!agent) {
-      throw new Error('No se pudo crear el agente de ForestAdmin');
-    }
-
-    // Montar ForestAdmin en Express
-    // Método correcto para ForestAdmin v1.66.0
-    await agent.mountOnExpress(app);
-    console.log('[ForestAdmin] ✅ Forest Admin montado correctamente');
-    
-  } catch (error) {
-    console.error('[ForestAdmin] ❌ Error inicializando Forest Admin:', error.message);
-    console.log('[ForestAdmin] El servidor continuará sin ForestAdmin');
-  }
-};
-
 // Inicializar servidor
 const startServer = async () => {
   try {
-    // Inicializar ForestAdmin
-    await initializeForestAdmin();
-    
     // Iniciar servidor
     app.listen(port, () => {
       console.log(`\n🚀 Servidor AXSOL.ai Viewer iniciado correctamente`);
       console.log(`📡 API disponible en: http://localhost:${port}`);
       console.log(`📊 Documentación: http://localhost:${port}/api-docs (si está configurada)`);
-      
-      if (process.env.FOREST_AUTH_SECRET && process.env.FOREST_ENV_SECRET) {
-        console.log(`🌲 Forest Admin: https://thin-times-do.loca.lt/forest`);
-      } else {
-        console.log(`🌲 Forest Admin: No configurado (agrega FOREST_AUTH_SECRET y FOREST_ENV_SECRET)`);
-      }
-      
-      console.log(`\n💡 Para configurar ForestAdmin:`);
-      console.log(`   1. Crea una cuenta en https://forestadmin.com`);
-      console.log(`   2. Agrega las variables FOREST_AUTH_SECRET y FOREST_ENV_SECRET a tu .env`);
     });
   } catch (error) {
     console.error('Error iniciando el servidor:', error);

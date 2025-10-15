@@ -183,8 +183,10 @@ app.use(cors({
     'http://localhost:3001',
     'https://site.ingeia.tech',
     'https://bo.ingeia.tech',
-    'https://site-ingeia-tech.netlify.app'
-  ],
+    'https://site-ingeia-tech.netlify.app',
+    'https://axsol-viewer.netlify.app',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true
 }));
 app.use(express.json());

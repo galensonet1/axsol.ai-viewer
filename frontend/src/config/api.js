@@ -3,7 +3,7 @@ import axios from 'axios';
 // Determinar base en runtime
 const runtimeBase = (typeof window !== 'undefined' && window.__CONFIG__ && window.__CONFIG__.apiBaseUrl)
   ? window.__CONFIG__.apiBaseUrl
-  : (typeof window !== 'undefined' ? window.location.origin : '');
+  : import.meta.env.VITE_API_BASE_URL || 'https://bo.ingeia.tech';
 
 // Crear instancia de axios con configuración base
 const api = axios.create({

@@ -13,7 +13,9 @@ CREATE TABLE projects (
     api_base_url VARCHAR(255),
     project_polygon_geojson JSONB,
     layout_geojson JSONB,
-    initial_location JSONB
+    initial_location JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- IFC files per project (Cesium Ion assets)
@@ -55,9 +57,11 @@ CREATE TABLE users (
 
 -- Create the user_roles join table
 CREATE TABLE user_roles (
+    id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     role_id INTEGER NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
-    PRIMARY KEY (user_id, role_id)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, role_id)
 );
 
 -- Create the project_permissions table
@@ -75,6 +79,34 @@ CREATE TABLE project_permissions (
 CREATE INDEX IF NOT EXISTS idx_project_permissions_user_id ON project_permissions(user_id);
 CREATE INDEX IF NOT EXISTS idx_project_permissions_project_id ON project_permissions(project_id);
 CREATE INDEX IF NOT EXISTS idx_project_permissions_level ON project_permissions(permission_level);
+
+-- Trigger function to maintain updated_at columns
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Triggers for automatic updated_at maintenance
+DROP TRIGGER IF EXISTS update_projects_updated_at ON projects;
+CREATE TRIGGER update_projects_updated_at
+  BEFORE UPDATE ON projects
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_users_updated_at ON users;
+CREATE TRIGGER update_users_updated_at
+  BEFORE UPDATE ON users
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_roles_updated_at ON roles;
+CREATE TRIGGER update_roles_updated_at
+  BEFORE UPDATE ON roles
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert initial roles
 INSERT INTO roles (name) VALUES

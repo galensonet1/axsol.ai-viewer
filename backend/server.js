@@ -207,7 +207,14 @@ app.get('/api/config', (req, res) => {
     const domainFromIssuer = issuer
       .replace(/^https?:\/\//, '')
       .replace(/\/$/, '');
-    const apiBaseUrl = `${req.protocol}://${req.get('host')}`;
+    
+    // Detectar protocolo correcto (considerar proxies/load balancers)
+    const protocol = req.get('x-forwarded-proto') || req.protocol || 'https';
+    const host = req.get('host');
+    const apiBaseUrl = process.env.API_BASE_URL || `${protocol}://${host}`;
+    
+    console.log('[CONFIG] Generando configuración:', { protocol, host, apiBaseUrl });
+    
     const cfg = {
       apiBaseUrl,
       auth0: {

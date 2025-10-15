@@ -14,7 +14,7 @@ const HomePage = () => {
 
   try {
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f5f5f5' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#1a1a1a' }}>
         <AppBar
           position="fixed"
           color="default"
@@ -65,7 +65,12 @@ const HomePage = () => {
               <Grid xs={12} md={8} sx={{ height: { xs: '50%', md: '100%' } }}>
                 <GlobalMap />
               </Grid>
-              <Grid xs={12} md={4} sx={{ height: { xs: '50%', md: '100%' } }}>
+              <Grid xs={12} md={4} sx={{ 
+                height: { xs: '50%', md: '100%' },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}>
                 <ProjectList projects={projects} />
               </Grid>
             </Grid>

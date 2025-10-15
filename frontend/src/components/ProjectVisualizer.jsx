@@ -115,10 +115,7 @@ const restoreClockState = (viewer, state) => {
   }
 };
 
-const CESIUM_ION_TOKEN = import.meta.env.VITE_CESIUM_ION_TOKEN;
-if (CESIUM_ION_TOKEN) {
-  Ion.defaultAccessToken = CESIUM_ION_TOKEN;
-}
+const CESIUM_TOKEN_READY = Boolean(Ion.defaultAccessToken);
 
 const formatClockDate = (julianDate) => {
   if (!julianDate) {
@@ -225,6 +222,14 @@ const ProjectVisualizer = () => {
     loadedCzml,
   } = useProject();
 
+  if (!CESIUM_TOKEN_READY) {
+    return (
+      <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',height:'100%'}}>
+        Token de Cesium Ion no configurado
+      </Box>
+    );
+  }
+
   const viewerRef = useRef(null);
   const baseMapDataSourceRef = useRef(null);
   const imagesPrefetchedRef = useRef(false);
@@ -288,17 +293,19 @@ const ProjectVisualizer = () => {
   const planUrl = useMemo(() => {
     try {
       const raw = projectData?.weekly_construction_plan;
+      console.log('[PLAN DEBUG] raw weekly_construction_plan:', raw);
       if (raw && typeof raw === 'string') {
         if (/^https?:\/\//i.test(raw)) return raw;
         // Asegurar URL absoluta al backend
-        return `${API_BASE_URL}${raw.startsWith('/') ? '' : '/'}${raw}`;
-      }
-      if (projectId) {
-        return `${API_BASE_URL}/api/projects/${projectId}/weekly-plan`;
+        const baseUrl = window.__CONFIG__?.apiBaseUrl || 'http://localhost:3001';
+        const fullUrl = `${baseUrl}${raw}`;
+        console.log('[PLAN DEBUG] constructed planUrl:', fullUrl);
+        return fullUrl;
       }
     } catch {}
     return null;
   }, [projectData?.weekly_construction_plan, projectId]);
+
 
   const projectPolygonFeature = useMemo(() => {
     const normalizePolygon = (value) => {
@@ -1609,7 +1616,7 @@ const ProjectVisualizer = () => {
           }}
           terrainProvider={terrainProvider}
       >
-        {projectPolygonFeature && (
+        {layerVisibility.layout && projectPolygonFeature && (
           <ResiumGeoJsonDataSource
             data={projectPolygonFeature}
             clampToGround={true}

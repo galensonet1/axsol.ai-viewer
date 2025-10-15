@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-// Configuración base de la API
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+// Determinar base en runtime
+const runtimeBase = (typeof window !== 'undefined' && window.__CONFIG__ && window.__CONFIG__.apiBaseUrl)
+  ? window.__CONFIG__.apiBaseUrl
+  : (typeof window !== 'undefined' ? window.location.origin : '');
 
 // Crear instancia de axios con configuración base
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: runtimeBase,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -35,4 +37,4 @@ api.interceptors.response.use(
 );
 
 export default api;
-export { API_BASE_URL };
+export const API_BASE_URL = runtimeBase;

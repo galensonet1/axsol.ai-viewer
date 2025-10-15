@@ -14,9 +14,51 @@ const { checkRole } = require('./auth-middleware');
 const ifcRoutes = require('./routes/ifc');
 const { auth } = require('express-oauth2-jwt-bearer');
 
+const resolveAuth0Issuer = () => {
+  const rawIssuer = process.env.AUTH0_ISSUER_BASE_URL?.trim();
+  const rawDomain = process.env.AUTH0_DOMAIN?.trim();
+  
+  console.log('[Auth0] Raw values:', { rawIssuer, rawDomain });
+  
+  let issuer = rawIssuer && rawIssuer.length > 0 ? rawIssuer : null;
+
+  if (!issuer && rawDomain && rawDomain !== 'NOT_SET') {
+    issuer = rawDomain.startsWith('http') ? rawDomain : `https://${rawDomain}`;
+  }
+
+  if (!issuer) {
+    console.error('[Auth0] Faltan variables AUTH0_ISSUER_BASE_URL o AUTH0_DOMAIN.');
+    return null;
+  }
+
+  // Asegurar prefijo https://
+  if (!/^https?:\/\//i.test(issuer)) {
+    issuer = `https://${issuer}`;
+    console.log('[Auth0] Added https prefix:', issuer);
+  }
+
+  // Asegurar slash final
+  if (!issuer.endsWith('/')) {
+    issuer = `${issuer}/`;
+    console.log('[Auth0] Added trailing slash:', issuer);
+  }
+
+  try {
+    const parsed = new URL(issuer);
+    const normalized = parsed.toString();
+    console.log('[Auth0] Final issuer URL:', normalized);
+    return normalized;
+  } catch (err) {
+    console.error('[Auth0] issuer inválido:', issuer, err?.message || err);
+    return null;
+  }
+};
+
+const computedIssuer = resolveAuth0Issuer();
+
 const checkJwt = auth({
   audience: process.env.AUTH0_AUDIENCE,
-  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+  issuerBaseURL: computedIssuer,
 });
 
 const startOfDayUtc = (value) => {
@@ -61,7 +103,7 @@ const uploadCzml = multer({ storage: czmlStorage, limits: { fileSize: 50 * 1024 
 function ensureDir(p) { try { fs.mkdirSync(p, { recursive: true }); } catch {} }
 
 // POST subir plan semanal (solo Admin)
-app.post('/api/projects/:id/weekly-plan', checkJwt, checkRole(['Admin']), uploadCzml.single('file'), async (req, res) => {
+app.post('/api/projects/:id/weekly-plan', checkJwt, checkRole([5, 6]), uploadCzml.single('file'), async (req, res) => {
   const { id } = req.params;
   const file = req.file;
   if (!file) return res.status(400).json({ success: false, error: 'Falta el archivo (campo "file").' });
@@ -116,7 +158,7 @@ app.get('/api/projects/:id/weekly-plan', async (req, res) => {
 });
 
 // DELETE eliminar plan semanal (solo Admin)
-app.delete('/api/projects/:id/weekly-plan', checkJwt, checkRole(['Admin']), async (req, res) => {
+app.delete('/api/projects/:id/weekly-plan', checkJwt, checkRole([5, 6]), async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query('SELECT weekly_construction_plan FROM projects WHERE id = $1', [id]);
@@ -139,8 +181,9 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 
     'http://localhost:3001',
-    'https://tired-pants-speak.loca.lt',
-    'https://site.ingeia.tech'
+    'https://site.ingeia.tech',
+    'https://bo.ingeia.tech',
+    'https://site-ingeia-tech.netlify.app'
   ],
   credentials: true
 }));
@@ -155,15 +198,42 @@ const DATA_BASE_DIR = path.join(__dirname, 'public', 'data');
 try { fs.mkdirSync(DATA_BASE_DIR, { recursive: true }); } catch {}
 app.use('/data', express.static(DATA_BASE_DIR));
 
-// Endpoint para la configuración (temporalmente devuelve un objeto vacío)
+// Endpoint para la configuración (exponer parámetros necesarios al frontend)
 app.get('/api/config', (req, res) => {
-  console.log('[CONFIG] Solicitud de configuración recibida.');
-  res.json({});
+  try {
+    const issuer = process.env.AUTH0_ISSUER_BASE_URL || '';
+    const domainFromIssuer = issuer
+      .replace(/^https?:\/\//, '')
+      .replace(/\/$/, '');
+    const apiBaseUrl = `${req.protocol}://${req.get('host')}`;
+    const cfg = {
+      apiBaseUrl,
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN || domainFromIssuer || null,
+        clientId: process.env.AUTH0_CLIENT_ID || null,
+        audience: process.env.AUTH0_AUDIENCE || null,
+      },
+      cesium: {
+        ionToken: process.env.CESIUM_ION_TOKEN || process.env.VITE_CESIUM_ION_TOKEN || null,
+      },
+      adminPanelUrl: '/admin/admin.html',
+    };
+    res.json(cfg);
+  } catch (e) {
+    console.error('[CONFIG] Error construyendo configuración:', e);
+    res.json({});
+  }
 });
 
-// Rutas de administración
+// Debug routes (REMOVER EN PRODUCCIÓN)
+const debugRoutes = require('./debug-auth');
+const debugCzmlRoutes = require('./debug-czml');
+app.use('/api', debugRoutes);
+app.use('/api', debugCzmlRoutes);
+
+// Rutas de administración (protegidas por Auth0 y rol Admin)
 const adminRoutes = require('./routes/admin');
-app.use('/api/admin', adminRoutes);
+app.use('/api/admin', checkJwt, checkRole([5, 6]), adminRoutes);
 
 // Rutas para gestión de IFC por proyecto
 // GET /api/projects/:projectId/ifc -> listar
@@ -187,7 +257,7 @@ app.get('/api/projects/:id/kpis', (req, res) => {
 // --- Endpoints de la API ---
 
 // Actualizar opciones (JSON) de un proyecto (solo Admin)
-app.patch('/api/projects/:id/opcions', checkJwt, checkRole(['Admin']), async (req, res) => {
+app.patch('/api/projects/:id/opcions', checkJwt, checkRole([5, 6]), async (req, res) => {
   const { id } = req.params;
   const payload = req.body || {};
   try {
@@ -216,7 +286,10 @@ app.get('/api/user/me', checkJwt, async (req, res) => {
     const accessToken = req.headers.authorization.split(' ')[1];
 
     // 2. Llamar al endpoint /userinfo de Auth0
-    const userInfoResponse = await axios.get(process.env.AUTH0_ISSUER_BASE_URL + 'userinfo', {
+    const issuerBase = process.env.AUTH0_ISSUER_BASE_URL || '';
+    const userinfoUrl = issuerBase.endsWith('/') ? `${issuerBase}userinfo` : `${issuerBase}/userinfo`;
+    
+    const userInfoResponse = await axios.get(userinfoUrl, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -230,12 +303,13 @@ app.get('/api/user/me', checkJwt, async (req, res) => {
 
     // 5. Obtener roles y devolver el perfil completo
     const rolesQuery = await pool.query(
-      'SELECT r.name FROM roles r JOIN user_roles ur ON r.id = ur.role_id WHERE ur.user_id = $1',
+      'SELECT r.id, r.name FROM roles r JOIN user_roles ur ON r.id = ur.role_id WHERE ur.user_id = $1',
       [user.id]
     );
     const roles = rolesQuery.rows.map(r => r.name);
+    const roleIds = rolesQuery.rows.map(r => r.id);
 
-    res.json({ ...user, roles });
+    res.json({ ...user, roles, roleIds });
 
   } catch (error) {
     console.error('Error fetching user profile:', error.response ? error.response.data : error.message);
@@ -261,24 +335,53 @@ app.get('/api/projects', checkJwt, async (req, res) => {
     const userId = userResult.rows[0].id;
     console.log('[PROJECTS] Usuario ID:', userId);
     
-    // Obtener proyectos donde el usuario tiene permisos
-    const projectsQuery = `
-      SELECT DISTINCT 
-        p.id, 
-        p.name, 
-        p.description, 
-        p.start_date, 
-        p.end_date,
-        p.initial_location,
-        p.opcions,
-        pp.permission_level
-      FROM projects p
-      INNER JOIN project_permissions pp ON p.id = pp.project_id
-      WHERE pp.user_id = $1
-      ORDER BY p.name ASC
-    `;
-    
-    const result = await pool.query(projectsQuery, [userId]);
+    // Verificar si el usuario tiene rol global (ID 5) para ver todos los proyectos
+    const rolesResult = await pool.query(
+      `SELECT r.id FROM roles r
+       JOIN user_roles ur ON r.id = ur.role_id
+       WHERE ur.user_id = $1`,
+      [userId]
+    );
+    const hasGlobalAccess = rolesResult.rows.some((row) => row.id === 5);
+
+    let projectsQuery;
+    let queryParams = [userId];
+
+    if (hasGlobalAccess) {
+      projectsQuery = `
+        SELECT DISTINCT
+          p.id,
+          p.name,
+          p.description,
+          p.start_date,
+          p.end_date,
+          p.initial_location,
+          p.opcions,
+          pp.permission_level
+        FROM projects p
+        LEFT JOIN project_permissions pp
+          ON p.id = pp.project_id AND pp.user_id = $1
+        ORDER BY p.name ASC
+      `;
+    } else {
+      projectsQuery = `
+        SELECT DISTINCT 
+          p.id, 
+          p.name, 
+          p.description, 
+          p.start_date, 
+          p.end_date,
+          p.initial_location,
+          p.opcions,
+          pp.permission_level
+        FROM projects p
+        INNER JOIN project_permissions pp ON p.id = pp.project_id
+        WHERE pp.user_id = $1
+        ORDER BY p.name ASC
+      `;
+    }
+
+    const result = await pool.query(projectsQuery, queryParams);
     console.log(`[PROJECTS] ${result.rows.length} proyectos encontrados para el usuario`);
     
     res.json(result.rows);
@@ -288,14 +391,35 @@ app.get('/api/projects', checkJwt, async (req, res) => {
   }
 });
 
-// Endpoint para obtener un proyecto por ID
-app.get('/api/projects/:id', async (req, res) => {
+// Endpoint para obtener un proyecto por ID (con verificación de permisos)
+app.get('/api/projects/:id', checkJwt, async (req, res) => {
   const { id } = req.params;
+  const auth0Sub = req.auth.payload.sub;
+  
   try {
-    const result = await pool.query('SELECT * FROM projects WHERE id = $1', [id]);
+    console.log(`[PROJECT] Usuario ${auth0Sub} solicitando proyecto ${id}`);
+    
+    // Verificar que el usuario existe en la base de datos
+    const userQuery = 'SELECT id FROM users WHERE auth0_sub = $1';
+    const userResult = await pool.query(userQuery, [auth0Sub]);
+    
+    if (userResult.rows.length === 0) {
+      console.log(`[PROJECT] Usuario ${auth0Sub} no encontrado en la base de datos`);
+      return res.status(403).json({ error: 'Usuario no autorizado.' });
+    }
+    
+    // Por ahora, permitir acceso a todos los usuarios autenticados que existen en la BD
+    // TODO: Implementar verificación de permisos específicos por proyecto
+    
+    // Obtener el proyecto
+    const projectQuery = 'SELECT * FROM projects WHERE id = $1';
+    const result = await pool.query(projectQuery, [id]);
+    
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Proyecto no encontrado.' });
     }
+    
+    console.log(`[PROJECT] Usuario ${auth0Sub} accedió exitosamente al proyecto ${id}`);
     res.json(result.rows[0]);
   } catch (error) {
     console.error(`Error al obtener el proyecto ${id}:`, error);

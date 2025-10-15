@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
-  Paper,
   Typography,
   Box,
   LinearProgress,
-  Chip,
   Stack,
   Tooltip,
 } from '@mui/material';
@@ -55,31 +53,35 @@ const ProjectList = ({ projects }) => {
   const projectList = Array.isArray(projects) ? projects : [];
   
   return (
-    <Paper
-      elevation={3}
+    <Box
       sx={{
-        height: '100%',
+        maxHeight: '80vh',
+        maxWidth: '50vw',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'transparent',
         color: '#fff',
+        alignSelf: 'center',
+        overflow: 'hidden',
       }}
     >
-      <Typography variant="h6" sx={{ p: 2, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-        Lista de Proyectos
-      </Typography>
       <Box
         sx={{
           flexGrow: 1,
-          px: 1.5,
-          pb: 1.5,
+          p: 1.5,
           display: 'grid',
           gap: 1,
-          gridTemplateColumns: {
-            xs: 'repeat(auto-fit, minmax(140px, 1fr))',
-            sm: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gridTemplateColumns: (theme) => {
+            const count = projectList.length;
+            if (count <= 5) return 'repeat(1, 1fr)';
+            if (count <= 12) return 'repeat(2, 1fr)';
+            return 'repeat(3, 1fr)';
           },
+          gridAutoRows: '1fr',
           alignContent: 'start',
+          justifyContent: 'center',
+          overflow: 'auto',
+          maxHeight: '100%',
         }}
       >
         {projectList.length === 0 ? (
@@ -103,14 +105,20 @@ const ProjectList = ({ projects }) => {
               <Box
                 key={project.id}
                 sx={{
-                  backgroundColor: 'rgba(0,0,0,0.7)',
+                  backgroundColor: 'rgba(0,0,0,0.8) !important',
                   borderRadius: 2,
                   overflow: 'hidden',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  transition: 'all 0.3s ease',
+                  backdropFilter: 'blur(10px)',
+                  aspectRatio: '1',
+                  display: 'flex',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
                   ':hover': {
                     borderColor: accentColor,
-                    boxShadow: `0 0 0 1px ${accentOverlay}`,
+                    boxShadow: `0 6px 12px rgba(0,0,0,0.4), 0 0 0 1px ${accentOverlay}`,
+                    backgroundColor: 'rgba(0,0,0,0.9) !important',
+                    transform: 'translateY(-2px)',
                   },
                 }}
               >
@@ -121,10 +129,14 @@ const ProjectList = ({ projects }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'stretch',
+                    justifyContent: 'space-between',
                     gap: 1,
                     p: 1,
                     textDecoration: 'none',
                     color: 'inherit',
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
                   }}
                 >
                   <Box
@@ -160,47 +172,31 @@ const ProjectList = ({ projects }) => {
                     )}
                   </Box>
 
-                  <Stack spacing={1}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#fff', textShadow: '0 1px 1px rgba(0,0,0,0.6)' }}>
-                      {project.name}
+                  <Stack spacing={0.5} sx={{ mt: 'auto' }}>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600, fontSize: '0.75rem' }}>
+                      Avance del proyecto
                     </Typography>
-                    <Chip
-                      label={project.status}
-                      size="small"
-                      sx={{
-                        alignSelf: 'flex-start',
-                        backgroundColor: accentColor,
-                        color: '#000',
-                        fontWeight: 600,
-                        borderRadius: 1,
-                      }}
-                    />
-                    <Stack spacing={0.5}>
-                      <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600 }}>
-                        Avance del proyecto
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Tooltip title={`${progress}%`} placement="top">
+                        <LinearProgress
+                          variant="determinate"
+                          value={progress}
+                          sx={{
+                            flexGrow: 1,
+                            height: 6,
+                            borderRadius: 3,
+                            backgroundColor: 'rgba(255,255,255,0.12)',
+                            '& .MuiLinearProgress-bar': {
+                              borderRadius: 3,
+                              backgroundImage: progressGradient,
+                            },
+                          }}
+                        />
+                      </Tooltip>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#fff', fontSize: '0.75rem' }}>
+                        {`${progress}%`}
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Tooltip title={`${progress}%`} placement="top">
-                          <LinearProgress
-                            variant="determinate"
-                            value={progress}
-                            sx={{
-                              flexGrow: 1,
-                              height: 8,
-                              borderRadius: 5,
-                              backgroundColor: 'rgba(255,255,255,0.12)',
-                              '& .MuiLinearProgress-bar': {
-                                borderRadius: 5,
-                                backgroundImage: progressGradient,
-                              },
-                            }}
-                          />
-                        </Tooltip>
-                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#fff' }}>
-                          {`${progress}%`}
-                        </Typography>
-                      </Box>
-                    </Stack>
+                    </Box>
                   </Stack>
                 </Box>
               </Box>
@@ -208,7 +204,7 @@ const ProjectList = ({ projects }) => {
           })
         )}
       </Box>
-    </Paper>
+    </Box>
   );
 };
 

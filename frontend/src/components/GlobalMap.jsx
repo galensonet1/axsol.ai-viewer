@@ -5,15 +5,7 @@ import * as Cesium from 'cesium';
 import { Paper, Typography } from '@mui/material';
 import useApi from '../hooks/useApi';
 
-// Lee el token desde las variables de entorno de Vite
-const CESIUM_ION_TOKEN = import.meta.env.VITE_CESIUM_ION_TOKEN;
-
-// Configura el token de acceso para Cesium una sola vez
-if (CESIUM_ION_TOKEN) {
-  Ion.defaultAccessToken = CESIUM_ION_TOKEN;
-} else {
-  console.warn('Advertencia: El token de Cesium Ion no está configurado. El mapa base puede no funcionar.');
-}
+const CESIUM_TOKEN_READY = Boolean(Ion.defaultAccessToken);
 
 // Rectangle mínimo para el mapa global (cubre Argentina)
 const MIN_RECTANGLE = {
@@ -37,12 +29,11 @@ const GlobalMap = () => {
 
   console.log('[GlobalMap] Hook state', { loading, error, projectsCount: projects.length });
 
-  // Si no hay token, muestra un mensaje en lugar del mapa.
-  if (!CESIUM_ION_TOKEN) {
+  if (!CESIUM_TOKEN_READY) {
     return (
       <Paper elevation={3} sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant="h6" color="text.secondary">
-          Token de Cesium Ion no configurado en el archivo .env
+          Token de Cesium Ion no configurado
         </Typography>
       </Paper>
     );

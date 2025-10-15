@@ -25,20 +25,34 @@ const AppWrapper = () => {
       const code = urlParams.get('code');
       const state = urlParams.get('state');
       
-      if (code && state && isAuthenticated) {
-        // Verificar si hay un returnTo en el appState
-        const appState = JSON.parse(sessionStorage.getItem('auth0.appState') || '{}');
-        const returnTo = appState.returnTo;
-        
-        if (returnTo && returnTo !== '/') {
-          console.log('[AppWrapper] Redirigiendo post-login a:', returnTo);
-          // Limpiar los parámetros de la URL y redirigir
-          window.history.replaceState({}, document.title, window.location.pathname);
-          navigate(returnTo, { replace: true });
-          sessionStorage.removeItem('auth0.appState');
-          return;
-        }
+      // Solo procesar si hay parámetros de Auth0
+      if (!code || !state) {
+        return;
       }
+      
+      // Verificar si hay un returnTo en el appState (guardado antes del login)
+      const appState = JSON.parse(sessionStorage.getItem('auth0.appState') || '{}');
+      const returnTo = appState.returnTo;
+      
+      console.log('[AppWrapper] Post-login redirect:', { returnTo, currentPath: window.location.pathname });
+      
+      if (returnTo && returnTo !== '/') {
+        console.log('[AppWrapper] Redirigiendo post-login a:', returnTo);
+        
+        // Limpiar los parámetros de Auth0 de la URL
+        window.history.replaceState({}, document.title, returnTo);
+        
+        // Redirigir a la URL original
+        navigate(returnTo, { replace: true });
+        sessionStorage.removeItem('auth0.appState');
+        return;
+      }
+      
+      // Si no hay returnTo específico, solo limpiar los parámetros de Auth0 y quedarse en /
+      console.log('[AppWrapper] No returnTo, redirigiendo a home');
+      window.history.replaceState({}, document.title, '/');
+      navigate('/', { replace: true });
+      sessionStorage.removeItem('auth0.appState');
     };
 
     if (isAuthenticated && !isLoading) {

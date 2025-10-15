@@ -118,8 +118,55 @@ const ProjectLayout = () => {
   if (projectLoading) {
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><CircularProgress /></Box>;
   }
+  
   if (projectError) {
-    return <Typography color="error">Error al cargar el proyecto: {projectError.message}</Typography>;
+    const isPermissionError = projectError.includes('403') || projectError.includes('permisos');
+    
+    return (
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column',
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        gap: 2,
+        p: 3,
+        textAlign: 'center'
+      }}>
+        {isPermissionError ? (
+          <>
+            <Typography variant="h5" color="error" gutterBottom>
+              Acceso Denegado
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+              No tienes permisos para acceder a este proyecto.
+            </Typography>
+            <Button 
+              variant="contained" 
+              onClick={() => navigate('/')}
+              startIcon={<HomeOutlinedIcon />}
+            >
+              Volver al Inicio
+            </Button>
+          </>
+        ) : (
+          <>
+            <Typography variant="h5" color="error" gutterBottom>
+              Error al cargar el proyecto
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {projectError}
+            </Typography>
+            <Button 
+              variant="contained" 
+              onClick={() => window.location.reload()}
+            >
+              Reintentar
+            </Button>
+          </>
+        )}
+      </Box>
+    );
   }
 
   const normalizeLogoUrl = (url) => {

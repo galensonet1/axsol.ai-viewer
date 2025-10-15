@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const resolveBase = () => {
+  if (typeof window !== 'undefined' && window.__CONFIG__?.apiBaseUrl) return window.__CONFIG__.apiBaseUrl;
+  if (import.meta?.env?.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+  return window?.location?.origin || '';
+};
 
 const useApi = (url) => {
   const [data, setData] = useState(null);
@@ -16,7 +20,12 @@ const useApi = (url) => {
     }
 
     const fetchData = async () => {
-      const fullUrl = `${API_BASE_URL}${url}`;
+      const origin = resolveBase();
+      let path = url || '';
+      if (!/^\/?api\//.test(path)) {
+        path = `/api${path.startsWith('/') ? '' : '/'}${path}`;
+      }
+      const fullUrl = `${origin.replace(/\/$/, '')}${path}`;
 
       try {
         const token = await getAccessTokenSilently();

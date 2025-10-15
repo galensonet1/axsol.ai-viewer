@@ -739,6 +739,110 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script>
+      (function(){
+        // Create a promise that resolves when Auth0 client is ready (and user logged in)
+        window.__ADMIN_AUTH0_PROMISE__ = (async () => {
+          try {
+            const cfgRes = await fetch('/api/config', { credentials: 'include' });
+            const cfg = await cfgRes.json().catch(() => ({}));
+            window.__CONFIG__ = cfg || {};
+
+            // Wait until Auth0 SPA SDK is available in the global scope
+            const waitForAuth0 = async (tries = 30) => {
+              for (let i = 0; i < tries; i++) {
+                if (window.createAuth0Client || (window.auth0 && window.auth0.Auth0Client)) return true;
+                await new Promise(r => setTimeout(r, 100));
+              }
+              return false;
+            };
+            const ok = await waitForAuth0();
+            if (!ok) throw new Error('Auth0 SPA SDK not loaded');
+
+            const auth0Factory = window.createAuth0Client;
+            const auth0 = auth0Factory
+              ? await auth0Factory({
+                  domain: (cfg.auth0 && cfg.auth0.domain) || '',
+                  clientId: (cfg.auth0 && cfg.auth0.clientId) || '',
+                  authorizationParams: {
+                    audience: (cfg.auth0 && cfg.auth0.audience) || '',
+                    redirect_uri: window.location.origin + '/admin/admin.html',
+                    scope: 'openid profile email'
+                  }
+                })
+              : new window.auth0.Auth0Client({
+                  domain: (cfg.auth0 && cfg.auth0.domain) || '',
+                  clientId: (cfg.auth0 && cfg.auth0.clientId) || '',
+                  authorizationParams: {
+                    audience: (cfg.auth0 && cfg.auth0.audience) || '',
+                    redirect_uri: window.location.origin + '/admin/admin.html',
+                    scope: 'openid profile email'
+                  }
+                });
+            window.auth0Client = auth0;
+
+            // Handle the redirect back from Auth0
+            if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+              try { await auth0.handleRedirectCallback(); } catch {}
+              window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            const isAuthenticated = await auth0.isAuthenticated();
+            if (!isAuthenticated) {
+              await auth0.loginWithRedirect({ authorizationParams: { audience: (cfg.auth0 && cfg.auth0.audience) || '', redirect_uri: window.location.origin + '/admin/admin.html' } });
+              return null;
+            }
+
+            // Optional: verify Admin role
+            try {
+              const token = await auth0.getTokenSilently();
+              const me = await fetch('/api/user/me', { headers: { Authorization: `Bearer ${token}` } }).then(r => r.ok ? r.json() : null);
+              window.currentUser = me;
+              const roles = (me && Array.isArray(me.roles)) ? me.roles : [];
+              const roleIds = (me && Array.isArray(me.roleIds)) ? me.roleIds : [];
+              const hasAdmin = roleIds.includes(5) || roleIds.includes(6) || roles.includes('admin') || roles.includes('Admin');
+              if (!hasAdmin) {
+                document.body.innerHTML = '<div style="padding:2rem;font-family:system-ui"><h3>403</h3><p>No tenés permisos para acceder al panel de administración.</p></div>';
+                return null;
+              }
+            } catch {}
+
+            return auth0;
+          } catch (e) {
+            console.error('[ADMIN] Error inicializando Auth0:', e);
+            return null;
+          }
+        })();
+
+        // Patch global fetch to automatically attach Authorization for /api/admin
+        const _origFetch = window.fetch.bind(window);
+        window.fetch = async function(input, init) {
+          const url = (typeof input === 'string') ? input : (input && input.url) || '';
+          const isAdminApi = /^\s*\/api\/admin\b/.test(url) || url.startsWith(window.location.origin + '/api/admin');
+          if (isAdminApi) {
+            try {
+              const auth0 = await window.__ADMIN_AUTH0_PROMISE__;
+              if (!auth0) {
+                // Not authenticated yet; a redirect should be in progress. Halt this request.
+                return new Promise(() => {});
+              }
+              if (auth0) {
+                const token = await auth0.getTokenSilently();
+                init = init || {};
+                init.headers = new Headers(init.headers || {});
+                if (!init.headers.has('Authorization')) {
+                  init.headers.set('Authorization', `Bearer ${token}`);
+                }
+              }
+            } catch (e) {
+              console.warn('[ADMIN] No se pudo adjuntar token Auth0:', e);
+            }
+          }
+          return _origFetch(input, init);
+        };
+      })();
+    </script>
     <script src="admin.js"></script>
 </body>
 </html>

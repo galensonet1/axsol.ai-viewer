@@ -2,9 +2,22 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const resolveBase = () => {
-  if (typeof window !== 'undefined' && window.__CONFIG__?.apiBaseUrl) return window.__CONFIG__.apiBaseUrl;
-  if (import.meta?.env?.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
-  return window?.location?.origin || '';
+  console.log('[useApi] Resolviendo base URL...');
+  console.log('[useApi] window.__CONFIG__:', window.__CONFIG__);
+  console.log('[useApi] VITE_API_BASE_URL:', import.meta?.env?.VITE_API_BASE_URL);
+  
+  if (typeof window !== 'undefined' && window.__CONFIG__?.apiBaseUrl) {
+    console.log('[useApi] Usando window.__CONFIG__.apiBaseUrl:', window.__CONFIG__.apiBaseUrl);
+    return window.__CONFIG__.apiBaseUrl;
+  }
+  if (import.meta?.env?.VITE_API_BASE_URL) {
+    console.log('[useApi] Usando VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  const fallback = window?.location?.origin || '';
+  console.log('[useApi] Usando fallback:', fallback);
+  return fallback;
 };
 
 const useApi = (url) => {

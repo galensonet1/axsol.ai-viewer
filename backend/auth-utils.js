@@ -43,7 +43,7 @@ const findOrCreateUser = async (auth0Profile) => {
   );
 
   // 4. Assign a default role (e.g., 'Viewer') to the new user
-  const viewerRole = await pool.query("SELECT id FROM roles WHERE name = 'Viewer'");
+  const viewerRole = await pool.query("SELECT id FROM roles WHERE LOWER(name) = 'viewer'");
   if (viewerRole.rows.length > 0) {
     await pool.query(
       'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2)',

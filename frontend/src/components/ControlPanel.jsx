@@ -8,11 +8,12 @@ import { useProject } from '../context/ProjectContext';
 
 const ControlPanel = ({ layerVisibility, onLayerVisibilityChange }) => {
   const { hasRole } = useUser();
-  const { loadLocalCzml } = useProject();
+  const { projectId, loadLocalCzml } = useProject();
 
   return (
     <div className="control-panel">
       <LayerSelector
+        projectId={projectId}
         layerVisibility={layerVisibility}
         onLayerVisibilityChange={onLayerVisibilityChange}
       />

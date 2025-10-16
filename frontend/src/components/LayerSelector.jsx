@@ -21,6 +21,7 @@ const PHOTO_ICON_SRC = "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/
 const PHOTO_360_ICON_SRC = "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3e%3cg stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='14' cy='14' r='4'/%3e%3cpath d='M5 9.5c2.2-2.3 5.4-3.5 9-3.5s6.8 1.2 9 3.5'/%3e%3cpath d='M23 18.5c-2.2 2.3-5.4 3.5-9 3.5s-6.8-1.2-9-3.5'/%3e%3cpath d='M6.5 11.5L4 9'/%3e%3cpath d='M6.5 16.5 4 19'/%3e%3cpath d='M21.5 11.5 24 9'/%3e%3cpath d='M21.5 16.5 24 19'/%3e%3cpath d='M10.5 14h7'/%3e%3c/g%3e%3c/svg%3e";
 
 const LayerSelector = ({
+  projectId,
   layerVisibility,
   onLayerVisibilityChange,
   open,

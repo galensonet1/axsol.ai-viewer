@@ -177,6 +177,7 @@ const ComparisonMode = ({
           Momento A
         </Typography>
         <LayerSelector
+          projectId={projectId}
           layerVisibility={leftLayerVisibility}
           onLayerVisibilityChange={setLeftLayerVisibility}
           open={true}
@@ -194,6 +195,7 @@ const ComparisonMode = ({
           Momento B
         </Typography>
         <LayerSelector
+          projectId={projectId}
           layerVisibility={rightLayerVisibility}
           onLayerVisibilityChange={setRightLayerVisibility}
           open={true}

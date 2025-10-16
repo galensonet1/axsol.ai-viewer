@@ -134,7 +134,8 @@ const ProjectList = ({ projects }) => {
                     alignItems: 'stretch',
                     justifyContent: 'space-between',
                     gap: 0.5, // Reducir espacio entre elementos
-                    p: 0.75, // Reducir padding
+                    p: 1, // Aumentar padding para dar más espacio a la barra de progreso
+                    pb: 1.25, // Padding bottom extra para la barra de progreso
                     textDecoration: 'none',
                     color: 'inherit',
                     width: '100%',
@@ -188,7 +189,7 @@ const ProjectList = ({ projects }) => {
                     )}
                   </Box>
 
-                  <Stack spacing={0.25} sx={{ mt: 'auto' }}> {/* Reducir spacing */}
+                  <Stack spacing={0.5} sx={{ mt: 'auto', mb: 0.5 }}> {/* Aumentar spacing y margen inferior */}
                     {/* Nombre del proyecto siempre visible */}
                     <Typography 
                       variant="caption" 
@@ -213,14 +214,14 @@ const ProjectList = ({ projects }) => {
                     <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600, fontSize: '0.65rem' }}>
                       Avance
                     </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, px: 0.25 }}>
                       <Tooltip title={`${progress}%`} placement="top">
                         <LinearProgress
                           variant="determinate"
                           value={progress}
                           sx={{
                             flexGrow: 1,
-                            height: 4, // Reducir altura de la barra de progreso
+                            height: 6, // Altura de la barra de progreso para mejor visibilidad
                             borderRadius: 3,
                             backgroundColor: 'rgba(255,255,255,0.12)',
                             '& .MuiLinearProgress-bar': {

@@ -4,6 +4,35 @@ const pool = require('./db');
 const path = require('path');
 const fs = require('fs');
 
+// Funciones de utilidad para fechas (copiadas de server.js)
+const startOfDayUtc = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+};
+
+const endOfDayUtc = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  
+  date.setUTCHours(23, 59, 59, 999);
+  return date;
+};
+
+const endOfPreviousDayUtc = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  
+  date.setUTCDate(date.getUTCDate() - 1);
+  date.setUTCHours(23, 59, 59, 999);
+  return date;
+};
+
 const DEFAULT_POLYGON_OVERRIDE_PATH = path.resolve(__dirname, '../frontend/src/ejemplo/desa/data/Poligono-proyecto.json');
 
 const fetchAndNormalizeAssets = async (projectId) => {
@@ -197,7 +226,8 @@ const fetchAndNormalizeAssets = async (projectId) => {
     return { deliveries: [], projectDetails, externalError: { status: 'empty_deliveries', rawResponse: externalData } };
   }
 
-  const deliveries = deliveriesRaw.flatMap((delivery, deliveryIndex) => {
+  // Primero, normalizar todos los assets sin calcular availability
+  const deliveriesTemp = deliveriesRaw.flatMap((delivery, deliveryIndex) => {
     if (!Array.isArray(delivery?.assets)) {
       return [];
     }
@@ -240,8 +270,6 @@ const fetchAndNormalizeAssets = async (projectId) => {
         const assetId = item.asset_id || metadata.cesium_asset_id || metadata.asset_id || metadata.ion_asset_id;
         const cesiumToken = item.cesium_token || metadata.cesium_token || metadata.token;
 
-        const availability = item.availability || asset.availability || delivery.availability || null;
-
         return {
           id: item.id || `${delivery._id || deliveryIndex}-${assetIndex}-${itemIndex}`,
           delivery_id: delivery._id,
@@ -255,11 +283,77 @@ const fetchAndNormalizeAssets = async (projectId) => {
           lon: longitude,
           lat: latitude,
           alt: altitude,
-          availability,
+          availability: null, // Se calculará después
           provider: item.provider || metadata.provider,
         };
       }).filter(Boolean);
     });
+  });
+
+  // Obtener fechas del proyecto
+  const { start_date: projectStart, end_date: projectEnd } = projectDetails;
+  const projectStartDate = new Date(projectStart);
+  const projectEndDate = new Date(projectEnd);
+
+  console.log(`[ASSETS] Calculando availability para ${deliveriesTemp.length} assets`);
+  console.log(`[ASSETS] Proyecto: ${projectStartDate.toISOString()} - ${projectEndDate.toISOString()}`);
+
+  // Agrupar assets por fecha para calcular availability
+  const assetsByDate = {};
+  deliveriesTemp.forEach(asset => {
+    const dateKey = asset.date ? new Date(asset.date).toISOString().split('T')[0] : 'no-date';
+    if (!assetsByDate[dateKey]) {
+      assetsByDate[dateKey] = [];
+    }
+    assetsByDate[dateKey].push(asset);
+  });
+
+  // Ordenar fechas para calcular próximas capturas
+  const sortedDates = Object.keys(assetsByDate)
+    .filter(date => date !== 'no-date')
+    .sort();
+
+  console.log(`[ASSETS] Fechas de captura encontradas:`, sortedDates);
+
+  // Calcular availability para cada asset
+  const deliveries = deliveriesTemp.map(asset => {
+    const assetDate = asset.date ? new Date(asset.date) : null;
+    
+    if (!assetDate || Number.isNaN(assetDate.getTime())) {
+      // Si no tiene fecha, usar todo el período del proyecto
+      const startIso = startOfDayUtc(projectStartDate)?.toISOString();
+      const endIso = endOfDayUtc(projectEndDate)?.toISOString();
+      asset.availability = startIso && endIso ? `${startIso}/${endIso}` : null;
+      return asset;
+    }
+
+    // Fecha de inicio: 00:00 del día de captura
+    const startDate = startOfDayUtc(assetDate);
+    
+    // Fecha de fin: encontrar la próxima fecha de captura
+    const currentDateKey = assetDate.toISOString().split('T')[0];
+    const currentIndex = sortedDates.indexOf(currentDateKey);
+    
+    let endDate;
+    if (currentIndex >= 0 && currentIndex < sortedDates.length - 1) {
+      // Hay una próxima captura: usar 23:59 del día anterior a la próxima captura
+      const nextDate = new Date(sortedDates[currentIndex + 1]);
+      endDate = endOfPreviousDayUtc(nextDate);
+    } else {
+      // Es la última captura: usar 23:59 del fin del proyecto
+      endDate = endOfDayUtc(projectEndDate);
+    }
+
+    // Validar que endDate no sea anterior a startDate
+    if (endDate && startDate && endDate < startDate) {
+      endDate = endOfDayUtc(startDate);
+    }
+
+    const startIso = startDate?.toISOString();
+    const endIso = endDate?.toISOString();
+    asset.availability = startIso && endIso ? `${startIso}/${endIso}` : null;
+
+    return asset;
   });
 
   console.log(`[ASSETS] ✅ ${deliveries.length} assets normalizados obtenidos.`);
@@ -272,6 +366,14 @@ const fetchAndNormalizeAssets = async (projectId) => {
   
   console.log(`[ASSETS] Resumen por tipo:`, assetsByType);
   
+  // Log de availability calculados
+  const availabilityExamples = deliveries.slice(0, 3).map(asset => ({
+    id: asset.id,
+    date: asset.date,
+    availability: asset.availability
+  }));
+  console.log(`[ASSETS] Ejemplos de availability calculados:`, availabilityExamples);
+  
   if (deliveries.length > 0) {
     console.log(`[ASSETS] Primer asset de ejemplo:`, {
       id: deliveries[0].id,
@@ -279,6 +381,7 @@ const fetchAndNormalizeAssets = async (projectId) => {
       asset_type: deliveries[0].asset_type,
       asset_id: deliveries[0].asset_id,
       date: deliveries[0].date,
+      availability: deliveries[0].availability,
       hasUrl: !!deliveries[0].url,
       hasCoords: !!(deliveries[0].lon && deliveries[0].lat)
     });

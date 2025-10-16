@@ -14,7 +14,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import './LayerSelector.css';
-import { useUser } from '../context/UserContext.jsx';
+import { useUser } from '../context/UserContext';
+import { useProjectPermissions } from '../hooks/useProjectPermissions';
 
 const PHOTO_ICON_SRC = "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26' fill='none'%3e%3cg stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M22 21H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3.4l1.4-2h8.4l1.4 2H22a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2Z'/%3e%3ccircle cx='13' cy='14' r='4'/%3e%3c/g%3e%3c/svg%3e";
 const PHOTO_360_ICON_SRC = "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3e%3cg stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='14' cy='14' r='4'/%3e%3cpath d='M5 9.5c2.2-2.3 5.4-3.5 9-3.5s6.8 1.2 9 3.5'/%3e%3cpath d='M23 18.5c-2.2 2.3-5.4 3.5-9 3.5s-6.8-1.2-9-3.5'/%3e%3cpath d='M6.5 11.5L4 9'/%3e%3cpath d='M6.5 16.5 4 19'/%3e%3cpath d='M21.5 11.5 24 9'/%3e%3cpath d='M21.5 16.5 24 19'/%3e%3cpath d='M10.5 14h7'/%3e%3c/g%3e%3c/svg%3e";
@@ -38,6 +39,7 @@ const LayerSelector = ({
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [fineOffset, setFineOffset] = useState(0);
   const { hasRole } = useUser() || { hasRole: () => false };
+  const { canEditProject } = useProjectPermissions(projectId);
   const [openRealidad, setOpenRealidad] = useState(false);
   const [openProyecto, setOpenProyecto] = useState(false);
 
@@ -363,8 +365,8 @@ const LayerSelector = ({
                         label={(<span className="layer-label">{it.file_name || `IFC ${it.asset_id}`}</span>)}
                       />
                     ))}
-                    {/* Slider de altura IFC (solo Admin) */}
-                    {hasRole('Admin') && (
+                    {/* Slider de altura IFC (solo Admin o con permisos de edición) */}
+                    {(hasRole('Admin') || canEditProject()) && (
                       <Paper variant="outlined" sx={{ mt: 1.5, pr: 2, pl: 2, py: 1.25, background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.12)' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                           <Typography variant="body2" color="#fff" fontWeight={600}>

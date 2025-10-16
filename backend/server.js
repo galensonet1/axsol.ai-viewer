@@ -436,6 +436,50 @@ app.get('/api/projects/:id', checkJwt, async (req, res) => {
   }
 });
 
+// Endpoint para obtener permisos del usuario en un proyecto específico
+app.get('/api/projects/:id/permissions', checkJwt, async (req, res) => {
+  const { id } = req.params;
+  const auth0Sub = req.auth.payload.sub;
+  
+  try {
+    console.log(`[PROJECT-PERMISSIONS] Usuario ${auth0Sub} consultando permisos para proyecto ${id}`);
+    
+    // Obtener el usuario
+    const userQuery = 'SELECT id, role_id FROM users WHERE auth0_sub = $1';
+    const userResult = await pool.query(userQuery, [auth0Sub]);
+    
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+    
+    const userId = userResult.rows[0].id;
+    const userRoleId = userResult.rows[0].role_id;
+    
+    // Verificar permisos específicos del proyecto
+    const permissionsQuery = `
+      SELECT permission_level 
+      FROM project_permissions 
+      WHERE project_id = $1 AND user_id = $2
+    `;
+    
+    const permissionsResult = await pool.query(permissionsQuery, [id, userId]);
+    
+    const response = {
+      user_id: userId,
+      project_id: parseInt(id),
+      global_role_id: userRoleId,
+      permission_level: permissionsResult.rows.length > 0 ? permissionsResult.rows[0].permission_level : null,
+      can_edit: userRoleId === 5 || userRoleId === 6 || (permissionsResult.rows.length > 0 && permissionsResult.rows[0].permission_level === 'admin')
+    };
+    
+    console.log(`[PROJECT-PERMISSIONS] Permisos para usuario ${userId} en proyecto ${id}:`, response);
+    res.json(response);
+  } catch (error) {
+    console.error(`Error al obtener permisos del proyecto ${id}:`, error);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
+});
+
 // Endpoint para obtener el layout de un proyecto
 app.get('/api/projects/:id/layout', async (req, res) => {
   const { id } = req.params;

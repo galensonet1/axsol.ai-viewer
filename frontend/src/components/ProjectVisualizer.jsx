@@ -1683,6 +1683,7 @@ const ProjectVisualizer = () => {
         </Box>
         {!selectedElement && (
           <LayerSelector
+            projectId={projectId}
             layerVisibility={layerVisibility}
             onLayerVisibilityChange={(newVisibility) => {
               setLayerVisibility(newVisibility);

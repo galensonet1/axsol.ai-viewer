@@ -13,19 +13,30 @@ export const UserProvider = ({ children }) => {
     setUser,
     loadingUser,
     setLoadingUser,
-    // Conveniencia para chequear roles
+    // Conveniencia para chequear roles y permisos
     hasRole: (role) => {
       console.log('[UserContext] Checking role:', role, 'User:', user);
       console.log('[UserContext] User roles:', user?.roles);
-      console.log('[UserContext] User role_name:', user?.role_name);
+      console.log('[UserContext] User roleIds:', user?.roleIds);
       
-      // Verificar tanto en roles array como en role_name
+      // Si es Admin, verificar:
+      // 1. Rol Superadmin (roleId 6) o Admin (roleId 5)
+      // 2. Rol en array de strings
+      // 3. TODO: Verificar project_permissions para permission_level=admin
+      if (role === 'Admin') {
+        const isSuperadmin = user?.roleIds?.includes(6) || user?.roles?.includes('Superadmin');
+        const isAdmin = user?.roleIds?.includes(5) || user?.roles?.includes('Admin');
+        const hasAdminRole = isSuperadmin || isAdmin;
+        
+        console.log('[UserContext] isSuperadmin:', isSuperadmin, 'isAdmin:', isAdmin, 'hasAdminRole:', hasAdminRole);
+        return hasAdminRole;
+      }
+      
+      // Para otros roles, verificar en array de strings
       const hasRoleInArray = user?.roles?.includes(role) ?? false;
-      const hasRoleInName = user?.role_name === role;
+      console.log('[UserContext] hasRoleInArray:', hasRoleInArray);
       
-      console.log('[UserContext] hasRoleInArray:', hasRoleInArray, 'hasRoleInName:', hasRoleInName);
-      
-      return hasRoleInArray || hasRoleInName;
+      return hasRoleInArray;
     },
   };
 

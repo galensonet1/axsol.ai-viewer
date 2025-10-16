@@ -499,14 +499,41 @@ app.get('/api/projects/:id/layout', async (req, res) => {
 // Endpoint para obtener assets externos de un proyecto
 app.get('/api/projects/:id/assets', async (req, res) => {
   const projectId = req.params.id;
-  console.log(`[ASSETS] Iniciando obtención de assets para el proyecto: ${projectId}`);
+  console.log(`[ASSETS] 🚀 Iniciando obtención de assets para el proyecto: ${projectId}`);
+  console.log(`[ASSETS] Request headers:`, {
+    'user-agent': req.get('user-agent'),
+    'authorization': req.get('authorization') ? 'present' : 'missing'
+  });
 
   try {
-    const { deliveries } = await fetchAndNormalizeAssets(projectId);
-    res.json({ deliveries });
+    const result = await fetchAndNormalizeAssets(projectId);
+    const { deliveries, externalError } = result;
+    
+    console.log(`[ASSETS] 📊 Resultado final:`, {
+      deliveriesCount: deliveries.length,
+      hasExternalError: !!externalError,
+      externalError: externalError
+    });
+    
+    if (externalError) {
+      console.warn(`[ASSETS] ⚠️ Hay errores externos pero se devuelve respuesta parcial`);
+    }
+    
+    res.json({ 
+      deliveries,
+      meta: {
+        count: deliveries.length,
+        externalError: externalError || null
+      }
+    });
   } catch (error) {
-    console.error(`[ASSETS] Error al obtener assets para el proyecto ${projectId}:`, error.message);
-    res.status(500).json({ error: 'Error interno al obtener los assets.' });
+    console.error(`[ASSETS] ❌ Error crítico al obtener assets para el proyecto ${projectId}:`);
+    console.error(`[ASSETS] Error message:`, error.message);
+    console.error(`[ASSETS] Error stack:`, error.stack);
+    res.status(500).json({ 
+      error: 'Error interno al obtener los assets.',
+      details: error.message 
+    });
   }
 });
 

@@ -114,6 +114,9 @@ const fetchAndNormalizeAssets = async (projectId) => {
 
   // 3. Realizar la llamada a la API externa
   console.log(`[ASSETS] Realizando llamada a la API externa: ${apiUrl}`);
+  console.log(`[ASSETS] Headers de la petición:`, {
+    'ax-api-key': process.env.AX_API_KEY ? `${process.env.AX_API_KEY.substring(0, 10)}...` : 'NO_KEY'
+  });
 
   let externalData;
   try {
@@ -121,13 +124,36 @@ const fetchAndNormalizeAssets = async (projectId) => {
       headers: {
         'ax-api-key': process.env.AX_API_KEY,
       },
+      timeout: 30000, // 30 segundos timeout
     });
+    
+    console.log(`[ASSETS] Respuesta externa exitosa. Status: ${response.status}`);
+    console.log(`[ASSETS] Tamaño de respuesta: ${JSON.stringify(response.data).length} caracteres`);
+    console.log(`[ASSETS] Estructura de respuesta:`, {
+      isArray: Array.isArray(response.data),
+      keys: typeof response.data === 'object' ? Object.keys(response.data) : 'not_object',
+      deliveriesCount: response.data?.deliveries?.length || 'no_deliveries_key'
+    });
+    
     externalData = response.data;
   } catch (error) {
     const status = error.response?.status;
+    const statusText = error.response?.statusText;
     const message = error.response?.data || error.message;
-    console.error(`[ASSETS] Falló la consulta externa (${status || 'sin status'}):`, message);
-    return { deliveries: [], projectDetails, externalError: { status, message } };
+    const isTimeout = error.code === 'ECONNABORTED';
+    
+    console.error(`[ASSETS] ❌ Falló la consulta externa:`);
+    console.error(`[ASSETS] Status: ${status || 'sin status'} (${statusText || 'sin statusText'})`);
+    console.error(`[ASSETS] Timeout: ${isTimeout}`);
+    console.error(`[ASSETS] Message:`, message);
+    console.error(`[ASSETS] Full error:`, {
+      code: error.code,
+      errno: error.errno,
+      syscall: error.syscall,
+      hostname: error.hostname
+    });
+    
+    return { deliveries: [], projectDetails, externalError: { status, message, isTimeout } };
   }
 
   // 4. Normalizar los datos: usar flatMap para crear un asset por cada archivo compatible
@@ -152,10 +178,23 @@ const fetchAndNormalizeAssets = async (projectId) => {
   };
 
   const deliveriesRaw = extractDeliveriesArray(externalData);
+  
+  console.log(`[ASSETS] Extrayendo deliveries de la respuesta...`);
+  console.log(`[ASSETS] deliveriesRaw type:`, Array.isArray(deliveriesRaw) ? 'array' : typeof deliveriesRaw);
+  console.log(`[ASSETS] deliveriesRaw length:`, deliveriesRaw?.length || 'no_length');
+  
+  if (Array.isArray(deliveriesRaw) && deliveriesRaw.length > 0) {
+    console.log(`[ASSETS] Primera delivery structure:`, {
+      keys: Object.keys(deliveriesRaw[0] || {}),
+      hasAssets: Array.isArray(deliveriesRaw[0]?.assets),
+      assetsCount: deliveriesRaw[0]?.assets?.length || 'no_assets'
+    });
+  }
 
   if (!Array.isArray(deliveriesRaw) || deliveriesRaw.length === 0) {
-    console.warn('[ASSETS] La respuesta externa no contiene entregas.');
-    return { deliveries: [], projectDetails, externalError: { status: 'empty_deliveries' } };
+    console.warn('[ASSETS] ⚠️ La respuesta externa no contiene entregas válidas.');
+    console.warn('[ASSETS] Respuesta completa:', JSON.stringify(externalData, null, 2));
+    return { deliveries: [], projectDetails, externalError: { status: 'empty_deliveries', rawResponse: externalData } };
   }
 
   const deliveries = deliveriesRaw.flatMap((delivery, deliveryIndex) => {
@@ -223,7 +262,28 @@ const fetchAndNormalizeAssets = async (projectId) => {
     });
   });
 
-  console.log(`[ASSETS] ${deliveries.length} assets normalizados obtenidos.`);
+  console.log(`[ASSETS] ✅ ${deliveries.length} assets normalizados obtenidos.`);
+  
+  // Log de resumen por tipo
+  const assetsByType = deliveries.reduce((acc, asset) => {
+    acc[asset.asset_type] = (acc[asset.asset_type] || 0) + 1;
+    return acc;
+  }, {});
+  
+  console.log(`[ASSETS] Resumen por tipo:`, assetsByType);
+  
+  if (deliveries.length > 0) {
+    console.log(`[ASSETS] Primer asset de ejemplo:`, {
+      id: deliveries[0].id,
+      name: deliveries[0].name,
+      asset_type: deliveries[0].asset_type,
+      asset_id: deliveries[0].asset_id,
+      date: deliveries[0].date,
+      hasUrl: !!deliveries[0].url,
+      hasCoords: !!(deliveries[0].lon && deliveries[0].lat)
+    });
+  }
+  
   return { deliveries, projectDetails };
 };
 

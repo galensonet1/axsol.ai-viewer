@@ -435,11 +435,20 @@ router.post('/projects', async (req, res) => {
     const query = `
       INSERT INTO projects (
         name, description, business_id, api_base_url, 
-        start_date, end_date, layout_geojson, project_polygon, layout_polygon, initial_location, opcions, weekly_construction_plan
+        start_date, end_date, layout_geojson, project_polygon_geojson, initial_location, opcions, weekly_construction_plan
       ) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
       RETURNING *
     `;
+    
+    // Mapear los campos del frontend a los nombres correctos de la BD
+    const layout_geojson_final = layout_polygon || layout_geojson || null;
+    const project_polygon_geojson = project_polygon || null;
+    
+    console.log(`[ADMIN] Creando proyecto con polígonos:`, {
+      project_polygon_geojson: project_polygon_geojson ? 'present' : 'null',
+      layout_geojson_final: layout_geojson_final ? 'present' : 'null'
+    });
     
     const values = [
       name,
@@ -448,9 +457,8 @@ router.post('/projects', async (req, res) => {
       api_base_url || null,
       start_date || null,
       end_date || null,
-      layout_geojson || null,
-      project_polygon || null,
-      layout_polygon || null,
+      layout_geojson_final,
+      project_polygon_geojson,
       initial_location || null,
       opcions || {},
       weekly_construction_plan || null
@@ -596,12 +604,21 @@ router.put('/projects/:id', async (req, res) => {
       start_date,
       end_date,
       layout_geojson,
+      project_polygon,
+      layout_polygon,
       initial_location,
       opcions,
       weekly_construction_plan
     } = req.body;
     
     console.log(`[ADMIN] Actualizando proyecto ID: ${id}`);
+    console.log(`[ADMIN] Datos recibidos:`, {
+      name, description, business_id, api_base_url,
+      start_date, end_date, layout_geojson,
+      project_polygon: project_polygon ? 'present' : 'null',
+      layout_polygon: layout_polygon ? 'present' : 'null',
+      initial_location, opcions, weekly_construction_plan
+    });
     
     // Verificar que el proyecto existe
     const checkQuery = 'SELECT id FROM projects WHERE id = $1';
@@ -614,6 +631,10 @@ router.put('/projects/:id', async (req, res) => {
       });
     }
     
+    // Mapear los campos del frontend a los nombres correctos de la BD
+    const project_polygon_geojson = project_polygon || null;
+    const layout_geojson_final = layout_polygon || layout_geojson || null;
+    
     const query = `
       UPDATE projects 
       SET 
@@ -624,11 +645,12 @@ router.put('/projects/:id', async (req, res) => {
         start_date = COALESCE($5, start_date),
         end_date = COALESCE($6, end_date),
         layout_geojson = COALESCE($7, layout_geojson),
-        initial_location = COALESCE($8, initial_location),
-        opcions = COALESCE(opcions::jsonb, '{}'::jsonb) || COALESCE($9::jsonb, '{}'::jsonb),
-        weekly_construction_plan = COALESCE($10, weekly_construction_plan),
+        project_polygon_geojson = COALESCE($8, project_polygon_geojson),
+        initial_location = COALESCE($9, initial_location),
+        opcions = COALESCE(opcions::jsonb, '{}'::jsonb) || COALESCE($10::jsonb, '{}'::jsonb),
+        weekly_construction_plan = COALESCE($11, weekly_construction_plan),
         updated_at = CURRENT_TIMESTAMP
-      WHERE id = $11
+      WHERE id = $12
       RETURNING *
     `;
     
@@ -639,7 +661,8 @@ router.put('/projects/:id', async (req, res) => {
       api_base_url,
       start_date,
       end_date,
-      layout_geojson,
+      layout_geojson_final,
+      project_polygon_geojson,
       initial_location,
       opcions || {},
       weekly_construction_plan || null,

@@ -465,12 +465,12 @@ function populateProjectForm(project) {
         document.getElementById('endDate').value = project.end_date.split('T')[0];
     }
     
-    // Formatear polígonos
-    if (project.project_polygon) {
-        document.getElementById('projectPolygon').value = JSON.stringify(project.project_polygon, null, 2);
+    // Formatear polígonos (mapear desde los nombres de la BD)
+    if (project.project_polygon_geojson) {
+        document.getElementById('projectPolygon').value = JSON.stringify(project.project_polygon_geojson, null, 2);
     }
-    if (project.layout_polygon) {
-        document.getElementById('layoutPolygon').value = JSON.stringify(project.layout_polygon, null, 2);
+    if (project.layout_geojson) {
+        document.getElementById('layoutPolygon').value = JSON.stringify(project.layout_geojson, null, 2);
     }
     
     // Formatear initial_location

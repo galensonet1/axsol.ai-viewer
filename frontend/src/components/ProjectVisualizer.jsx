@@ -289,6 +289,12 @@ const ProjectVisualizer = () => {
   const imagesLayer = useLayerData(projectId, 'images', { fetchOnMount: false });
   const images360Layer = useLayerData(projectId, 'images360', { fetchOnMount: false });
   const { availableDates: availableCaptureDates, isLoading: datesLoading } = useAssetDates(projectId);
+  // Debug del proyecto completo
+  useEffect(() => {
+    console.log('[PROJECT DEBUG] projectData completo:', projectData);
+    console.log('[PROJECT DEBUG] weekly_construction_plan:', projectData?.weekly_construction_plan);
+  }, [projectData]);
+
   const hasActivityPlan = useMemo(() => Boolean(projectData?.weekly_construction_plan), [projectData?.weekly_construction_plan]);
   const planUrl = useMemo(() => {
     try {

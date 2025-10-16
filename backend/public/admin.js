@@ -524,6 +524,9 @@ async function saveProject() {
             return;
         }
         
+        const projectId = document.getElementById('projectId').value;
+        const isEditing = projectId !== '';
+        
         const projectData = {
             name: document.getElementById('projectName').value,
             business_id: document.getElementById('businessId').value,
@@ -569,15 +572,17 @@ async function saveProject() {
             }
         }
 
-        // Weekly plan URL (solo enviar si no está vacío para no sobreescribir accidentalmente)
+        // Weekly plan URL - preservar valor existente si está vacío durante edición
         const weeklyEl = document.getElementById('weeklyPlanUrl');
         const weeklyUrl = weeklyEl ? weeklyEl.value.trim() : '';
-        if (weeklyUrl !== '') {
-            projectData.weekly_construction_plan = weeklyUrl;
+        if (isEditing) {
+            // En edición: usar el valor del campo, o preservar el existente si está vacío
+            const existingWeeklyPlan = (currentEditingProject && currentEditingProject.weekly_construction_plan) ? currentEditingProject.weekly_construction_plan : null;
+            projectData.weekly_construction_plan = weeklyUrl !== '' ? weeklyUrl : existingWeeklyPlan;
+        } else {
+            // En creación: usar el valor del campo o null
+            projectData.weekly_construction_plan = weeklyUrl !== '' ? weeklyUrl : null;
         }
-
-        const projectId = document.getElementById('projectId').value;
-        const isEditing = projectId !== '';
 
         // Branding inputs
         const primaryEl = document.getElementById('primaryLogoUrl');

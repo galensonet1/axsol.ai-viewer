@@ -137,6 +137,28 @@ router.delete('/projects/:projectId/weekly-plan', async (req, res) => {
   }
 });
 
+// Obtener plan semanal para un proyecto
+router.get('/projects/:projectId/weekly-plan', async (req, res) => {
+  const { projectId } = req.params;
+  try {
+    const result = await pool.query('SELECT weekly_construction_plan FROM projects WHERE id = $1', [projectId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'Proyecto no encontrado' });
+    }
+    
+    const weeklyPlan = result.rows[0].weekly_construction_plan;
+    return res.json({ 
+      success: true, 
+      data: { 
+        weekly_construction_plan: weeklyPlan 
+      } 
+    });
+  } catch (e) {
+    console.error('[ADMIN][WEEKLY-PLAN] Error obteniendo plan semanal:', e);
+    return res.status(500).json({ success: false, error: 'Error interno obteniendo el plan semanal' });
+  }
+});
+
 // Eliminar un IFC (DB + Cesium Ion)
 router.delete('/projects/:projectId/ifc/:ifcId', async (req, res) => {
   const { projectId, ifcId } = req.params;

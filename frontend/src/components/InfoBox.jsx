@@ -1,15 +1,25 @@
 import React from 'react';
-import { Box, Paper, Typography, IconButton, Divider, Button } from '@mui/material';
+import { Box, Paper, Typography, IconButton, Divider, Button, List, ListItem, ListItemText, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import SquareFootIcon from '@mui/icons-material/SquareFoot';
+import SaveIcon from '@mui/icons-material/Save';
+import DownloadIcon from '@mui/icons-material/Download';
+import ShareIcon from '@mui/icons-material/Share';
 import MediaLightbox from './MediaLightbox';
 import { useProject } from '../context/ProjectContext';
 import './InfoBox.css';
 
-const InfoBox = ({ selectedElement, onClose }) => {
+const InfoBox = ({ selectedElement, onClose, measurements, showMeasurements }) => {
   console.log('[InfoBox] Rendering with selectedElement:', selectedElement);
+  
+  // Mostrar mediciones si no hay elemento seleccionado pero sí hay mediciones
+  if (!selectedElement && showMeasurements) {
+    return <MeasurementsBox measurements={measurements} onClose={onClose} />;
+  }
   
   if (!selectedElement) {
     console.log('[InfoBox] No selectedElement, returning null');
@@ -483,6 +493,179 @@ const GeoJsonContent = ({ data }) => {
           </Typography>
         ))
       )}
+    </Box>
+  );
+};
+
+// Componente para mostrar la lista de mediciones
+const MeasurementsBox = ({ measurements, onClose }) => {
+  const { points = [], lines = [], areas = [] } = measurements || {};
+  
+  const handleSave = () => {
+    // TODO: Implementar guardado de mediciones
+    console.log('Guardar mediciones');
+  };
+  
+  const handleDownloadKML = () => {
+    // TODO: Implementar descarga en KML
+    console.log('Descargar KML');
+  };
+  
+  const handleShare = () => {
+    // TODO: Implementar compartir
+    console.log('Compartir mediciones');
+  };
+  
+  return (
+    <Box className="info-box">
+      <Paper elevation={6} className="info-box-surface">
+        <Box className="info-box-header">
+          <Box className="info-box-title">
+            <StraightenIcon fontSize="small" />
+            <Typography variant="subtitle2" className="info-box-title-text">
+              Mediciones
+            </Typography>
+          </Box>
+          <IconButton 
+            size="small" 
+            onClick={onClose}
+            className="info-box-close"
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Box>
+        
+        <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
+        
+        <Box className="info-box-content">
+          {/* Botones de acción */}
+          <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<SaveIcon />}
+              onClick={handleSave}
+              sx={{ fontSize: '0.75rem' }}
+            >
+              Guardar
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<DownloadIcon />}
+              onClick={handleDownloadKML}
+              sx={{ fontSize: '0.75rem' }}
+            >
+              KML
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<ShareIcon />}
+              onClick={handleShare}
+              sx={{ fontSize: '0.75rem' }}
+            >
+              Compartir
+            </Button>
+          </Box>
+          
+          <List dense sx={{ maxHeight: '300px', overflow: 'auto' }}>
+            {/* Puntos medidos */}
+            {points.map((point, index) => (
+              <ListItem key={`point-${point.id || index}`} sx={{ py: 0.5 }}>
+                <ViewInArIcon fontSize="small" sx={{ mr: 1, color: 'var(--ax-brand-accent)' }} />
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        Punto {index + 1}
+                      </Typography>
+                      <Chip 
+                        label="Punto" 
+                        size="small" 
+                        sx={{ height: 16, fontSize: '0.6rem' }}
+                      />
+                    </Box>
+                  }
+                  secondary={
+                    <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                      Lat: {point.coordinates?.latitude?.toFixed(6)}°<br/>
+                      Lon: {point.coordinates?.longitude?.toFixed(6)}°<br/>
+                      Alt: {point.coordinates?.height?.toFixed(2)} m
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
+            
+            {/* Líneas medidas */}
+            {lines.map((line, index) => (
+              <ListItem key={`line-${index}`} sx={{ py: 0.5 }}>
+                <StraightenIcon fontSize="small" sx={{ mr: 1, color: 'var(--ax-brand-accent)' }} />
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        Línea {index + 1}
+                      </Typography>
+                      <Chip 
+                        label="Distancia" 
+                        size="small" 
+                        sx={{ height: 16, fontSize: '0.6rem' }}
+                      />
+                    </Box>
+                  }
+                  secondary={
+                    <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                      {/* Extraer distancia del label */}
+                      Distancia medida
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
+            
+            {/* Áreas medidas */}
+            {areas.map((area, index) => (
+              <ListItem key={`area-${index}`} sx={{ py: 0.5 }}>
+                <SquareFootIcon fontSize="small" sx={{ mr: 1, color: 'var(--ax-brand-accent)' }} />
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        Área {index + 1}
+                      </Typography>
+                      <Chip 
+                        label="Superficie" 
+                        size="small" 
+                        sx={{ height: 16, fontSize: '0.6rem' }}
+                      />
+                    </Box>
+                  }
+                  secondary={
+                    <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                      {/* Extraer área del label */}
+                      Área medida
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
+            
+            {points.length === 0 && lines.length === 0 && areas.length === 0 && (
+              <ListItem>
+                <ListItemText
+                  primary={
+                    <Typography variant="body2" sx={{ textAlign: 'center', color: 'rgba(255,255,255,0.7)' }}>
+                      No hay mediciones disponibles
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            )}
+          </List>
+        </Box>
+      </Paper>
     </Box>
   );
 };

@@ -69,6 +69,12 @@ const ViewerToolBar = ({ onToolSelect, hasMeasurements = false, onClearMeasureme
           }
         }}
       >
+        <MenuItem onClick={() => handleMeasureSelect('point')} sx={{ color: 'var(--ax-panel-text)', py: 1 }}>
+          <ListItemIcon>
+            <ViewInArIcon fontSize="small" sx={{ color: 'var(--ax-panel-contrast)' }} />
+          </ListItemIcon>
+          <ListItemText primary="Medir Punto" primaryTypographyProps={{ fontSize: '0.85rem' }} />
+        </MenuItem>
         <MenuItem onClick={() => handleMeasureSelect('line')} sx={{ color: 'var(--ax-panel-text)', py: 1 }}>
           <ListItemIcon>
             <StraightenIcon fontSize="small" sx={{ color: 'var(--ax-panel-contrast)' }} />

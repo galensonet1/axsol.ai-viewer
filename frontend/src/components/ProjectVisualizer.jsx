@@ -26,6 +26,9 @@ import {
   GeoJsonDataSource as CesiumGeoJsonDataSource,
   BoundingSphere,
   HeadingPitchRange,
+  HeightReference,
+  Cartesian2,
+  VerticalOrigin,
 } from 'cesium';
 import useLayerData from '../hooks/useCzmlData';
 import useAssetDates from '../hooks/useAssetDates';
@@ -276,6 +279,8 @@ const ProjectVisualizer = () => {
   const measurePreviewRef = useRef({ line: null, polygon: null, label: null });
   const [measureLines, setMeasureLines] = useState([]);   // [{polyline,label}]
   const [measureAreas, setMeasureAreas] = useState([]);   // [{polygon,label}]
+  const [measurePointList, setMeasurePointList] = useState([]); // [{point,label,coordinates,elevation}]
+  const [measurementsList, setMeasurementsList] = useState([]); // Lista unificada de todas las mediciones
 
   // Sincronizar offset de IFC desde projectData.opcions
   useEffect(() => {
@@ -588,8 +593,12 @@ const ProjectVisualizer = () => {
           const cart = pickCartesian(event.position);
           if (!cart) return;
           setMeasurePoints((prev) => [...prev, cart]);
+          // Para punto: finalizar inmediatamente
+          if (measureMode === 'point') {
+            setTimeout(() => finalizePointMeasurement(cart), 0);
+          }
           // Para línea: finalizar con 2 puntos automáticamente
-          if (measureMode === 'line') {
+          else if (measureMode === 'line') {
             setTimeout(() => finalizeLineMeasurement(), 0);
           }
           return;
@@ -1191,20 +1200,77 @@ const ProjectVisualizer = () => {
     setMeasurePoints([]);
   }, [cesiumViewer, measureMode, measurePoints, clearMeasurementEntities]);
 
+  // Finalizar medición de punto
+  const finalizePointMeasurement = useCallback((cartesian) => {
+    if (!cesiumViewer || !cartesian) return;
+    
+    // Obtener coordenadas geográficas
+    const cartographic = Cartographic.fromCartesian(cartesian);
+    const longitude = Math.toDegrees(cartographic.longitude);
+    const latitude = Math.toDegrees(cartographic.latitude);
+    const height = cartographic.height;
+    
+    // Crear punto visual
+    const point = cesiumViewer.entities.add({
+      position: cartesian,
+      point: {
+        pixelSize: 12,
+        color: Color.RED,
+        outlineColor: Color.WHITE,
+        outlineWidth: 2,
+        heightReference: HeightReference.CLAMP_TO_GROUND
+      }
+    });
+    
+    // Crear etiqueta con coordenadas
+    const coordText = `Lat: ${latitude.toFixed(6)}°\nLon: ${longitude.toFixed(6)}°\nAlt: ${height.toFixed(2)} m`;
+    const label = cesiumViewer.entities.add({
+      position: cartesian,
+      label: {
+        text: coordText,
+        fillColor: Color.WHITE,
+        outlineColor: Color.BLACK,
+        outlineWidth: 2,
+        showBackground: true,
+        backgroundColor: Color.fromAlpha(Color.BLACK, 0.7),
+        font: '12px sans-serif',
+        pixelOffset: new Cartesian2(0, -50),
+        verticalOrigin: VerticalOrigin.BOTTOM
+      }
+    });
+    
+    // Agregar a la lista de puntos medidos
+    const pointData = {
+      id: Date.now().toString(),
+      type: 'point',
+      point,
+      label,
+      coordinates: { latitude, longitude, height },
+      color: Color.RED.toCssColorString()
+    };
+    
+    setMeasurePointList((prev) => [...prev, pointData]);
+    setMeasurePoints([]);
+    setMeasureMode('none');
+  }, [cesiumViewer]);
+
   // limpiar todas las mediciones
   const clearAllMeasurements = useCallback(() => {
     if (!cesiumViewer) return;
     try {
       measureLines.forEach(({ polyline, label }) => { try { cesiumViewer.entities.remove(polyline); } catch {}; try { cesiumViewer.entities.remove(label); } catch {} });
       measureAreas.forEach(({ polygon, label }) => { try { cesiumViewer.entities.remove(polygon); } catch {}; try { cesiumViewer.entities.remove(label); } catch {} });
+      measurePointList.forEach(({ point, label }) => { try { cesiumViewer.entities.remove(point); } catch {}; try { cesiumViewer.entities.remove(label); } catch {} });
     } finally {
       setMeasureLines([]);
       setMeasureAreas([]);
+      setMeasurePointList([]);
+      setMeasurementsList([]);
       clearMeasurementEntities();
       setMeasurePoints([]);
       setMeasureMode('none');
     }
-  }, [cesiumViewer, measureLines, measureAreas, clearMeasurementEntities]);
+  }, [cesiumViewer, measureLines, measureAreas, measurePointList, clearMeasurementEntities]);
 
   // useEffect para personalizar el botón Home cuando los datos estén listos
   useEffect(() => {
@@ -1723,6 +1789,8 @@ const ProjectVisualizer = () => {
           />
         )}
         <ViewerToolBar
+          hasMeasurements={measureLines.length > 0 || measureAreas.length > 0 || measurePointList.length > 0}
+          onClearMeasurements={clearAllMeasurements}
           onToolSelect={(tool, subTool) => {
             console.log('Herramienta seleccionada:', tool, subTool);
             
@@ -1732,11 +1800,13 @@ const ProjectVisualizer = () => {
               return;
             }
             if (tool === 'measure') {
-              // subTool: 'line' | 'area' (volumen está deshabilitado en la UI)
+              // subTool: 'point' | 'line' | 'area' (volumen está deshabilitado en la UI)
               clearMeasurementEntities();
               setSelectedElement(null);
               setMeasurePoints([]);
-              if (subTool === 'line') {
+              if (subTool === 'point') {
+                setMeasureMode('point');
+              } else if (subTool === 'line') {
                 setMeasureMode('line');
               } else if (subTool === 'area') {
                 setMeasureMode('area');
@@ -1750,6 +1820,12 @@ const ProjectVisualizer = () => {
         <InfoBox
           selectedElement={selectedElement}
           onClose={() => setSelectedElement(null)}
+          measurements={{
+            points: measurePointList,
+            lines: measureLines,
+            areas: measureAreas
+          }}
+          showMeasurements={measureLines.length > 0 || measureAreas.length > 0 || measurePointList.length > 0}
         />
         <ComparisonModal
           open={comparisonModalOpen}

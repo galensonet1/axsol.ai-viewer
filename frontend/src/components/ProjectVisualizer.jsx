@@ -295,7 +295,11 @@ const ProjectVisualizer = () => {
     console.log('[PROJECT DEBUG] weekly_construction_plan:', projectData?.weekly_construction_plan);
   }, [projectData]);
 
-  const hasActivityPlan = useMemo(() => Boolean(projectData?.weekly_construction_plan), [projectData?.weekly_construction_plan]);
+  const hasActivityPlan = useMemo(() => {
+    const result = Boolean(projectData?.weekly_construction_plan);
+    console.log('[PLAN DEBUG] hasActivityPlan calculated:', result, 'from:', projectData?.weekly_construction_plan);
+    return result;
+  }, [projectData?.weekly_construction_plan]);
   const planUrl = useMemo(() => {
     try {
       const raw = projectData?.weekly_construction_plan;

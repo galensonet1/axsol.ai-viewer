@@ -428,8 +428,10 @@ app.get('/api/projects/:id', checkJwt, async (req, res) => {
       return res.status(404).json({ error: 'Proyecto no encontrado.' });
     }
     
+    const projectData = result.rows[0];
     console.log(`[PROJECT] Usuario ${auth0Sub} accedió exitosamente al proyecto ${id}`);
-    res.json(result.rows[0]);
+    console.log(`[PROJECT] weekly_construction_plan:`, projectData.weekly_construction_plan);
+    res.json(projectData);
   } catch (error) {
     console.error(`Error al obtener el proyecto ${id}:`, error);
     res.status(500).json({ error: 'Error interno del servidor.' });

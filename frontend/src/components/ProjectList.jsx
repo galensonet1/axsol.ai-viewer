@@ -77,7 +77,7 @@ const ProjectList = ({ projects }) => {
             if (count <= 12) return 'repeat(2, 1fr)';
             return 'repeat(3, 1fr)';
           },
-          gridAutoRows: '1fr',
+          gridAutoRows: 'minmax(180px, 220px)', // Limitar altura máxima de las tarjetas
           alignContent: 'start',
           justifyContent: 'center',
           overflow: 'auto',
@@ -113,7 +113,10 @@ const ProjectList = ({ projects }) => {
                   backdropFilter: 'blur(10px)',
                   aspectRatio: '1',
                   display: 'flex',
+                  maxHeight: '220px', // Limitar altura máxima
+                  maxWidth: '220px',  // Limitar ancho máximo
                   boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                  margin: '0 auto', // Centrar la tarjeta
                   ':hover': {
                     borderColor: accentColor,
                     boxShadow: `0 6px 12px rgba(0,0,0,0.4), 0 0 0 1px ${accentOverlay}`,
@@ -130,8 +133,8 @@ const ProjectList = ({ projects }) => {
                     flexDirection: 'column',
                     alignItems: 'stretch',
                     justifyContent: 'space-between',
-                    gap: 1,
-                    p: 1,
+                    gap: 0.5, // Reducir espacio entre elementos
+                    p: 0.75, // Reducir padding
                     textDecoration: 'none',
                     color: 'inherit',
                     width: '100%',
@@ -147,10 +150,11 @@ const ProjectList = ({ projects }) => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      py: 0.5,
-                      px: 0.75,
+                      py: 0.25, // Reducir padding vertical
+                      px: 0.5,  // Reducir padding horizontal
                       border: '1px solid rgba(255,255,255,0.08)',
-                      minHeight: 36,
+                      minHeight: 28, // Reducir altura mínima
+                      maxHeight: 32, // Limitar altura máxima del logo
                     }}
                   >
                     {logoUrl ? (
@@ -160,21 +164,54 @@ const ProjectList = ({ projects }) => {
                         alt={project.name}
                         sx={{
                           maxWidth: '100%',
-                          maxHeight: 28,
+                          maxHeight: 24, // Reducir tamaño del logo
                           objectFit: 'contain',
                           filter: 'brightness(1.05)',
                         }}
                       />
                     ) : (
-                      <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#fff', textShadow: '0 1px 1px rgba(0,0,0,0.6)' }}>
+                      <Typography variant="caption" sx={{ 
+                        fontWeight: 600, 
+                        color: '#fff', 
+                        textShadow: '0 1px 1px rgba(0,0,0,0.6)',
+                        fontSize: '0.7rem',
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
+                      }}>
                         {project.name}
                       </Typography>
                     )}
                   </Box>
 
-                  <Stack spacing={0.5} sx={{ mt: 'auto' }}>
-                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600, fontSize: '0.75rem' }}>
-                      Avance del proyecto
+                  <Stack spacing={0.25} sx={{ mt: 'auto' }}> {/* Reducir spacing */}
+                    {/* Nombre del proyecto siempre visible */}
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        fontWeight: 600, 
+                        color: '#fff', 
+                        textAlign: 'center',
+                        fontSize: '0.7rem',
+                        lineHeight: 1.1,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                        px: 0.5,
+                        mb: 0.5
+                      }}
+                    >
+                      {project.name}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600, fontSize: '0.65rem' }}>
+                      Avance
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <Tooltip title={`${progress}%`} placement="top">
@@ -183,7 +220,7 @@ const ProjectList = ({ projects }) => {
                           value={progress}
                           sx={{
                             flexGrow: 1,
-                            height: 6,
+                            height: 4, // Reducir altura de la barra de progreso
                             borderRadius: 3,
                             backgroundColor: 'rgba(255,255,255,0.12)',
                             '& .MuiLinearProgress-bar': {
@@ -193,7 +230,7 @@ const ProjectList = ({ projects }) => {
                           }}
                         />
                       </Tooltip>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#fff', fontSize: '0.75rem' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#fff', fontSize: '0.65rem', minWidth: '28px' }}>
                         {`${progress}%`}
                       </Typography>
                     </Box>

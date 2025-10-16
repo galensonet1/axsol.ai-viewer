@@ -480,8 +480,16 @@ function populateProjectForm(project) {
 
     // Weekly construction plan URL
     const weeklyEl = document.getElementById('weeklyPlanUrl');
+    console.log('[DEBUG] Weekly plan data:', {
+        weeklyEl: !!weeklyEl,
+        weekly_construction_plan: project.weekly_construction_plan,
+        projectId: project.id
+    });
     if (weeklyEl) {
         weeklyEl.value = project.weekly_construction_plan || '';
+        console.log('[DEBUG] Set weeklyPlanUrl field to:', weeklyEl.value);
+    } else {
+        console.warn('[DEBUG] weeklyPlanUrl element not found in DOM');
     }
 
     // Branding (opcions)
@@ -575,13 +583,23 @@ async function saveProject() {
         // Weekly plan URL - preservar valor existente si está vacío durante edición
         const weeklyEl = document.getElementById('weeklyPlanUrl');
         const weeklyUrl = weeklyEl ? weeklyEl.value.trim() : '';
+        console.log('[DEBUG] saveProject weekly plan logic:', {
+            isEditing,
+            weeklyUrl,
+            currentEditingProject: currentEditingProject ? {
+                id: currentEditingProject.id,
+                weekly_construction_plan: currentEditingProject.weekly_construction_plan
+            } : null
+        });
         if (isEditing) {
             // En edición: usar el valor del campo, o preservar el existente si está vacío
             const existingWeeklyPlan = (currentEditingProject && currentEditingProject.weekly_construction_plan) ? currentEditingProject.weekly_construction_plan : null;
             projectData.weekly_construction_plan = weeklyUrl !== '' ? weeklyUrl : existingWeeklyPlan;
+            console.log('[DEBUG] Final weekly_construction_plan for editing:', projectData.weekly_construction_plan);
         } else {
             // En creación: usar el valor del campo o null
             projectData.weekly_construction_plan = weeklyUrl !== '' ? weeklyUrl : null;
+            console.log('[DEBUG] Final weekly_construction_plan for creation:', projectData.weekly_construction_plan);
         }
 
         // Branding inputs

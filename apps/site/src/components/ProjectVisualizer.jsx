@@ -648,17 +648,17 @@ const ProjectVisualizer = () => {
 
       const pickCartesian = (pos) => {
         let cartesian = null;
-        try { cartesian = cesiumViewer.scene.pickPosition(pos); } catch {}
+        try { cartesian = viewer.scene.pickPosition(pos); } catch {}
         if (!cartesian) {
-          try { cartesian = cesiumViewer.camera.pickEllipsoid(pos); } catch {}
+          try { cartesian = viewer.camera.pickEllipsoid(pos); } catch {}
         }
         return cartesian;
       };
 
-      cesiumViewer.cesiumWidget.screenSpaceEventHandler.setInputAction((event) => {
+      viewer.cesiumWidget.screenSpaceEventHandler.setInputAction((event) => {
         if (measureMode !== 'none') {
           // Solo permitir puntos sobre 3D Tiles (IFC/tileset)
-          const picked = cesiumViewer.scene.pick(event.position);
+          const picked = viewer.scene.pick(event.position);
           const isTileFeature = picked && typeof picked.getPropertyIds === 'function';
           if (!isTileFeature) return;
           const cart = pickCartesian(event.position);
@@ -675,7 +675,7 @@ const ProjectVisualizer = () => {
           return;
         }
 
-        const pickedObject = cesiumViewer.scene.pick(event.position);
+        const pickedObject = viewer.scene.pick(event.position);
         if (pickedObject) {
           if (pickedObject.id) {
             handleElementSelection(pickedObject.id);
@@ -689,7 +689,7 @@ const ProjectVisualizer = () => {
         }
       }, ScreenSpaceEventType.LEFT_CLICK);
 
-      cesiumViewer.cesiumWidget.screenSpaceEventHandler.setInputAction(() => {
+      viewer.cesiumWidget.screenSpaceEventHandler.setInputAction(() => {
         if (measureMode === 'area' && measurePoints.length >= 3) {
           finalizeAreaMeasurement();
         }

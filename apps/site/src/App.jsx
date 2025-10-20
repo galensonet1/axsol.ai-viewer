@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSpaPageviews } from '@ingeia/analytics';
+import { useSpaPageviews } from './hooks/useSpaPageviews';
 import { useClarityScreen } from './hooks/useClarity';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';

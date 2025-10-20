@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import posthog from 'posthog-js';
 import { AnalyticsBrowser, Analytics } from '@segment/analytics-next';
 
@@ -245,31 +244,28 @@ export function segmentIdentify(userId: string, traits?: Record<string, any>) {
   }
 }
 
-// Hook for SPA pageviews (PostHog + Clarity + Customer.io + Segment)
-export function useSpaPageviews(getUrl: () => string) {
-  useEffect(() => {
-    const url = getUrl();
-    
-    // Track in PostHog
-    posthog.capture('$pageview', { url });
-    
-    // Track in Microsoft Clarity (if available)
-    if (typeof window !== 'undefined' && (window as any).clarity) {
-      (window as any).clarity('set', 'page', url);
-    }
-    
-    // Track in Customer.io (if available)
-    if (typeof window !== 'undefined' && window._cio) {
-      const pageName = url.split('?')[0]; // Remove query params
-      window._cio.page(pageName, { url });
-    }
-    
-    // Track in Segment (if available)
-    if (segmentAnalytics || (typeof window !== 'undefined' && window.analytics)) {
-      const pageName = url.split('?')[0];
-      segmentPage(pageName, { url });
-    }
-  }, [getUrl()]);
+// Track pageview manually (for SPA routing)
+// Note: Hook version (useSpaPageviews) moved to apps/site/src/hooks/
+export function trackPageview(url: string) {
+  // Track in PostHog
+  posthog.capture('$pageview', { url });
+  
+  // Track in Microsoft Clarity (if available)
+  if (typeof window !== 'undefined' && (window as any).clarity) {
+    (window as any).clarity('set', 'page', url);
+  }
+  
+  // Track in Customer.io (if available)
+  if (typeof window !== 'undefined' && window._cio) {
+    const pageName = url.split('?')[0]; // Remove query params
+    window._cio.page(pageName, { url });
+  }
+  
+  // Track in Segment (if available)
+  if (segmentAnalytics || (typeof window !== 'undefined' && window.analytics)) {
+    const pageName = url.split('?')[0];
+    segmentPage(pageName, { url });
+  }
 }
 
 // Unified identify: PostHog + Customer.io + Segment

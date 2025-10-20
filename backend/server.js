@@ -12,6 +12,7 @@ const axios = require('axios');
 const { findOrCreateUser } = require('./auth-utils');
 const { checkRole } = require('./auth-middleware');
 const ifcRoutes = require('./routes/ifc');
+const systemRoutes = require('./routes/system');
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const resolveAuth0Issuer = () => {
@@ -499,6 +500,9 @@ app.use('/api/admin', checkJwt, checkRole([5, 6]), adminRoutes);
 // GET /api/projects/:projectId/ifc -> listar
 // POST /api/projects/:projectId/ifc -> subir
 app.use('/api/projects', ifcRoutes);
+
+// System information routes (version, releases, health)
+app.use('/api/system', systemRoutes);
 
 // Endpoint para obtener KPIs de un proyecto (devuelve una estructura por defecto)
 app.get('/api/projects/:id/kpis', (req, res) => {

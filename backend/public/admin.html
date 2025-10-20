@@ -140,8 +140,11 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header">
-                            <h5><i class="bi bi-info-circle"></i> Información del Sistema</h5>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información del Sistema</h5>
+                            <button class="btn btn-sm btn-outline-primary" onclick="showReleasesModal()">
+                                <i class="bi bi-clock-history"></i> Ver Historial de Releases
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -149,8 +152,8 @@
                                     <p><strong>Estado del Backend:</strong> <span class="badge bg-success">Conectado</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Última Actualización:</strong> <span id="system-update">-</span></p>
-                                    <p><strong>Versión:</strong> <span class="badge bg-info">1.0.0</span></p>
+                                    <p><strong>Última Actualización:</strong> <span id="system-update" title="Último commit">-</span></p>
+                                    <p><strong>Versión:</strong> <span class="badge bg-info" title="Git tag actual">Cargando...</span></p>
                                 </div>
                             </div>
                         </div>
@@ -738,9 +741,32 @@
         </div>
     </div>
 
+    <!-- Releases History Modal -->
+    <div class="modal fade" id="releasesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-clock-history"></i> Historial de Releases</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="releases-loading" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                    </div>
+                    <div id="releases-content" style="display: none;">
+                        <!-- Releases will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
     <script>
+      const API_BASE = window.location.origin;
       (function(){
         // Create a promise that resolves when Auth0 client is ready (and user logged in)
         window.__ADMIN_AUTH0_PROMISE__ = (async () => {

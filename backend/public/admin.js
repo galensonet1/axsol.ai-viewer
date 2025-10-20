@@ -278,6 +278,7 @@ async function loadDashboard() {
     try {
         console.log('Cargando estadísticas del dashboard...');
         
+        // Load project stats
         const response = await fetch(`${API_BASE}/stats`);
         const data = await response.json();
         
@@ -295,9 +296,47 @@ async function loadDashboard() {
             showAlert('Error cargando estadísticas: ' + data.error, 'danger');
         }
         
+        // Load system version info
+        await loadSystemInfo();
+        
     } catch (error) {
         console.error('Error en loadDashboard:', error);
         showAlert('Error de conexión al cargar estadísticas', 'danger');
+    }
+}
+
+async function loadSystemInfo() {
+    try {
+        const response = await fetch(`${API_BASE}/system/version`);
+        const data = await response.json();
+        
+        if (data.success) {
+            // Update version badge
+            const versionBadge = document.querySelector('.badge.bg-info');
+            if (versionBadge) {
+                versionBadge.textContent = data.version;
+                versionBadge.title = `Branch: ${data.commit.branch} | Commit: ${data.commit.hash}`;
+            }
+            
+            // Update last update with git commit date
+            const systemUpdateEl = document.getElementById('system-update');
+            if (systemUpdateEl) {
+                systemUpdateEl.textContent = data.commit.date;
+                systemUpdateEl.title = data.commit.message;
+            }
+            
+            // Update backend status
+            const statusBadge = document.querySelector('.badge.bg-success');
+            if (statusBadge && data.hasUncommittedChanges) {
+                statusBadge.classList.remove('bg-success');
+                statusBadge.classList.add('bg-warning');
+                statusBadge.textContent = 'Cambios sin commitear';
+            }
+            
+            console.log('System info loaded:', data);
+        }
+    } catch (error) {
+        console.error('Error loading system info:', error);
     }
 }
 
@@ -306,7 +345,6 @@ function updateLastUpdate() {
     const timeString = now.toLocaleString('es-AR');
     
     document.getElementById('last-update').textContent = `Última actualización: ${timeString}`;
-    document.getElementById('system-update').textContent = timeString;
 }
 
 // ==========================================
@@ -1711,35 +1749,139 @@ async function migrateSelectedIFCs() {
     await loadProjectIFCs(projectId);
 }
 
-function showAlert(message, type = 'info', title = null) {
-    // Crear el alert
+function showAlert(message, type = 'info') {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-    alertDiv.style.position = 'fixed';
-    alertDiv.style.top = '20px';
-    alertDiv.style.right = '20px';
-    alertDiv.style.zIndex = '9999';
-    alertDiv.style.maxWidth = '400px';
-    
-    let content = '';
-    if (title) {
-        content += `<strong>${title}</strong><br>`;
-    }
-    content += message;
-    
     alertDiv.innerHTML = `
-        ${content}
+        ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
-    document.body.appendChild(alertDiv);
-    
-    // Auto-remover después de 5 segundos (excepto errores)
-    if (type !== 'danger') {
-        setTimeout(() => {
-            if (alertDiv.parentNode) {
-                alertDiv.remove();
-            }
-        }, 5000);
+    // Insert at top of main content
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.insertBefore(alertDiv, mainContent.firstChild);
+        
+        // Auto-remover después de 5 segundos (excepto errores)
+        if (type !== 'danger') {
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
     }
+}
+
+// ==========================================
+// RELEASES HISTORY
+// ==========================================
+
+async function showReleasesModal() {
+    const modal = new bootstrap.Modal(document.getElementById('releasesModal'));
+    modal.show();
+    
+    // Show loading
+    document.getElementById('releases-loading').style.display = 'block';
+    document.getElementById('releases-content').style.display = 'none';
+    
+    try {
+        const response = await fetch(`${API_BASE}/api/system/releases?limit=20`);
+        const data = await response.json();
+        
+        if (data.success && data.releases && data.releases.length > 0) {
+            renderReleases(data.releases);
+        } else {
+            document.getElementById('releases-content').innerHTML = `
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No hay releases disponibles
+                </div>
+            `;
+        }
+        
+        // Hide loading, show content
+        document.getElementById('releases-loading').style.display = 'none';
+        document.getElementById('releases-content').style.display = 'block';
+    } catch (error) {
+        console.error('Error loading releases:', error);
+        document.getElementById('releases-content').innerHTML = `
+            <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i> Error cargando historial de releases
+            </div>
+        `;
+        document.getElementById('releases-loading').style.display = 'none';
+        document.getElementById('releases-content').style.display = 'block';
+    }
+}
+
+function renderReleases(releases) {
+    const contentDiv = document.getElementById('releases-content');
+    
+    let html = '';
+    releases.forEach((release, index) => {
+        const isLatest = index === 0;
+        const latestLabel = isLatest ? '<span class="badge bg-success ms-2">Actual</span>' : '';
+        
+        html += `
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-0">
+                            <i class="bi bi-tag-fill"></i>
+                            <strong>${escapeHtml(release.tag)}</strong>
+                            ${latestLabel}
+                        </h6>
+                    </div>
+                    <small class="text-muted">
+                        <i class="bi bi-calendar3"></i>
+                        ${escapeHtml(release.date)}
+                    </small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>Changelog:</strong>
+                        <pre class="bg-light p-3 rounded mt-2" style="white-space: pre-wrap; font-size: 0.9em;">${escapeHtml(release.changelog)}</pre>
+                    </div>
+                    ${release.commits && release.commits.length > 0 ? `
+                        <div>
+                            <strong>Commits incluidos (${release.commits.length}):</strong>
+                            <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#commits-${index}">
+                                Ver/Ocultar
+                            </button>
+                            <div class="collapse" id="commits-${index}">
+                                <ul class="list-group mt-2">
+                                    ${release.commits.map(commit => `
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">
+                                                    <code class="text-primary">${escapeHtml(commit.hash)}</code>
+                                                    ${escapeHtml(commit.message)}
+                                                </div>
+                                                <small class="text-muted">
+                                                    ${escapeHtml(commit.author)} • ${escapeHtml(commit.date)}
+                                                </small>
+                                            </div>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    });
+    
+    contentDiv.innerHTML = html;
+}
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return String(text || '').replace(/[&<>"']/g, m => map[m]);
 }

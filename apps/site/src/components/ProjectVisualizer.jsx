@@ -2387,7 +2387,7 @@ const CzmlLayer = ({ data, visible, layerKey, splitDirection = null }) => {
         }
 
         if (cancelled) {
-          ds.destroy();
+          // DataSources don't have destroy(), just don't add them to the viewer
           return;
         }
 

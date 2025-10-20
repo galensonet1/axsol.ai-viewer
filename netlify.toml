@@ -1,6 +1,7 @@
 [build]
   # Build command for the SITE app
-  command = "cd apps/site && npm install && npm run build"
+  # Install analytics package dependencies first, then site dependencies, then build
+  command = "cd packages/analytics && npm install && cd ../../apps/site && npm install && npm run build"
   
   # Directory to publish (SITE build output)
   publish = "apps/site/dist"

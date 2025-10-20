@@ -157,7 +157,7 @@ async function replaceIFCFromLocal(projectId, ifcId) {
 // PANEL DE ADMINISTRACIÓN - AXSOL.ai
 // ==========================================
 
-const API_BASE = '/api/admin';
+const API_BASE = window.location.origin + '/api/admin';
 let currentEditingProject = null;
 
 const PALETTE_PRESETS = {
@@ -307,7 +307,7 @@ async function loadDashboard() {
 
 async function loadSystemInfo() {
     try {
-        const response = await fetch(`${API_BASE}/system/version`);
+        const response = await fetch(`${window.location.origin}/api/system/version`);
         const data = await response.json();
         
         if (data.success) {
@@ -1786,7 +1786,7 @@ async function showReleasesModal() {
     document.getElementById('releases-content').style.display = 'none';
     
     try {
-        const response = await fetch(`${API_BASE}/api/system/releases?limit=20`);
+        const response = await fetch(`${window.location.origin}/api/system/releases?limit=20`);
         const data = await response.json();
         
         if (data.success && data.releases && data.releases.length > 0) {

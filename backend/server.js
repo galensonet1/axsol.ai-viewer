@@ -176,17 +176,42 @@ app.delete('/api/projects/:id/weekly-plan', checkJwt, checkRole([5, 6]), async (
   }
 });
 
-// Configuración CORS
+// Configuración CORS con soporte para Netlify deploy previews
 app.use(cors({
-  origin: [
-    'http://localhost:3000', 
-    'http://localhost:3001',
-    'https://site.ingeia.tech',
-    'https://bo.ingeia.tech',
-    'https://site-ingeia-tech.netlify.app',
-    'https://axsol-viewer.netlify.app',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Permitir requests sin origin (ej: Postman, curl)
+    if (!origin) return callback(null, true);
+    
+    // Lista de origins permitidos
+    const allowedOrigins = [
+      'http://localhost:3000', 
+      'http://localhost:3001',
+      'http://localhost:5173', // Vite dev server
+      'https://site.ingeia.tech',
+      'https://bo.ingeia.tech',
+      'https://site-ingeia-tech.netlify.app',
+      'https://axsol-viewer.netlify.app',
+      process.env.FRONTEND_URL
+    ].filter(Boolean);
+    
+    // Permitir si está en la lista exacta
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    // Permitir todos los subdominios de ingeia.tech
+    if (origin.endsWith('.ingeia.tech')) {
+      return callback(null, true);
+    }
+    
+    // Permitir todos los subdominios de netlify.app (deploy previews)
+    if (origin.endsWith('.netlify.app')) {
+      return callback(null, true);
+    }
+    
+    // Rechazar otros origins
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 app.use(express.json());

@@ -33,7 +33,7 @@ const endOfPreviousDayUtc = (value) => {
   return date;
 };
 
-const DEFAULT_POLYGON_OVERRIDE_PATH = path.resolve(__dirname, '../frontend/src/ejemplo/desa/data/Poligono-proyecto.json');
+const DEFAULT_POLYGON_OVERRIDE_PATH = path.resolve(__dirname, '../apps/site/src/ejemplo/desa/data/Poligono-proyecto.json');
 
 const fetchAndNormalizeAssets = async (projectId) => {
   console.log(`[ASSETS] Iniciando obtención de assets para el proyecto: ${projectId}`);

@@ -16,7 +16,7 @@ const findOrCreateUser = async (auth0Profile) => {
 
   if (user.rows.length > 0) {
     console.log('[AUTH] Usuario encontrado por auth0_sub:', user.rows[0].id);
-    return user.rows[0]; // User found
+    return { user: user.rows[0], isNewUser: false }; // Existing user
   }
 
   // 2. Check if user exists by email (for users created via admin panel)
@@ -32,7 +32,7 @@ const findOrCreateUser = async (auth0Profile) => {
     );
     
     console.log('[AUTH] Usuario actualizado:', updatedUser.rows[0].id);
-    return updatedUser.rows[0];
+    return { user: updatedUser.rows[0], isNewUser: false }; // Existing user (updated)
   }
 
   // 3. Create new user if doesn't exist
@@ -53,7 +53,7 @@ const findOrCreateUser = async (auth0Profile) => {
   }
 
   console.log('[AUTH] Nuevo usuario creado:', newUser.rows[0].id);
-  return newUser.rows[0];
+  return { user: newUser.rows[0], isNewUser: true }; // NEW USER - Flag for analytics tracking
 };
 
 module.exports = { findOrCreateUser };

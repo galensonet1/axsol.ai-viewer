@@ -1,0 +1,64 @@
+{
+  "proyecto": {
+    "nombre": "CPF en Mata Mora",
+    "id_proyecto": "68379c08e6954af9ff9ffa76",
+    "cliente": "PHOENIX Global Resources",
+    "fecha_inicio": "2025-05-21T00:00:00Z",
+    "fecha_fin": "2026-07-15T23:59:59Z",
+    "descripcion": "Seguimiento detallado mediante escenas 3D fotorealísticas, imagenes y fotos 360",
+    "ubicacion_inicial": {
+      "lat": -34.6037,
+      "lon": -58.3816,
+      "alt": 500.0,
+      "heading": 0.0,
+      "pitch": -90.0,
+      "roll": 0.0
+    }
+  },
+  "cesium": {
+    "ion_access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMmE1MmU5ZC01NWE2LTQxZWMtYmVmZC01MzQ4YTU1Nzg4NjQiLCJpZCI6NzIzOCwiaWF0IjoxNzQyOTU1ODUwfQ.dqYC8wRnKg6R49U371J4MrHLFrjfYPJXqBCcyIdyPfo"
+  },
+  "rutas": {
+    "layout_geojson": "data/Poligono-proyecto.json",
+    "iconos_billboard_path": "images/icons/",
+    "api_base_url": "https://api-test.axsol.com.ar/api/v1",
+    "api_definicion:":"data/asset.swagger.yaml",
+    "api_chat_url":"https://n8n-test.axsol.com.ar/webhook/77234f0e-e0b2-4bfd-802d-6fd1ed48688c/agent/agent_1/conversation/",
+    "api_chat_promp_template":"689b4ea32981caee178d05e1", 
+    "ejemplo-respuesta":"data/inspeccion-ejemplo.json",
+    "progress-bar-data-url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6agYGRKoovOJYVmffNSRJsjJAurGVCO1gVhRgtKeU8puQU_WelSU0NbaFYxPDQ/pub?gid=281273732&single=true&output=csv"
+  },
+  "filtros": {
+    "layout":"true",
+    "malla_3d": "true",
+    "imagenes": "false",
+    "imagenes_360": "false",
+    "videos": "false",
+    "anomalias": "false",
+    "terreno": "false",
+    "detecciones_ia": "false",
+    "barras-progreso": "false"
+  },
+  "icons": {
+    "images": "image_icon.png",
+    "images360": "360_icon.png",
+    "videos": "video_icon.png",
+    "anomalias": "detection_icon.png",
+    "logo-cliente":"Phoenix-Logo.png",
+    "logo-AXSOL":"logoaxsol.png",
+    "logo-inferior":"logoInferior.png"
+  },
+  "visualizador_360": {
+    "libreria_path": "lib/pannellum/pannellum.htm",
+    "sync_compass": true
+  },
+  "timeline_loop_hasta_ultima_captura": false,
+  "timeline_multiplier": 120000,
+  "medicion_habilitada": true,
+  "grabacion_habilitada": false,
+  "grabacion_camaras_habilitada": false,
+  "camaras_habilitadas": true,
+  "tour_ux_habilitado": true,
+  "chatEnabled": true,
+  "cargaCzml": true
+}

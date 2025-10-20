@@ -1,0 +1,10 @@
+{
+  "name": "@ingeia/analytics",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "dependencies": {
+    "@segment/analytics-next": "^1.81.1",
+    "posthog-js": "^1.120.0"
+  }
+}

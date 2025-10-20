@@ -1,0 +1,66 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos temporales
+tmp/
+*.tmp
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# ============================================
+# 🚨 IMPORTANTE: Archivos subidos por usuarios
+# ============================================
+# Estos archivos están referenciados en la BD
+# y NO deben ser versionados en Git
+# ============================================
+
+# Archivos dinámicos de proyectos
+# Estructura: public/data/projects/{projectId}/weekly_plan_xxx.czml, logo_xxx.png, etc.
+public/data/projects/*/
+
+# Mantener solo la estructura base (directorios vacíos)
+!public/data/.gitkeep
+!public/data/projects/.gitkeep
+
+# Otros archivos dinámicos (por si acaso)
+public/uploads/
+public/logos/
+public/plans/
+public/czml/
+public/temp/
+public/imagenes/*
+!public/imagenes/.gitkeep
+
+# Archivos de base de datos locales (si existen)
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+*.backup
+*.bak
+server.js.backup
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs de PM2 o similares
+logs/
+*.log

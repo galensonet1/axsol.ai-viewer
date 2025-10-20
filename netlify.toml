@@ -1,9 +1,9 @@
 [build]
-  # Build command for the frontend
-  command = "cd frontend && npm install && npm run build"
+  # Build command for the SITE app
+  command = "cd apps/site && npm install && npm run build"
   
-  # Directory to publish (frontend build output)
-  publish = "frontend/dist"
+  # Directory to publish (SITE build output)
+  publish = "apps/site/dist"
   
   # Base directory for build
   base = "."

@@ -1,0 +1,2439 @@
+[
+  {
+    "id": "document",
+    "name": "images360 assets",
+    "version": "1.0"
+  },
+  {
+    "id": "proyecto_undefined_images360_943f7b91-f456-4ecf-8334-4dff54a8818c",
+    "name": "Foto360 0",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32079,
+        -38.500191,
+        480.93
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-001.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_64671bf3-410b-4113-bc68-bdd584443842",
+    "name": "Foto360 1",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32039,
+        -38.499401,
+        480.92
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-002.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_7e07a3e8-d4e7-4f4b-8638-5bf0c7e5a214",
+    "name": "Foto360 2",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319755,
+        -38.499427,
+        480.931
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-003.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2f57300f-d736-4fbe-ae88-2a3e1380f1cc",
+    "name": "Foto360 3",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321027,
+        -38.500191,
+        480.921
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-004.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_22d688d1-5503-4498-8b53-785ef3e7feab",
+    "name": "Foto360 4",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319755,
+        -38.499871,
+        480.97
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-005.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_d31ef744-db21-446c-80a5-f6e37f202aa8",
+    "name": "Foto360 5",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321038,
+        -38.499849,
+        480.911
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-006.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_751d33d7-dddb-49cb-a50b-4306282a54e0",
+    "name": "Foto360 6",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321027,
+        -38.500047,
+        480.917
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-007.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2bc2e46a-8598-42b2-9897-33e7712c5b1b",
+    "name": "Foto360 7",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319755,
+        -38.499427,
+        480.922
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-008.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_36233f09-3541-47f8-bd6d-afe387deaaf6",
+    "name": "Foto360 8",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319705,
+        -38.498814,
+        480.941
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-009.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_1a6caeb3-24f0-4353-9762-717390295fd9",
+    "name": "Foto360 9",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319955,
+        -38.49914,
+        480.891
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-010.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0726c1d5-3827-4200-a070-a0b07b2897cc",
+    "name": "Foto360 10",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320834,
+        -38.499675,
+        480.917
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-011.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b9bfcee1-98f1-40be-9eda-e79839560d6e",
+    "name": "Foto360 11",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319506,
+        -38.498577,
+        480.951
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-012.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_29a43d65-f629-4bc0-9596-8a9678ae8352",
+    "name": "Foto360 12",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320834,
+        -38.499849,
+        480.918
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-013.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_bd22ac17-122d-41fc-8e9b-3343eceea080",
+    "name": "Foto360 13",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320303,
+        -38.499857,
+        480.92
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-014.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b3716bf2-306a-42a7-b353-cffd53f55be9",
+    "name": "Foto360 14",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32079,
+        -38.500022,
+        480.919
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-015.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_1fa5bdd1-064a-4f70-8b9d-deb1c05a7f34",
+    "name": "Foto360 15",
+    "availability": "2025-05-20T03:00:00.000Z/2025-05-28T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32079,
+        -38.500022,
+        480.919
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/1/images360/SIMA.PHO-CPF-MataMora-CPF-MataMora-jpg-20250520-015.jpg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_22b86390-4a00-400f-a76d-9b4a3a3b93b1",
+    "name": "Foto360 0",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320963,
+        -38.499726,
+        480.178
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-001.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_36a9cad2-dfbc-42c9-8553-4e3eaaeb0eee",
+    "name": "Foto360 1",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320178,
+        -38.50025,
+        481.231
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-002.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5edf914b-13de-4519-91df-6fb023f1b970",
+    "name": "Foto360 2",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319694,
+        -38.500386,
+        481.041
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-003.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b245aae4-2739-4c79-b12b-ceac90667384",
+    "name": "Foto360 3",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319422,
+        -38.499971,
+        480.742
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-004.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_d33d444c-de71-41e2-92cf-86fbb1fe4b71",
+    "name": "Foto360 4",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320164,
+        -38.499533,
+        481.392
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-005.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c3a7acae-0db6-43ba-a479-e8c114117ea6",
+    "name": "Foto360 5",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320951,
+        -38.500057,
+        481.501
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-006.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_e1f69cbd-8e71-4631-934b-e338c60fce75",
+    "name": "Foto360 6",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321254,
+        -38.499791,
+        480.778
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-007.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_1b11cb64-6bb7-4337-ac9f-7a968a92b791",
+    "name": "Foto360 7",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320751,
+        -38.499382,
+        481.075
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-008.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c8be37a9-cb39-4c66-993a-7fb7814d058b",
+    "name": "Foto360 8",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321433,
+        -38.500394,
+        480.779
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-009.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c5f88089-8878-4601-ac20-f8e9a82931ab",
+    "name": "Foto360 9",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320319,
+        -38.499878,
+        480.632
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-010.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5e3706c4-7246-4fd3-b69c-d93fac78e60f",
+    "name": "Foto360 10",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321345,
+        -38.500171,
+        480.83
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-011.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5c41c161-f6e1-43e6-bf74-c97b6579747e",
+    "name": "Foto360 11",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.3211,
+        -38.499296,
+        481.159
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-012.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_01306cee-ed57-4d8d-b450-64d87ad51eb8",
+    "name": "Foto360 12",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321861,
+        -38.499915,
+        480.687
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-013.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_18f8d347-e217-475b-82d7-9b8f2c295ef3",
+    "name": "Foto360 13",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320436,
+        -38.50019,
+        481.258
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-014.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_26c69de5-9697-4d60-a0f9-b94ac8c23e4e",
+    "name": "Foto360 14",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32034,
+        -38.5006,
+        480.846
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-015.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c6139c62-e40d-4197-8979-c2a4d0b4b40e",
+    "name": "Foto360 15",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321915,
+        -38.500035,
+        480.745
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-016.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_e85e7fef-152e-4f53-97da-2876851d6ce8",
+    "name": "Foto360 16",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320562,
+        -38.499677,
+        481.428
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-017.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_e32b511f-0de5-4efd-ae5c-92396ffe56a8",
+    "name": "Foto360 17",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320864,
+        -38.499604,
+        481.208
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-018.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_1482efe5-4eac-462b-aede-0adc6f5ecc7c",
+    "name": "Foto360 18",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.322005,
+        -38.500256,
+        480.675
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-019.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_49842c9b-2502-40f4-9c58-976b7fe2ffef",
+    "name": "Foto360 19",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32003,
+        -38.499967,
+        480.779
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-020.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_8f48986e-3bf3-49ce-b489-0f3c76ed180b",
+    "name": "Foto360 20",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321184,
+        -38.499511,
+        481.278
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-021.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_3f50e2c0-729b-430f-8b50-40d7f062b430",
+    "name": "Foto360 21",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320248,
+        -38.499753,
+        481.455
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-022.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2d3dfa35-0c1b-49c6-91ae-71a957c79c79",
+    "name": "Foto360 22",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319887,
+        -38.499725,
+        480.208
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-023.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_67532216-c5a1-4aef-9c41-b124523c3ee5",
+    "name": "Foto360 23",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321352,
+        -38.500041,
+        480.758
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-024.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_30c66e3e-d2e0-4913-876d-2e316d145018",
+    "name": "Foto360 24",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319387,
+        -38.499532,
+        480.384
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-025.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_27fe76c1-7816-4c29-a0cc-38bb114c3e56",
+    "name": "Foto360 25",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.318771,
+        -38.49929,
+        483.829
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-026.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b5797790-67d8-497c-9c7c-98f8ecebe748",
+    "name": "Foto360 26",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321733,
+        -38.499665,
+        480.665
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-027.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a98627d6-4f3d-46bc-abd8-07fad84cf818",
+    "name": "Foto360 27",
+    "availability": "2025-05-29T03:00:00.000Z/2025-06-08T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320412,
+        -38.499462,
+        481.19
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/2/images360/PHO-SIMA%253C%253ESPARK-CPF-MataMora-jpg-20250529-028.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0e9caef2-2a86-40c5-bba2-af6339b26f6a",
+    "name": "Foto360 0",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320164,
+        -38.499533,
+        481.458
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161256_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a52e04b3-b56c-417d-a7ce-ca8b8cf17d0e",
+    "name": "Foto360 1",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320412,
+        -38.499462,
+        481.183
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161403_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_3debb52c-b1ad-4664-86a7-4355088f2dd3",
+    "name": "Foto360 2",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320752,
+        -38.499383,
+        481.075
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161512_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0abcd588-748e-4627-8cc1-81079e533a7b",
+    "name": "Foto360 3",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.3211,
+        -38.499296,
+        481.16
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161619_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a2f80a93-c401-4f57-8067-2b6870a1edc0",
+    "name": "Foto360 4",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321184,
+        -38.499512,
+        481.306
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161729_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5be2bde2-88aa-4ee7-b599-0fe3dd8c828e",
+    "name": "Foto360 5",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320863,
+        -38.499604,
+        481.176
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161838_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a8bd6431-4f3a-424d-87a4-9081be73a3e4",
+    "name": "Foto360 6",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320561,
+        -38.499677,
+        481.439
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609161946_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_deb35610-17d8-45e7-9089-ad0e66a52cd0",
+    "name": "Foto360 7",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320247,
+        -38.499753,
+        481.446
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162053_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b1261605-5665-460f-8ad9-f86e2e346b97",
+    "name": "Foto360 8",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320951,
+        -38.500057,
+        481.479
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162206_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_cf8d016b-a0a0-4851-ac57-a32c01c2bf5c",
+    "name": "Foto360 9",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320435,
+        -38.500191,
+        481.247
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162315_0010_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_7189ce7c-5130-4fd4-b7ad-cea39a2adfa9",
+    "name": "Foto360 10",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320178,
+        -38.50025,
+        481.226
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162426_0011_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5cd96843-c864-42ea-999b-684a335bd7ca",
+    "name": "Foto360 11",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319694,
+        -38.500386,
+        481.026
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162535_0012_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_4205f7a3-969c-414b-bef1-446c1d87049f",
+    "name": "Foto360 12",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32034,
+        -38.5006,
+        480.82
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609162647_0013_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_97cdaa55-6bf7-45d0-8ea2-0f1326d5d022",
+    "name": "Foto360 13",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.318772,
+        -38.49929,
+        483.957
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151207_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_cf29796d-f6e2-4c59-a064-9d219bb0dbea",
+    "name": "Foto360 14",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319388,
+        -38.499531,
+        480.413
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151319_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_18acd140-e643-4974-971f-440d71287f04",
+    "name": "Foto360 15",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319887,
+        -38.499725,
+        480.232
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151431_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_905e0f25-0f25-4c1c-a9f3-f8e75d2509d9",
+    "name": "Foto360 16",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320964,
+        -38.499727,
+        480.197
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151546_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_7b3dd9e8-0030-4ada-89a7-2963109170b3",
+    "name": "Foto360 17",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320319,
+        -38.499877,
+        480.656
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151658_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_4bf520ad-7beb-4696-8fc4-ba3bc2793590",
+    "name": "Foto360 18",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319422,
+        -38.49997,
+        480.78
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151811_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_9ce9a3ea-efa4-4bf1-aa5e-4c246d53f23c",
+    "name": "Foto360 19",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32003,
+        -38.499967,
+        480.787
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609151922_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0e70fe6f-e9ed-430f-ad7d-e8c830f7034d",
+    "name": "Foto360 20",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.322006,
+        -38.500255,
+        480.645
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152046_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_7c6578d0-7cd6-4cb6-befc-cd1d781bf1c1",
+    "name": "Foto360 21",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321434,
+        -38.500394,
+        480.769
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152156_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a5aa5c64-3054-4dea-84b4-f356b64d49a8",
+    "name": "Foto360 22",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321345,
+        -38.500171,
+        480.828
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152305_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c12bf7b0-01dc-444a-8008-f57d20856193",
+    "name": "Foto360 23",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321915,
+        -38.500035,
+        480.74
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152416_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_95e42ed8-98be-4e53-a3f4-027c522929bf",
+    "name": "Foto360 24",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321862,
+        -38.499916,
+        480.689
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152524_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_e7592f25-1089-4401-8109-572e4cde99d1",
+    "name": "Foto360 25",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321353,
+        -38.500041,
+        480.778
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152635_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_3c4c0a44-7803-45f3-872b-c33c44763eb5",
+    "name": "Foto360 26",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321255,
+        -38.499792,
+        480.808
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152743_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_4e560b77-c22e-4de5-a040-7bdf4e8d306b",
+    "name": "Foto360 27",
+    "availability": "2025-06-09T05:00:00.000Z/2025-06-10T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321734,
+        -38.499665,
+        480.644
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/3/images360/DJI_20250609152855_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_ca61d543-229c-4b97-a154-5ea70ecdb8ec",
+    "name": "Foto360 0",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321734,
+        -38.499664,
+        480.659
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612133320_0015_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c7185f45-7535-4711-8134-0e80f1fc91d7",
+    "name": "Foto360 1",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321255,
+        -38.499791,
+        480.797
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612133208_0014_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0ae87d5f-c115-4e3d-a918-ee89c2f1fc45",
+    "name": "Foto360 2",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321353,
+        -38.500041,
+        480.77
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612133059_0013_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0ffea5be-b925-4fea-9ae9-3101eb3599ea",
+    "name": "Foto360 3",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321862,
+        -38.499915,
+        480.701
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132945_0012_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_79ead7d7-26ee-4e66-b354-7b88cba3fd7e",
+    "name": "Foto360 4",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321915,
+        -38.500035,
+        480.766
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132837_0011_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_99750f99-8a62-40fb-9058-db8773bbae4a",
+    "name": "Foto360 5",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321345,
+        -38.500171,
+        480.858
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132725_0010_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c125599b-33fd-4e52-9102-4d6abaca414c",
+    "name": "Foto360 6",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321434,
+        -38.500394,
+        480.778
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132615_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_18cfef45-c0c1-4c9d-9509-0a209a80a184",
+    "name": "Foto360 7",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.322006,
+        -38.500256,
+        480.652
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132505_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a3a0d803-dfff-4692-9ea7-235f97bce92d",
+    "name": "Foto360 8",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32003,
+        -38.499967,
+        480.784
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132340_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_9c18e514-e2c2-47f2-af4e-d9692658dfc8",
+    "name": "Foto360 9",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319422,
+        -38.49997,
+        480.756
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132228_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_f346d89d-c482-4a59-beff-3d8c29ab741b",
+    "name": "Foto360 10",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320319,
+        -38.499878,
+        480.655
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132113_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_ea137ab1-fbd0-46b8-b3be-ffb5fb1eef7c",
+    "name": "Foto360 11",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320964,
+        -38.499727,
+        480.187
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612132001_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_6ab51943-9486-44ac-8483-d79c83e94390",
+    "name": "Foto360 12",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319887,
+        -38.499725,
+        480.228
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612131845_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_204e348e-2f67-41f9-b755-3aa1d12e7435",
+    "name": "Foto360 13",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319387,
+        -38.499531,
+        480.371
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612131733_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_1731a971-2ad1-41b0-a429-c9f1b678a27d",
+    "name": "Foto360 14",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32034,
+        -38.5006,
+        480.826
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612141547_0013_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_fe66861a-32e5-4193-bd5b-2885246609d4",
+    "name": "Foto360 15",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319694,
+        -38.500386,
+        481.024
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612141432_0012_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b12ee00a-54cc-4132-b9ea-20d046c52555",
+    "name": "Foto360 16",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320178,
+        -38.50025,
+        481.231
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612141318_0011_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2055140d-7767-45ad-888b-f678f8c9a5bf",
+    "name": "Foto360 17",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320435,
+        -38.500191,
+        481.26
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612141207_0010_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0d12f2a1-0340-4967-93dc-bcb7e19b611f",
+    "name": "Foto360 18",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320952,
+        -38.500057,
+        481.499
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612141054_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_bdd05606-3cf6-497f-9f13-02ed83edf1d5",
+    "name": "Foto360 19",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320247,
+        -38.499753,
+        481.443
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140938_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_bcaf0c8b-0cb6-4dbc-aa93-0d327f2eee0b",
+    "name": "Foto360 20",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320561,
+        -38.499677,
+        481.426
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140826_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_da3f6421-8086-4116-9693-cb36fbbf9017",
+    "name": "Foto360 21",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320863,
+        -38.499604,
+        481.174
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140715_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_95fe7f85-a807-4c97-8ab0-ba6e109a956a",
+    "name": "Foto360 22",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321184,
+        -38.499511,
+        481.257
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140603_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_03875e82-fb1b-47f4-a19e-e03aa0b4d786",
+    "name": "Foto360 23",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.3211,
+        -38.499296,
+        481.147
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140452_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_5c8273f0-24aa-41b5-880e-aa3b49388431",
+    "name": "Foto360 24",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320752,
+        -38.499382,
+        481.072
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140341_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2877b357-82b2-4237-af70-ec56aaed7e28",
+    "name": "Foto360 25",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320412,
+        -38.499462,
+        481.172
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140231_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c97b181b-dc82-48a2-bae1-750073858241",
+    "name": "Foto360 26",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320164,
+        -38.499533,
+        481.375
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612140122_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c4d51a49-cfd1-4009-bb8e-468e6ce37040",
+    "name": "Foto360 27",
+    "availability": "2025-06-11T05:00:00.000Z/2025-06-18T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.318772,
+        -38.49929,
+        483.836
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/4/images360/DJI_20250612131619_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_3e625160-fce2-4626-9b13-420c7442efd8",
+    "name": "Foto360 0",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320164,
+        -38.499533,
+        481.392
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619134626_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_d61bc301-0ffc-4f2c-b87a-38442c5e619d",
+    "name": "Foto360 1",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320412,
+        -38.499462,
+        481.179
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619134734_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_64037dc8-e575-4205-9e95-2ac441b98214",
+    "name": "Foto360 2",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320751,
+        -38.499382,
+        481.075
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619134843_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_aa5499b7-52ad-4be6-acdb-8218545ae86c",
+    "name": "Foto360 3",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.3211,
+        -38.499296,
+        481.139
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619134952_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_2499ef59-9575-499c-adfa-f20a4e2e2786",
+    "name": "Foto360 4",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320863,
+        -38.499604,
+        481.171
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135212_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_8f01aee5-ea94-4320-8a2e-9c77f3a1340e",
+    "name": "Foto360 5",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320561,
+        -38.499677,
+        481.421
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135321_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_b264e390-340d-4341-bd38-87143afe476c",
+    "name": "Foto360 6",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320247,
+        -38.499753,
+        481.428
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135431_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_adb09965-00a3-4b48-8479-cd7b18abbd59",
+    "name": "Foto360 7",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320951,
+        -38.500057,
+        481.477
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135543_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a14268c9-dd95-4735-82c8-fb5c06d9d234",
+    "name": "Foto360 8",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320435,
+        -38.500191,
+        481.235
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135654_0010_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_265056ef-d1ee-47e2-a0cf-0fcb93639e03",
+    "name": "Foto360 9",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320178,
+        -38.50025,
+        481.224
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135802_0011_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_af00499a-38c2-47d1-ad5d-576dcd30c13e",
+    "name": "Foto360 10",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319693,
+        -38.500386,
+        481.033
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135912_0012_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a3c1311b-e8cd-4787-8b34-e528c866a364",
+    "name": "Foto360 11",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321184,
+        -38.499512,
+        481.262
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619135102_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_9a87e144-763d-49bb-8af7-3dd4cc959157",
+    "name": "Foto360 12",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.32034,
+        -38.5006,
+        480.831
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619140024_0013_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_bf6bcb47-4864-41ab-8d71-aed3762c4ded",
+    "name": "Foto360 13",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.318772,
+        -38.49929,
+        483.933
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619124539_0001_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_df373ea1-0d7a-40d8-92ec-609ad232b2be",
+    "name": "Foto360 14",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319387,
+        -38.499532,
+        480.422
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619124654_0002_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_68ae6de9-98e4-4fed-a2e5-ef68ca86ff88",
+    "name": "Foto360 15",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319887,
+        -38.499725,
+        480.221
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619124808_0003_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_c34e3368-f275-41b0-a015-5861db3b4a23",
+    "name": "Foto360 16",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320964,
+        -38.499727,
+        480.184
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619124926_0004_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_e1a0db63-3dd6-4f96-8074-df23659e85c8",
+    "name": "Foto360 17",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320319,
+        -38.499877,
+        480.674
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125038_0005_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_548c1976-b0eb-49d9-a8d3-7b8d5a59fe37",
+    "name": "Foto360 18",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.319422,
+        -38.499971,
+        480.758
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125153_0006_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_36e1c10e-52c8-4847-a148-e3990e37d98b",
+    "name": "Foto360 19",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.322006,
+        -38.500256,
+        480.663
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125429_0008_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_fdc8f0fe-9811-48fc-a2f1-8b1373b52113",
+    "name": "Foto360 20",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321434,
+        -38.500394,
+        480.78
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125542_0009_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_f97604d0-9803-46a0-a892-1c13ae607e07",
+    "name": "Foto360 21",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321345,
+        -38.500171,
+        480.847
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125651_0010_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_992e229c-a597-4bdf-8e32-51fd4d6c91ca",
+    "name": "Foto360 22",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321915,
+        -38.500035,
+        480.755
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125803_0011_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_4de061e2-c1ce-498c-9f02-b2675677ee22",
+    "name": "Foto360 23",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321862,
+        -38.499916,
+        480.688
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125910_0012_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_f4aeaa25-bbda-4ee5-ab44-8a97c552fa4c",
+    "name": "Foto360 24",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321353,
+        -38.500041,
+        480.767
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619130022_0013_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_a79d9eaa-73f9-4a32-a684-41dd288b45c4",
+    "name": "Foto360 25",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321254,
+        -38.499792,
+        480.805
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619130131_0014_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_0565908e-ed9d-4997-872f-534ba5ffd642",
+    "name": "Foto360 26",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.321734,
+        -38.499665,
+        480.666
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619130241_0015_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  },
+  {
+    "id": "proyecto_undefined_images360_fcfef1e0-ff7c-4eae-96ba-35ed09ad4e24",
+    "name": "Foto360 27",
+    "availability": "2025-06-19T03:00:00.000Z/2026-07-15T23:59:59Z",
+    "position": {
+      "cartographicDegrees": [
+        -68.320031,
+        -38.499967,
+        480.824
+      ]
+    },
+    "billboard": {
+      "image": "./iconos/photo-360.png",
+      "width": 32,
+      "height": 32,
+      "verticalOrigin": "BOTTOM"
+    },
+    "description": "<img src='https://d1zvxz7nbfungx.cloudfront.net/SIMA/PHOENIX_CPF_MATA_MORA/5/images360/DJI_20250619125305_0007_V.jpeg' style='max-width:100%;max-height:400px;display:block;margin:auto;'>"
+  }
+]

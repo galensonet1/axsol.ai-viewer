@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="areas_activos" id="areas_activos">
+	<SimpleField name="id" type="float"></SimpleField>
+	<SimpleField name="id-activo" type="string"></SimpleField>
+</Schema>
+<Folder><name>areas_activos</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">area-8-incendio</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3220577015274,-38.5002809599841 -68.3219386141668,-38.4999839344332 -68.3212858476694,-38.5001484398016 -68.3214054299343,-38.5004443664915 -68.3220577015274,-38.5002809599841</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">area-9-sheltrs-e+i+ac</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3219167035866,-38.4999444533362 -68.3217879699935,-38.4996160050099 -68.3211945928667,-38.4997670020329 -68.3213233416859,-38.5000935677331 -68.3219167035866,-38.4999444533362</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-senda-5-comp</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3209506969205,-38.5001423522733 -68.3203587105283,-38.5002892671051 -68.3203749881329,-38.5003274934809 -68.3209683918161,-38.5001773183359 -68.3209506969205,-38.5001423522733</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-senda-6-gnl</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3202967944947,-38.5003148101087 -68.3196551913781,-38.5004758986027 -68.3196631609452,-38.5004973492999 -68.3203074878657,-38.5003362765712 -68.3202967944947,-38.5003148101087</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-3-senda-n-s</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3204831489856,-38.5005878968961 -68.3201096121654,-38.499667589738 -68.3200419513612,-38.4996821634333 -68.3204178878744,-38.5006043415764 -68.3204831489856,-38.5005878968961</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-7-senda-cal</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3201142220331,-38.4998480182296 -68.3193512073254,-38.500038193424 -68.3193618611924,-38.5000727669482 -68.3201273159309,-38.4998826058512 -68.3201142220331,-38.4998480182296</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-4-senda-bom</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3209506227787,-38.4996379899595 -68.3201792629145,-38.4998293207692 -68.3201931922792,-38.4998661151953 -68.3209645812243,-38.4996717250004 -68.3209506227787,-38.4996379899595</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-2-playa-tks</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3211258538186,-38.4992592405414 -68.3200902081002,-38.4995149219277 -68.3202119189644,-38.4998103343886 -68.3212444794464,-38.4995521883784 -68.3211258538186,-38.4992592405414</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">zona-1-kod-flare</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3199532332861,-38.4996530468878 -68.3189253777228,-38.4992366246737 -68.3189007020261,-38.4992677439063 -68.319932388625,-38.4996862055321 -68.3199532332861,-38.4996530468878</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">flare</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3191259641417,-38.4988977251099 -68.3184672310166,-38.4990622454519 -68.3186782063621,-38.4995786547543 -68.3193337343265,-38.4994128488236 -68.3191259641417,-38.4988977251099</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#areas_activos">
+		<SimpleData name="id-activo">cpf</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>-68.3215585501828,-38.4990012561592 -68.3190467990928,-38.4996258597011 -68.3195637328727,-38.5009144560628 -68.3220786838975,-38.5002876131704 -68.3215585501828,-38.4990012561592</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+</Folder>
+</Document></kml>

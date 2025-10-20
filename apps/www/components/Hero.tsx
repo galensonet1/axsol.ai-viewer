@@ -1,0 +1,39 @@
+import React from 'react';
+
+const Hero: React.FC = () => {
+  return (
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-ing-dark via-ing-dark-secondary to-ing-dark overflow-hidden">
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(https://picsum.photos/1920/1080?grayscale&blur=2)` }}></div>
+      <div className="absolute inset-0 bg-ing-dark opacity-80"></div>
+      <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+          La Visión para Transformar tus Proyectos
+        </h1>
+        <p className="text-lg md:text-xl font-light mb-8 max-w-4xl mx-auto animate-fade-in-up">
+          Soluciones EPCM impulsadas por IA y drones para la optimización de proyectos de construcción de <strong className="text-ing-teal">plantas de procesamiento (SITE)</strong> y de <strong className="text-ing-teal">ductos (LINE)</strong> en Oil & Gas y Minería.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
+          <a 
+            href="#soluciones" 
+            className="bg-ing-teal text-white font-semibold px-8 py-3 rounded-lg hover:bg-teal-600 transition-colors shadow-lg w-full sm:w-auto"
+          >
+            Descubre SITE
+          </a>
+          <a 
+            href="#soluciones" 
+            className="bg-transparent border-2 border-ing-teal text-white font-semibold px-8 py-3 rounded-lg hover:bg-ing-teal transition-colors shadow-lg w-full sm:w-auto"
+          >
+            Descubre LINE
+          </a>
+        </div>
+      </div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <svg className="w-8 h-8 animate-bounce text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

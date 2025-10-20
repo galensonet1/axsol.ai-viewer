@@ -6,8 +6,14 @@ Una aplicación web para visualizar proyectos de construcción con datos 3D, im�
 
 ```
 axsol-viewer/
+├── apps/
+│   ├── site/         # App principal (SITE.ingeia.tech)
+│   ├── www/          # Sitio público (WWW.ingeia.tech)
+│   └── line/         # App LINE (LINE.ingeia.tech)
 ├── backend/          # API Node.js con Express
-├── frontend/         # Aplicación React con Cesium
+├── packages/
+│   ├── analytics/    # Utilidades compartidas (PostHog)
+│   └── config/       # Configuración compartida
 └── README.md         # Este archivo
 ```
 
@@ -48,10 +54,10 @@ node init-db.js
 npm run dev
 ```
 
-### 3. Configuración del Frontend
+### 3. Configuración del Frontend (SITE)
 
 ```bash
-cd frontend
+cd apps/site
 
 # Instalar dependencias
 npm install

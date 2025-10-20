@@ -1,0 +1,5 @@
+{
+  "name": "IngeIA EPCM",
+  "description": "A responsive website for IngeIA EPCM, an agency specializing in Engineering, Procurement, and Construction Management enhanced with Artificial Intelligence for SITE (processing plants) and PIPE (pipelines) projects. Built with React, TypeScript, and Tailwind CSS.",
+  "requestFramePermissions": []
+}

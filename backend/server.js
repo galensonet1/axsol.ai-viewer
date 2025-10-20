@@ -225,12 +225,238 @@ app.get('/api/config', (req, res) => {
       cesium: {
         ionToken: process.env.CESIUM_ION_TOKEN || process.env.VITE_CESIUM_ION_TOKEN || null,
       },
+      clarity: {
+        projectId: process.env.CLARITY_PROJECT_ID || null,
+      },
+      posthog: {
+        apiHost: process.env.POSTHOG_API_HOST || null,
+      },
       adminPanelUrl: '/admin/admin.html',
     };
     res.json(cfg);
   } catch (e) {
     console.error('[CONFIG] Error construyendo configuración:', e);
     res.json({});
+  }
+});
+
+// IP Enrichment endpoint for ABM (Account-Based Marketing)
+// Supports: IPinfo.io, Clearbit Reveal (legacy), and Mock mode
+app.post('/api/reveal', async (req, res) => {
+  try {
+    // Extract IP from headers (considering proxies/load balancers)
+    const forwardedFor = req.headers['x-forwarded-for'];
+    const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : req.ip;
+    
+    console.log('[ABM] Reveal request for IP:', ip);
+    
+    // Priority 1: IPinfo.io
+    if (process.env.IPINFO_API_KEY) {
+      console.log('[ABM] Using IPinfo.io');
+      
+      try {
+        const response = await axios.get(`https://ipinfo.io/${ip}`, {
+          params: { token: process.env.IPINFO_API_KEY },
+          timeout: 5000
+        });
+
+        const data = response.data;
+        
+        // Parse organization name from "org" field (format: "AS15169 Google LLC")
+        const orgMatch = data.org?.match(/^AS\d+\s+(.+)$/);
+        const companyName = orgMatch ? orgMatch[1] : data.org || data.company?.name || null;
+        
+        // Extract domain from hostname or org
+        const hostname = data.hostname || '';
+        const companyDomain = hostname.includes('.') ? hostname : null;
+        
+        // Normalize firmographic data from IPinfo
+        const firmo = {
+          companyDomain: companyDomain,
+          companyName: companyName,
+          industry: data.company?.type || null,
+          sector: null,
+          employees: null,
+          employeesRange: null,
+          estimatedAnnualRevenue: null,
+          tags: [],
+          techCategories: [],
+          location: [data.city, data.region, data.country].filter(Boolean).join(', '),
+          country: data.country || null,
+          city: data.city || null,
+          region: data.region || null,
+          timezone: data.timezone || null,
+          postal: data.postal || null,
+        };
+
+        if (companyName) {
+          console.log('[ABM] Company identified via IPinfo:', companyName);
+          return res.json({ ok: true, firmo, source: 'ipinfo' });
+        } else {
+          console.log('[ABM] No company data from IPinfo');
+          return res.status(404).json({ ok: false, error: 'No company data' });
+        }
+        
+      } catch (error) {
+        console.error('[ABM] IPinfo error:', error.message);
+        return res.status(500).json({ ok: false, error: 'IPinfo request failed' });
+      }
+    }
+    
+    // Priority 2: Clearbit Reveal (legacy support)
+    if (process.env.CLEARBIT_API_KEY) {
+      console.log('[ABM] Using Clearbit Reveal');
+      
+      try {
+        const response = await axios.get(`https://reveal.clearbit.com/v1/companies/find?ip=${ip}`, {
+          headers: { 
+            'Authorization': `Bearer ${process.env.CLEARBIT_API_KEY}` 
+          },
+          timeout: 5000
+        });
+
+        const data = response.data;
+        
+        const firmo = {
+          companyDomain: data.domain || null,
+          companyName: data.name || null,
+          industry: data.category?.industry || null,
+          sector: data.category?.sector || null,
+          employees: data.metrics?.employees || null,
+          employeesRange: data.metrics?.employeesRange || null,
+          estimatedAnnualRevenue: data.metrics?.estimatedAnnualRevenue || null,
+          tags: data.tags || [],
+          techCategories: data.tech || [],
+          location: data.geo?.city || data.geo?.state || data.geo?.country || null,
+        };
+
+        console.log('[ABM] Company found via Clearbit:', firmo.companyName);
+        return res.json({ ok: true, firmo, source: 'clearbit' });
+        
+      } catch (error) {
+        if (error.response?.status === 404) {
+          console.log('[ABM] No company found via Clearbit');
+          return res.status(404).json({ ok: false, error: 'Company not found' });
+        }
+        console.error('[ABM] Clearbit error:', error.message);
+        return res.status(500).json({ ok: false, error: 'Clearbit request failed' });
+      }
+    }
+    
+    // Priority 3: Mock mode for development
+    console.warn('[ABM] No API key configured - using MOCK data');
+    
+    const mockFirmo = {
+      companyDomain: 'example-company.com',
+      companyName: 'Example Company Inc.',
+      industry: 'Technology',
+      sector: 'Software',
+      employees: 250,
+      employeesRange: '100-500',
+      estimatedAnnualRevenue: '$25M-$50M',
+      tags: ['SaaS', 'B2B', 'Enterprise'],
+      techCategories: ['React', 'Node.js', 'AWS'],
+      location: 'San Francisco, CA'
+    };
+    
+    return res.json({ ok: true, firmo: mockFirmo, source: 'mock' });
+    
+  } catch (error) {
+    console.error('[ABM] Unexpected error:', error.message);
+    res.status(500).json({ ok: false, error: 'Internal server error' });
+  }
+});
+
+// LinkedIn Automation Webhook Endpoint
+// Receives webhooks from LinkedIn automation tools (Expandi, LaGrowthMachine, etc.)
+app.post('/api/webhooks/linkedin', async (req, res) => {
+  try {
+    const { event, data } = req.body;
+    
+    console.log('[LINKEDIN WEBHOOK] Received event:', event, data);
+    
+    // Validate webhook signature if configured
+    const webhookSecret = process.env.LINKEDIN_WEBHOOK_SECRET;
+    if (webhookSecret) {
+      const signature = req.headers['x-webhook-signature'];
+      // Add signature validation logic here if needed
+    }
+    
+    // Process different LinkedIn events
+    switch (event) {
+      case 'connection_accepted':
+        // LinkedIn connection accepted - trigger Customer.io follow-up
+        console.log('[LINKEDIN] Connection accepted:', data.linkedin_profile);
+        
+        // TODO: Call Customer.io API to trigger campaign
+        // await triggerCustomerIOEvent('linkedin_connection_accepted', {
+        //   linkedin_profile: data.linkedin_profile,
+        //   name: data.name,
+        //   company: data.company
+        // });
+        break;
+        
+      case 'message_replied':
+        // Prospect replied to LinkedIn message
+        console.log('[LINKEDIN] Message replied:', data.linkedin_profile);
+        
+        // TODO: Trigger Customer.io nurture campaign
+        // await triggerCustomerIOEvent('linkedin_replied', {
+        //   linkedin_profile: data.linkedin_profile,
+        //   message: data.message
+        // });
+        break;
+        
+      case 'profile_visited':
+        // Someone visited your LinkedIn profile
+        console.log('[LINKEDIN] Profile visited:', data.visitor_profile);
+        break;
+        
+      default:
+        console.log('[LINKEDIN] Unknown event:', event);
+    }
+    
+    res.json({ ok: true, event, processed: true });
+    
+  } catch (error) {
+    console.error('[LINKEDIN WEBHOOK] Error:', error.message);
+    res.status(500).json({ ok: false, error: 'Webhook processing failed' });
+  }
+});
+
+// Generic Webhook Endpoint for Customer.io Reverse Webhooks
+app.post('/api/webhooks/customerio', async (req, res) => {
+  try {
+    const { event_type, data, customer } = req.body;
+    
+    console.log('[CUSTOMERIO WEBHOOK] Event:', event_type);
+    
+    // Process Customer.io webhook events
+    // Examples: email_opened, email_clicked, in_app_message_clicked
+    
+    switch (event_type) {
+      case 'email_opened':
+        console.log('[CUSTOMERIO] Email opened by:', customer?.email);
+        break;
+        
+      case 'email_clicked':
+        console.log('[CUSTOMERIO] Link clicked:', data?.link);
+        break;
+        
+      case 'in_app_message_clicked':
+        console.log('[CUSTOMERIO] In-app message clicked:', data?.message_id);
+        // Could trigger LinkedIn outreach or other actions
+        break;
+        
+      default:
+        console.log('[CUSTOMERIO] Event type:', event_type);
+    }
+    
+    res.json({ ok: true });
+    
+  } catch (error) {
+    console.error('[CUSTOMERIO WEBHOOK] Error:', error.message);
+    res.status(500).json({ ok: false, error: 'Webhook processing failed' });
   }
 });
 
@@ -308,7 +534,7 @@ app.get('/api/user/me', checkJwt, async (req, res) => {
     const userInfo = userInfoResponse.data;
 
     // 4. Usar la información obtenida para encontrar o crear el usuario
-    const user = await findOrCreateUser(userInfo);
+    const { user, isNewUser } = await findOrCreateUser(userInfo);
 
     // 5. Obtener roles y devolver el perfil completo
     const rolesQuery = await pool.query(
@@ -318,7 +544,8 @@ app.get('/api/user/me', checkJwt, async (req, res) => {
     const roles = rolesQuery.rows.map(r => r.name);
     const roleIds = rolesQuery.rows.map(r => r.id);
 
-    res.json({ ...user, roles, roleIds });
+    // 6. Return user data with isNewUser flag for analytics tracking
+    res.json({ ...user, roles, roleIds, isNewUser });
 
   } catch (error) {
     console.error('Error fetching user profile:', error.response ? error.response.data : error.message);

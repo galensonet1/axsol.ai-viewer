@@ -10,13 +10,11 @@
   },
   "dependencies": {
     "@ingeia/analytics": "file:../../packages/analytics",
-    "posthog-js": "^1.277.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
-  },
-  "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "posthog-js": "^1.277.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

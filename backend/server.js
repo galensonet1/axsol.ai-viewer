@@ -493,15 +493,9 @@ app.use('/api', debugRoutes);
 app.use('/api', debugCzmlRoutes);
 
 // Rutas de administración (protegidas por Auth0 y rol Admin)
-// En desarrollo local, bypass auth para facilitar testing
+// SIEMPRE protegido con Auth0 - admin.html maneja la autenticación en el frontend
 const adminRoutes = require('./routes/admin');
-const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
-if (isDevelopment) {
-  console.warn('[ADMIN] Running in DEVELOPMENT mode - Auth bypass enabled for /api/admin');
-  app.use('/api/admin', adminRoutes);
-} else {
-  app.use('/api/admin', checkJwt, checkRole([5, 6]), adminRoutes);
-}
+app.use('/api/admin', checkJwt, checkRole([5, 6]), adminRoutes);
 
 // Rutas para gestión de IFC por proyecto
 // GET /api/projects/:projectId/ifc -> listar

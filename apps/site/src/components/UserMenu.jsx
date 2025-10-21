@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUser } from '../context/UserContext.jsx';
-import { Box, IconButton, Menu, MenuItem, Avatar, Typography } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem, Avatar, Typography, ListItemIcon } from '@mui/material';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const UserMenu = () => {
-  const { user } = useUser();
+  const { user, hasRole } = useUser();
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -14,6 +15,12 @@ const UserMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleAdminPanel = () => {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+    window.open(`${apiBase}/admin/admin.html`, '_blank');
+    handleClose();
   };
 
   const handleLogout = () => {
@@ -52,6 +59,14 @@ const UserMenu = () => {
         <MenuItem disabled>
           <Typography variant="subtitle1">{user?.name}</Typography>
         </MenuItem>
+        {hasRole([5, 6]) && (
+          <MenuItem onClick={handleAdminPanel}>
+            <ListItemIcon>
+              <AdminPanelSettingsIcon fontSize="small" />
+            </ListItemIcon>
+            Admin Panel
+          </MenuItem>
+        )}
         <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
       </Menu>
     </Box>

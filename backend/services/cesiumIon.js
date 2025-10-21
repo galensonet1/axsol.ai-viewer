@@ -15,12 +15,12 @@ const path = require('path');
  * @param {string} params.fileName - Name to use for the asset and S3 object
  * @param {string} [params.inputCrs='EPSG:22182'] - CRS to pass to Ion options
  * @param {string} [params.description] - Optional description
- * @param {string} [params.token=process.env.CESIUM_ION_ACCESS_TOKEN] - Ion access token
+ * @param {string} [params.token=process.env.VITE_CESIUM_ION_TOKEN] - Ion access token
  * @returns {Promise<{ assetId: number, etag: string }>} - The created Ion asset id
  */
-async function uploadIfcToIon({ filePath, fileName, inputCrs = 'EPSG:22182', description, token = process.env.CESIUM_ION_ACCESS_TOKEN }) {
+async function uploadIfcToIon({ filePath, fileName, inputCrs = 'EPSG:22182', description, token = process.env.VITE_CESIUM_ION_TOKEN }) {
   if (!token) {
-    throw new Error('CESIUM_ION_ACCESS_TOKEN no está configurado. Agrega la variable al .env del backend.');
+    throw new Error('VITE_CESIUM_ION_TOKEN no está configurado. Agrega la variable al .env del backend.');
   }
 
   const ASSETS_API_URL = 'https://api.cesium.com/v1/assets';
@@ -104,11 +104,11 @@ module.exports = {
   /**
    * Fetch Cesium Ion asset metadata for a given assetId
    * @param {number|string} assetId
-   * @param {string} [token=process.env.CESIUM_ION_ACCESS_TOKEN]
+   * @param {string} [token=process.env.VITE_CESIUM_ION_TOKEN]
    * @returns {Promise<object>} metadata
    */
-  async getIonAssetMetadata(assetId, token = process.env.CESIUM_ION_ACCESS_TOKEN) {
-    if (!token) throw new Error('CESIUM_ION_ACCESS_TOKEN no está configurado.');
+  async getIonAssetMetadata(assetId, token = process.env.VITE_CESIUM_ION_TOKEN) {
+    if (!token) throw new Error('VITE_CESIUM_ION_TOKEN no está configurado.');
     if (!assetId) throw new Error('assetId es requerido.');
     const url = `https://api.cesium.com/v1/assets/${assetId}`;
     const headers = { Authorization: `Bearer ${token}` };
@@ -118,10 +118,10 @@ module.exports = {
   /**
    * Delete a Cesium Ion asset by id
    * @param {number|string} assetId
-   * @param {string} [token=process.env.CESIUM_ION_ACCESS_TOKEN]
+   * @param {string} [token=process.env.VITE_CESIUM_ION_TOKEN]
    */
-  async deleteIonAsset(assetId, token = process.env.CESIUM_ION_ACCESS_TOKEN) {
-    if (!token) throw new Error('CESIUM_ION_ACCESS_TOKEN no está configurado.');
+  async deleteIonAsset(assetId, token = process.env.VITE_CESIUM_ION_TOKEN) {
+    if (!token) throw new Error('VITE_CESIUM_ION_TOKEN no está configurado.');
     if (!assetId) throw new Error('assetId es requerido.');
     const url = `https://api.cesium.com/v1/assets/${assetId}`;
     const headers = { Authorization: `Bearer ${token}` };

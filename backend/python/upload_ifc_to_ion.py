@@ -6,7 +6,8 @@ import boto3
 
 # --- CONFIGURACIÓN ---
 # Pega aquí tu Token de Acceso de Cesium ION.
-CESIUM_ION_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5YmNjZTViYS1hYTZjLTRkZjAtYTM3Yy1hZDZlNjlkMzBhODAiLCJpZCI6NzIzOCwiaWF0IjoxNzU5NzY0MzYwfQ.jZtWix41LN25ci8lSpi_HfOuu594YA_wdoBwwEo4100"
+# Usar el mismo token que VITE_CESIUM_ION_TOKEN del .env
+CESIUM_ION_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlYjNjNGYyOC1lNWQyLTRmZmEtOTUzMC1lZTJhNGRhY2U3OWEiLCJpZCI6NzIzOCwiaWF0IjoxNzYxMDU2MDk1fQ.kCF0Cewu412ThMrlOetKeqJh02iJ5cjzxfVQnz8FkA8"
 
 # URLs de la API de Cesium ION
 ASSETS_API_URL = "https://api.cesium.com/v1/assets"

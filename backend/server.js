@@ -249,7 +249,7 @@ app.get('/api/config', (req, res) => {
         audience: process.env.AUTH0_AUDIENCE || null,
       },
       cesium: {
-        ionToken: process.env.CESIUM_ION_TOKEN || process.env.VITE_CESIUM_ION_TOKEN || null,
+        ionToken: process.env.VITE_CESIUM_ION_TOKEN || null,
       },
       clarity: {
         projectId: process.env.CLARITY_PROJECT_ID || null,

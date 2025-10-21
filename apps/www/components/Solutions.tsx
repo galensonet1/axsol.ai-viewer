@@ -23,7 +23,7 @@ const Solutions: React.FC = () => {
                 {/* SITE Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
                     <div className="flex justify-center">
-                        <img src="https://picsum.photos/800/600?random=10" alt="Planta de Procesamiento" className="rounded-lg shadow-2xl w-full max-w-lg object-cover aspect-[4/3]" />
+                        <img src="/images/5.png" alt="Planta de Procesamiento" className="rounded-lg shadow-2xl w-full max-w-lg object-cover aspect-[4/3]" />
                     </div>
                     <div className="text-center lg:text-left">
                         <h3 className="text-3xl font-bold text-white mb-4">SITE: EPCM para Plantas de Procesamiento</h3>
@@ -62,7 +62,7 @@ const Solutions: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex justify-center lg:order-first">
-                        <img src="https://picsum.photos/800/600?random=11" alt="Construcción de Ductos" className="rounded-lg shadow-2xl w-full max-w-lg object-cover aspect-[4/3]" />
+                        <img src="/images/10.png" alt="Construcción de Ductos" className="rounded-lg shadow-2xl w-full max-w-lg object-cover aspect-[4/3]" />
                     </div>
                 </div>
             </div>

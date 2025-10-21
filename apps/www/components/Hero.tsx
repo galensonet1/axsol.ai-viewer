@@ -3,7 +3,7 @@ import React from 'react';
 const Hero: React.FC = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-ing-dark via-ing-dark-secondary to-ing-dark overflow-hidden">
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(https://picsum.photos/1920/1080?grayscale&blur=2)` }}></div>
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(/images/3.png)` }}></div>
       <div className="absolute inset-0 bg-ing-dark opacity-80"></div>
       <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
         <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">

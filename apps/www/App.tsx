@@ -4,9 +4,9 @@ import Hero from './components/Hero';
 import ValueProposition from './components/ValueProposition';
 import Solutions from './components/Solutions';
 import Technology from './components/Technology';
-import Projects from './components/Projects';
-import Testimonials from './components/Testimonials';
-import CTA from './components/CTA';
+// import Projects from './components/Projects';
+// import Testimonials from './components/Testimonials';
+// import CTA from './components/CTA';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
@@ -18,9 +18,9 @@ const App: React.FC = () => {
         <ValueProposition />
         <Solutions />
         <Technology />
-        <Projects />
-        <Testimonials />
-        <CTA />
+        {/* <Projects /> */}
+        {/* <Testimonials /> */}
+        {/* <CTA /> */}
       </main>
       <Footer />
     </div>

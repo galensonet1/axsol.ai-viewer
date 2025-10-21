@@ -1,25 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const IngeiaLogo: React.FC<{ className?: string }> = ({ className = "text-ing-teal" }) => (
-    <div className="flex items-center space-x-3" style={{ height: '32px' }}>
-      <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-        <path d="M50 2.5L93.3 26.25V73.75L50 97.5L6.7 73.75V26.25L50 2.5Z" stroke="currentColor" strokeWidth="5"/>
-        <path d="M6.7 26.25L50 50L93.3 26.25" stroke="currentColor" strokeWidth="5"/>
-        <path d="M50 97.5V50" stroke="currentColor" strokeWidth="5"/>
-        <path d="M28.35 38.125L50 50L71.65 38.125" stroke="currentColor" strokeWidth="5"/>
-        <path d="M50 59.375L40.175 53.4375L50 47.5L59.825 53.4375L50 59.375Z" fill="currentColor"/>
-        <path d="M6.7 73.75L20 65.625" stroke="currentColor" strokeWidth="5"/>
-        <circle cx="15" cy="62.5" r="5" fill="currentColor"/>
-        <path d="M93.3 73.75L80 65.625" stroke="currentColor" strokeWidth="5"/>
-        <circle cx="85" cy="62.5" r="5" fill="currentColor"/>
-      </svg>
-      <div>
-        <span className={`text-2xl font-bold tracking-wider ${className}`}>ingelA</span>
-        <span className="text-xs font-medium tracking-[0.2em] text-ing-gray block -mt-1">EPCM</span>
-      </div>
+const IngeiaLogo: React.FC<{ className?: string }> = ({ className = "" }) => (
+    <div className="flex items-center" style={{ height: '48px' }}>
+      <img src="/images/logo/7.png" alt="ingeIA EPCM" className="h-12" />
     </div>
-  );
-
+   );
+ 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -75,9 +61,17 @@ const Header: React.FC = () => {
           ))}
         </nav>
         <div className="flex items-center space-x-4">
-          <a href="#contacto" className="hidden sm:inline-block bg-ing-teal text-white font-semibold px-6 py-2 rounded-lg hover:bg-teal-600 transition-colors shadow-sm">
+          <button 
+            onClick={() => {
+              if (typeof (window as any).Calendly !== 'undefined') {
+                (window as any).Calendly.initPopupWidget({url: 'https://calendly.com/axsol/30min'});
+              }
+              return false;
+            }}
+            className="hidden sm:inline-block bg-ing-teal text-white font-semibold px-6 py-2 rounded-lg hover:bg-teal-600 transition-colors shadow-sm"
+          >
             Solicite un Demo
-          </a>
+          </button>
           <button className="lg:hidden p-2 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />

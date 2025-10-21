@@ -14,23 +14,9 @@ const SocialIcon: React.FC<{ href: string; children: React.ReactNode }> = ({ hre
   </a>
 );
 
-const IngeiaLogo: React.FC<{ className?: string }> = ({ className = "text-ing-teal" }) => (
-    <div className="flex items-center space-x-3" style={{ height: '32px' }}>
-      <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-        <path d="M50 2.5L93.3 26.25V73.75L50 97.5L6.7 73.75V26.25L50 2.5Z" stroke="currentColor" strokeWidth="5"/>
-        <path d="M6.7 26.25L50 50L93.3 26.25" stroke="currentColor" strokeWidth="5"/>
-        <path d="M50 97.5V50" stroke="currentColor" strokeWidth="5"/>
-        <path d="M28.35 38.125L50 50L71.65 38.125" stroke="currentColor" strokeWidth="5"/>
-        <path d="M50 59.375L40.175 53.4375L50 47.5L59.825 53.4375L50 59.375Z" fill="currentColor"/>
-        <path d="M6.7 73.75L20 65.625" stroke="currentColor" strokeWidth="5"/>
-        <circle cx="15" cy="62.5" r="5" fill="currentColor"/>
-        <path d="M93.3 73.75L80 65.625" stroke="currentColor" strokeWidth="5"/>
-        <circle cx="85" cy="62.5" r="5" fill="currentColor"/>
-      </svg>
-      <div>
-        <span className={`text-2xl font-bold tracking-wider ${className}`}>ingelA</span>
-        <span className="text-xs font-medium tracking-[0.2em] text-ing-gray block -mt-1">EPCM</span>
-      </div>
+const IngeiaLogo: React.FC<{ className?: string }> = ({ className = "" }) => (
+    <div className="flex items-center" style={{ height: '48px' }}>
+      <img src="/images/logo/7.png" alt="ingeIA EPCM" className="h-12" />
     </div>
   );
 

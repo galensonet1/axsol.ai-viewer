@@ -14,9 +14,42 @@ async function uploadWeeklyPlanFile(fileInputId, urlInputId) {
             showAlert('Primero guardá el proyecto para obtener un ID.', 'warning');
             return;
         }
+
+        // Check authentication status
+        try {
+            const auth0 = await window.__ADMIN_AUTH0_PROMISE__;
+            if (!auth0) {
+                showAlert('Error de autenticación. Por favor, recargá la página e iniciá sesión.', 'danger');
+                return;
+            }
+            const isAuthenticated = await auth0.isAuthenticated();
+            if (!isAuthenticated) {
+                showAlert('No estás autenticado. Redirigiendo al login...', 'warning');
+                await auth0.loginWithRedirect();
+                return;
+            }
+        } catch (authError) {
+            console.error('Auth check error:', authError);
+            showAlert('Error verificando autenticación: ' + authError.message, 'danger');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
         const resp = await fetch(`${API_BASE}/projects/${projectId}/weekly-plan`, { method: 'POST', body: formData });
+        
+        if (resp.status === 401) {
+            showAlert('No autorizado. Por favor, iniciá sesión nuevamente.', 'danger');
+            const auth0 = await window.__ADMIN_AUTH0_PROMISE__;
+            if (auth0) await auth0.loginWithRedirect();
+            return;
+        }
+        
+        if (resp.status === 403) {
+            showAlert('No tenés permisos para subir planes semanales. Contactá al administrador.', 'danger');
+            return;
+        }
+
         const data = await resp.json();
         if (!data.success) {
             showAlert('Error subiendo plan semanal: ' + (data.error || 'desconocido'), 'danger');
@@ -27,7 +60,7 @@ async function uploadWeeklyPlanFile(fileInputId, urlInputId) {
         showAlert('Plan semanal subido correctamente.', 'success');
     } catch (e) {
         console.error('uploadWeeklyPlanFile error:', e);
-        showAlert('Error de conexión subiendo plan semanal', 'danger');
+        showAlert('Error de conexión subiendo plan semanal: ' + e.message, 'danger');
     }
 }
 
@@ -36,7 +69,40 @@ async function deleteWeeklyPlan(urlInputId) {
         const projectId = document.getElementById('projectId').value;
         if (!projectId) { showAlert('No hay proyecto seleccionado.', 'warning'); return; }
         if (!confirm('¿Eliminar el plan semanal del proyecto?')) return;
+
+        // Check authentication status
+        try {
+            const auth0 = await window.__ADMIN_AUTH0_PROMISE__;
+            if (!auth0) {
+                showAlert('Error de autenticación. Por favor, recargá la página e iniciá sesión.', 'danger');
+                return;
+            }
+            const isAuthenticated = await auth0.isAuthenticated();
+            if (!isAuthenticated) {
+                showAlert('No estás autenticado. Redirigiendo al login...', 'warning');
+                await auth0.loginWithRedirect();
+                return;
+            }
+        } catch (authError) {
+            console.error('Auth check error:', authError);
+            showAlert('Error verificando autenticación: ' + authError.message, 'danger');
+            return;
+        }
+
         const resp = await fetch(`${API_BASE}/projects/${projectId}/weekly-plan`, { method: 'DELETE' });
+        
+        if (resp.status === 401) {
+            showAlert('No autorizado. Por favor, iniciá sesión nuevamente.', 'danger');
+            const auth0 = await window.__ADMIN_AUTH0_PROMISE__;
+            if (auth0) await auth0.loginWithRedirect();
+            return;
+        }
+        
+        if (resp.status === 403) {
+            showAlert('No tenés permisos para eliminar planes semanales. Contactá al administrador.', 'danger');
+            return;
+        }
+
         const data = await resp.json();
         if (!data.success) {
             showAlert('Error eliminando plan semanal: ' + (data.error || 'desconocido'), 'danger');
@@ -47,7 +113,7 @@ async function deleteWeeklyPlan(urlInputId) {
         showAlert('Plan semanal eliminado.', 'success');
     } catch (e) {
         console.error('deleteWeeklyPlan error:', e);
-        showAlert('Error de conexión eliminando plan semanal', 'danger');
+        showAlert('Error de conexión eliminando plan semanal: ' + e.message, 'danger');
     }
 }
 

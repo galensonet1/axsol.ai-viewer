@@ -165,15 +165,28 @@ body.axslb-single .yarl__controller_next {
   display: none !important;
 }
 
-/* Panorama-specific UI adjustments */
+/* Panorama-specific UI adjustments - OCULTAR TODOS LOS BOTONES DE NAVEGACIÓN */
 body.axslb-panorama .yarl__button_prev,
 body.axslb-panorama .yarl__button_next,
 body.axslb-panorama .yarl__button--prev,
 body.axslb-panorama .yarl__button--next,
 body.axslb-panorama .yarl__navigation,
+body.axslb-panorama .yarl__navigation_prev,
+body.axslb-panorama .yarl__navigation_next,
 body.axslb-panorama .yarl__controller_prev,
-body.axslb-panorama .yarl__controller_next {
+body.axslb-panorama .yarl__controller_next,
+body.axslb-panorama button[aria-label*="Previous"],
+body.axslb-panorama button[aria-label*="previous"],
+body.axslb-panorama button[aria-label*="Next"],
+body.axslb-panorama button[aria-label*="next"],
+body.axslb-panorama button[aria-label*="Anterior"],
+body.axslb-panorama button[aria-label*="anterior"],
+body.axslb-panorama button[aria-label*="Siguiente"],
+body.axslb-panorama button[aria-label*="siguiente"] {
   display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 /* Move Pannellum tool controls group to bottom-left (keep compass separate) */
@@ -274,4 +287,138 @@ body.axslb-panorama .pnlm-ui .pnlm-compass {
 
 .axslb-btn:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos específicos para visualización 360° simple */
+body.axslb-panorama .yarl__slide {
+  background: #000 !important;
+  overflow: hidden !important;
+}
+
+/* Contenedor del visualizador 360° */
+body.axslb-panorama .yarl__slide img {
+  cursor: grab !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+body.axslb-panorama .yarl__slide img:active {
+  cursor: grabbing !important;
+}
+
+/* Asegurar que los controles personalizados estén visibles */
+body.axslb-panorama .MuiIconButton-root {
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+/* Ocultar elementos innecesarios en modo 360° */
+body.axslb-panorama .yarl__thumbnails_container {
+  display: none !important;
+}
+
+/* Mejorar la visualización del contenedor 360° */
+body.axslb-panorama .yarl__slide > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Estilos para el indicador de carga */
+body.axslb-panorama .loading-indicator {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #fff !important;
+  z-index: 1001 !important;
+  text-align: center !important;
+}
+
+/* Asegurar que el contenedor del visualizador ocupe todo el espacio */
+body.axslb-panorama .yarl__slide > div > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* CRÍTICO: Asegurar que el canvas del WebGL360Viewer reciba eventos de mouse */
+body.axslb-panorama .yarl__slide canvas {
+  pointer-events: auto !important;
+  touch-action: none !important;
+  cursor: grab !important;
+  position: relative !important;
+  z-index: 100 !important;
+}
+
+body.axslb-panorama .yarl__slide canvas:active {
+  cursor: grabbing !important;
+}
+
+/* Asegurar que el contenedor Box del WebGL360Viewer tenga pointer-events */
+body.axslb-panorama .yarl__slide > div {
+  pointer-events: auto !important;
+  z-index: 50 !important;
+}
+
+/* Deshabilitar pointer-events en los overlays del lightbox que puedan interferir */
+body.axslb-panorama .yarl__slide_image_wrapper,
+body.axslb-panorama .yarl__slide_content {
+  pointer-events: none !important;
+}
+
+/* Deshabilitar TODOS los controles de navegación del lightbox en modo panorama */
+body.axslb-panorama .yarl__container::before,
+body.axslb-panorama .yarl__container::after,
+body.axslb-panorama .yarl__slides::before,
+body.axslb-panorama .yarl__slides::after {
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Asegurar que SOLO el contenedor del slide tenga pointer-events */
+body.axslb-panorama .yarl__slides {
+  pointer-events: none !important;
+}
+
+body.axslb-panorama .yarl__slide {
+  pointer-events: auto !important;
+}
+
+/* Forzar que el canvas sea el elemento principal interactivo */
+body.axslb-panorama * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+body.axslb-panorama canvas {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+/* Permitir que los botones del toolbar y controles del WebGL360Viewer sigan funcionando */
+body.axslb-panorama .yarl__toolbar,
+body.axslb-panorama .yarl__toolbar *,
+body.axslb-panorama .yarl__button,
+body.axslb-panorama .MuiIconButton-root,
+body.axslb-panorama button {
+  pointer-events: auto !important;
+}
+
+/* CRÍTICO: Deshabilitar áreas clickeables de navegación en los lados del slide */
+body.axslb-panorama .yarl__carousel,
+body.axslb-panorama .yarl__flex_center {
+  pointer-events: none !important;
+}
+
+/* Asegurar que el área del slide sea la única clickeable */
+body.axslb-panorama .yarl__slide {
+  pointer-events: auto !important;
+}
+
+/* Forzar que NO haya hotspots de navegación en ningún lado */
+body.axslb-panorama .yarl__navigation_prev,
+body.axslb-panorama .yarl__navigation_next {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  pointer-events: none !important;
 }

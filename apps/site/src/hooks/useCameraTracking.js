@@ -15,10 +15,12 @@ import { trackEvent } from '../utils/analytics';
 import { throttle } from 'lodash';
 
 const useCameraTracking = (viewer, projectId, options = {}) => {
+  console.log('🔥 [useCameraTracking] Hook inicializado:', { viewer: !!viewer, projectId, options });
+  
   const {
     throttleMs = 3000,           // Trackear cada 3 segundos como máximo
     minMovementThreshold = 0.001, // Movimiento mínimo para trackear
-    trackOnMount = true,
+    trackOnMount = false,        // Trackear posición inicial
     enabled = true
   } = options;
 
@@ -166,6 +168,7 @@ const useCameraTracking = (viewer, projectId, options = {}) => {
    * Track home button
    */
   const trackHomeView = useCallback(() => {
+    console.log('🔥 [useCameraTracking] trackHomeView ejecutado');
     trackEvent('home_view_activated', {
       project_id: projectId,
       trigger: 'button'
@@ -183,7 +186,7 @@ const useCameraTracking = (viewer, projectId, options = {}) => {
     });
     
     if (!viewer || !enabled) {
-      console.warn('⚠️ [Camera] Tracking disabled:', { viewer: !!viewer, enabled });
+      console.log('ℹ️ [Camera] Tracking disabled:', { viewer: !!viewer, enabled });
       return;
     }
 

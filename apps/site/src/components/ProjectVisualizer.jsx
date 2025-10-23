@@ -323,12 +323,12 @@ const ProjectVisualizer = () => {
   const { availableDates: availableCaptureDates, isLoading: datesLoading } = useAssetDates(projectId);
   
   // 📊 ANALYTICS TRACKING - Fase 1
-  const { trackHomeView } = useCameraTracking(cesiumViewer, projectId, {
+  const { trackHomeView, trackZoom, trackCameraPosition, getCameraData } = useCameraTracking(cesiumViewer, projectId, {
     throttleMs: 3000,
     trackOnMount: true,
     enabled: true
   });
-  useTimelineTracking(cesiumViewer, projectId);
+  const { trackDateJump, trackLoopToggle, trackPlaybackControl, trackSpeedChange } = useTimelineTracking(cesiumViewer, projectId);
   
   // Debug del proyecto completo
   useEffect(() => {
@@ -683,6 +683,8 @@ const ProjectVisualizer = () => {
             const meta = extractCesiumFeatureMetadata(pickedObject);
             if (meta) {
               // console.log('[ProjectVisualizer] Feature seleccionado, metadata:', meta);
+              // 📊 ANALYTICS: Track entity clicked for Cesium feature
+              trackEntityClicked(meta, null, pickedObject);
               setSelectedElement(meta);
             }
           }
@@ -857,6 +859,123 @@ const ProjectVisualizer = () => {
     }
   };
 
+  // Función para extraer fecha del nombre de archivo DJI
+  const extractDateFromDJIFilename = (filename) => {
+    if (!filename) return null;
+    try {
+      // Patrón para archivos DJI: DJI_YYYYMMDDHHMMSS_XXXX_V
+      const match = filename.match(/DJI_(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour, minute, second] = match;
+        const date = new Date(year, month - 1, day, hour, minute, second);
+        return date.toISOString();
+      }
+    } catch (e) {
+      console.warn('[ProjectVisualizer] Error extrayendo fecha de nombre DJI:', e);
+    }
+    return null;
+  };
+
+  // Función centralizada para trackear entity_clicked
+  const trackEntityClicked = useCallback((elementData, entity = null, feature = null) => {
+    try {
+      let entityType = 'unknown';
+      let entityId = null;
+      let entityName = null;
+      let entityUrl = null;
+      let gpsPosition = null;
+      let fechaCaptura = null;
+
+      // Determinar tipo y datos según el origen
+      if (elementData?.type) {
+        entityType = elementData.type;
+        entityId = elementData.data?.name || elementData.entity?.id || 'unknown';
+        entityName = elementData.data?.name || elementData.entity?.name || null;
+      }
+
+      // Para entidades Cesium (fotos, plan, etc.)
+      if (entity) {
+        entityType = entity._axsolLayerKey || (entity.billboard ? 'photo' : entityType);
+        entityId = entity.id || entityId;
+        entityName = entity.name || entityName;
+
+        // Obtener URL y fecha de captura si es una foto
+        if (entity.billboard && entity.properties) {
+          try {
+            console.log('[trackEntityClicked] Propiedades de entidad:', Object.keys(entity.properties));
+            
+            entityUrl = extractImageUrlFromDescription(entity) || 
+                       getPropertyValue(entity.properties, 'thumbnail') || 
+                       getPropertyValue(entity.properties, 'image') || 
+                       getPropertyValue(entity.properties, 'url');
+            
+            console.log('[trackEntityClicked] URL extraída:', entityUrl);
+            
+            // Obtener fecha de captura
+            fechaCaptura = getPropertyValue(entity.properties, 'date') || 
+                          getPropertyValue(entity.properties, 'timestamp') ||
+                          getPropertyValue(entity.properties, 'fechaCaptura') ||
+                          getPropertyValue(entity.properties, 'captureDate');
+            
+            console.log('[trackEntityClicked] Fecha de propiedades:', fechaCaptura);
+            
+            // Si no hay fecha en propiedades, intentar extraer del nombre del archivo
+            if (!fechaCaptura && entityUrl) {
+              const filename = entityUrl.split('/').pop()?.split('?')[0];
+              fechaCaptura = extractDateFromDJIFilename(filename);
+              console.log('[trackEntityClicked] Fecha extraída del nombre de archivo:', fechaCaptura);
+            }
+            
+            console.log('[trackEntityClicked] Fecha captura final:', fechaCaptura, 'para entidad:', entity.id);
+          } catch (e) {
+            console.warn('[ProjectVisualizer] Error obteniendo URL/fecha de entidad:', e);
+          }
+        }
+
+        // Obtener posición GPS (x,y,z)
+        if (entity.position) {
+          try {
+            const coords = getCoordinatesFromPosition(entity.position);
+            if (coords) {
+              gpsPosition = {
+                x: coords.lon, // Longitud como X
+                y: coords.lat, // Latitud como Y  
+                z: coords.alt || 0 // Altitud como Z
+              };
+            }
+          } catch (e) {
+            console.warn('[ProjectVisualizer] Error obteniendo coordenadas de entidad:', e);
+          }
+        }
+      }
+
+      // Para features IFC/3D Tiles
+      if (feature && typeof feature.getPropertyIds === 'function') {
+        entityType = 'ifc';
+        try {
+          entityId = feature.getProperty('id') || feature.getProperty('elementId') || 'ifc_element';
+          entityName = feature.getProperty('name') || feature.getProperty('Name') || null;
+        } catch (e) {
+          console.warn('[ProjectVisualizer] Error obteniendo propiedades de feature:', e);
+        }
+      }
+
+      // 📊 ANALYTICS: Track entity clicked
+      trackEvent('entity_clicked', {
+        entity_type: entityType,
+        entity_id: entityId,
+        entity_name: entityName,
+        entity_url: entityUrl,
+        gps_position: gpsPosition,
+        fecha_captura: fechaCaptura,
+        project_id: projectId
+      });
+
+    } catch (error) {
+      console.error('[ProjectVisualizer] Error en trackEntityClicked:', error);
+    }
+  }, [projectId]);
+
   const handleElementSelection = useCallback(async (entity) => {
     // console.log('[ProjectVisualizer] handleElementSelection called with:', entity);
     // console.log('[ProjectVisualizer] Entity details:', {
@@ -873,23 +992,6 @@ const ProjectVisualizer = () => {
       return;
     }
 
-    // 📊 ANALYTICS: Track entity clicked
-    const entityType = entity._axsolLayerKey || 
-                      (entity.billboard ? 'photo' : 'unknown');
-    trackEvent('entity_clicked', {
-      entity_type: entityType,
-      entity_id: entity.id,
-      entity_name: entity.name,
-      project_id: projectId
-    });
-    
-    // Track first use of specific features
-    if (entityType === 'photo360') {
-      trackFeatureFirstUse('photo360_interaction', { project_id: projectId });
-    } else if (entityType === 'plan') {
-      trackFeatureFirstUse('plan_interaction', { project_id: projectId });
-    }
-
     // Detectar entidad del Plan de Actividades (CZML layerKey: 'plan')
     try {
       if (entity._axsolLayerKey === 'plan') {
@@ -903,6 +1005,10 @@ const ProjectVisualizer = () => {
         const activityData = { name, description: desc };
         const selectedElementData = { type: 'activity', data: activityData, entity };
         // console.log('[ProjectVisualizer] Activity plan entity selected:', selectedElementData);
+        
+        // 📊 ANALYTICS: Track entity clicked for activity plan
+        trackEntityClicked(selectedElementData, entity);
+        
         setSelectedElement(selectedElementData);
         return;
       }
@@ -956,9 +1062,18 @@ const ProjectVisualizer = () => {
             if (posVal) galleryImages = collectNearbyPhotoUrls(entity, posVal, imageUrl, 10);
           } catch {}
 
+          let dateCapture = getPropertyValue(props, 'date') || getPropertyValue(props, 'timestamp') || getPropertyValue(props, 'captureDate');
+          
+          // Si no hay fecha en propiedades, intentar extraer del nombre del archivo
+          if (!dateCapture && imageUrl) {
+            const filename = imageUrl.split('/').pop()?.split('?')[0];
+            dateCapture = extractDateFromDJIFilename(filename);
+            console.log('[handleElementSelection] Fecha extraída del nombre de archivo para foto:', dateCapture);
+          }
+
           elementData = {
             name: getPropertyValue(props, 'name') || entity.name || entity.id || 'Fotografía',
-            date: getPropertyValue(props, 'date') || getPropertyValue(props, 'timestamp') || getPropertyValue(props, 'captureDate'),
+            date: dateCapture,
             thumbnail: imageUrl,
             coordinates: coords && { lat: coords.lat, lon: coords.lon },
             relativeAltitude: typeof relAlt === 'number' ? relAlt : undefined,
@@ -970,11 +1085,14 @@ const ProjectVisualizer = () => {
         } else if (entityType === 'photo360' || entityType === 'panorama') {
           elementType = 'photo360';
           
-          // Extraer URL de imagen desde la descripción
-          const imageUrl = extractImageUrlFromDescription(entity) || 
-                          getPropertyValue(props, 'thumbnail') || 
-                          getPropertyValue(props, 'image') || 
-                          getPropertyValue(props, 'url');
+          // Extraer URL de imagen COMPLETA (priorizar image/url sobre thumbnail)
+          const fullImageUrl = extractImageUrlFromDescription(entity) || 
+                               getPropertyValue(props, 'image') || 
+                               getPropertyValue(props, 'url') || 
+                               getPropertyValue(props, 'thumbnail');
+          
+          // Extraer thumbnail específico (si existe)
+          const thumbnailUrl = getPropertyValue(props, 'thumbnail') || fullImageUrl;
           
           // Coordenadas y altitud relativa
           let relAlt = null;
@@ -989,10 +1107,20 @@ const ProjectVisualizer = () => {
             }
           } catch {}
 
+          let dateCapture360 = getPropertyValue(props, 'date') || getPropertyValue(props, 'timestamp') || getPropertyValue(props, 'captureDate');
+          
+          // Si no hay fecha en propiedades, intentar extraer del nombre del archivo
+          if (!dateCapture360 && fullImageUrl) {
+            const filename = fullImageUrl.split('/').pop()?.split('?')[0];
+            dateCapture360 = extractDateFromDJIFilename(filename);
+            console.log('[handleElementSelection] Fecha extraída del nombre de archivo para foto 360:', dateCapture360);
+          }
+
           elementData = {
             name: getPropertyValue(props, 'name') || entity.name || entity.id || 'Foto 360°',
-            date: getPropertyValue(props, 'date') || getPropertyValue(props, 'timestamp') || getPropertyValue(props, 'captureDate'),
-            thumbnail: imageUrl,
+            date: dateCapture360,
+            thumbnail: thumbnailUrl,  // Para mostrar en el InfoBox
+            image: fullImageUrl,      // ✅ NUEVO: URL de imagen completa
             coordinates: coords && { lat: coords.lat, lon: coords.lon },
             relativeAltitude: typeof relAlt === 'number' ? relAlt : undefined
           };
@@ -1018,8 +1146,18 @@ const ProjectVisualizer = () => {
           }
         } catch {}
 
+        let dateCaptureNoProps = getPropertyValue(entity.properties, 'date') || getPropertyValue(entity.properties, 'timestamp') || getPropertyValue(entity.properties, 'captureDate');
+        
+        // Si no hay fecha en propiedades, intentar extraer del nombre del archivo
+        if (!dateCaptureNoProps && imageUrl) {
+          const filename = imageUrl.split('/').pop()?.split('?')[0];
+          dateCaptureNoProps = extractDateFromDJIFilename(filename);
+          console.log('[handleElementSelection] Fecha extraída del nombre de archivo para foto sin props:', dateCaptureNoProps);
+        }
+
         elementData = {
           name: entity.name || entity.id || 'Fotografía',
+          date: dateCaptureNoProps,
           thumbnail: imageUrl,
           coordinates: coords && { lat: coords.lat, lon: coords.lon },
           relativeAltitude: typeof relAlt === 'number' ? relAlt : undefined
@@ -1066,6 +1204,16 @@ const ProjectVisualizer = () => {
       data: elementData,
       entity: entity
     };
+    
+    // 📊 ANALYTICS: Track entity clicked
+    trackEntityClicked(selectedElementData, entity);
+    
+    // Track first use of specific features
+    if (elementType === 'photo360') {
+      trackFeatureFirstUse('photo360_interaction', { project_id: projectId });
+    } else if (elementType === 'activity') {
+      trackFeatureFirstUse('plan_interaction', { project_id: projectId });
+    }
     
     // console.log('[ProjectVisualizer] Setting selectedElement:', selectedElementData);
     setSelectedElement(selectedElementData);
@@ -1147,6 +1295,8 @@ const ProjectVisualizer = () => {
             const meta = extractFeatureMetadata(pickedObject);
             if (meta) {
               console.log('🔥 Feature IFC metadata extraída');
+              // 📊 ANALYTICS: Track entity clicked for IFC feature
+              trackEntityClicked(meta, null, pickedObject);
               setSelectedElement(meta);
             }
           }
@@ -1445,8 +1595,12 @@ const ProjectVisualizer = () => {
         console.log('[ProjectVisualizer] Custom Home button clicked');
         
         // 📊 ANALYTICS: Track home view activated
+        console.log('🔥 [ProjectVisualizer] trackHomeView disponible:', !!trackHomeView);
         if (trackHomeView) {
+          console.log('🔥 [ProjectVisualizer] Llamando trackHomeView');
           trackHomeView();
+        } else {
+          console.error('❌ [ProjectVisualizer] trackHomeView NO disponible');
         }
         
         // Hacer flyTo al polígono del proyecto si existe
@@ -2428,7 +2582,30 @@ const CzmlLayer = ({ data, visible, layerKey, splitDirection = null }) => {
             window.loadedBillboards = entities.map((entity) => {
               const pos = entity.position && entity.position.getValue ? entity.position.getValue(now) : null;
               const url = toUrl(entity);
-              const fechaCaptura = getProp(entity, 'date') || getProp(entity, 'timestamp');
+              
+              // Debug: ver todas las propiedades disponibles
+              if (entity.properties) {
+                const propNames = Object.keys(entity.properties);
+                console.log('[ProjectVisualizer] Propiedades disponibles para', entity.id, ':', propNames);
+                propNames.forEach(prop => {
+                  const value = getProp(entity, prop);
+                  if (prop.toLowerCase().includes('date') || prop.toLowerCase().includes('time') || prop.toLowerCase().includes('captur')) {
+                    console.log(`[ProjectVisualizer] Propiedad relacionada con fecha - ${prop}:`, value);
+                  }
+                });
+              }
+              
+              let fechaCaptura = getProp(entity, 'date') || getProp(entity, 'timestamp') || getProp(entity, 'captureDate') || getProp(entity, 'fechaCaptura');
+              
+              // Si no hay fecha en propiedades, intentar extraer del nombre del archivo
+              if (!fechaCaptura && url) {
+                const filename = url.split('/').pop()?.split('?')[0];
+                fechaCaptura = extractDateFromDJIFilename(filename);
+                console.log('[loadedBillboards] Fecha extraída del nombre de archivo:', fechaCaptura);
+              }
+              
+              console.log('[ProjectVisualizer] Fecha captura final para', entity.id, ':', fechaCaptura);
+              
               return {
                 entity,
                 id: entity.id,
@@ -2472,10 +2649,18 @@ const CzmlLayer = ({ data, visible, layerKey, splitDirection = null }) => {
           console.log(`🎉 [CzmlLayer-${layerKey}] Capa agregada al viewer exitosamente!`);
         }
       } catch (error) {
-        console.error(`❌ [CzmlLayer-${layerKey}] Error al cargar CZML:`, error);
-        console.error(`❌ [CzmlLayer-${layerKey}] Error completo:`, error.stack);
-        if (layerKey === 'plan') {
-          console.error(`❌ [CzmlLayer-${layerKey}] Data que causó el error:`, data);
+        // Manejar errores 404 de manera más elegante
+        if (error.statusCode === 404 || error.message?.includes('404')) {
+          console.warn(`⚠️ [CzmlLayer-${layerKey}] Archivo CZML no encontrado (404):`, data);
+          if (layerKey === 'plan') {
+            console.warn(`⚠️ [CzmlLayer-${layerKey}] Plan de actividades no disponible en el servidor`);
+          }
+        } else {
+          console.error(`❌ [CzmlLayer-${layerKey}] Error al cargar CZML:`, error);
+          console.error(`❌ [CzmlLayer-${layerKey}] Error completo:`, error.stack);
+          if (layerKey === 'plan') {
+            console.error(`❌ [CzmlLayer-${layerKey}] Data que causó el error:`, data);
+          }
         }
       }
     };

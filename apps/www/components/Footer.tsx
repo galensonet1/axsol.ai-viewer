@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
               IngeIA EPCM. Aplicamos IA para la excelencia en proyectos de Ingeniería, Procura y Construcción de plantas (SITE) y ductos (LINE).
             </p>
             <div className="flex space-x-4">
-              <SocialIcon href="https://linkedin.com">
+              <SocialIcon href="https://www.linkedin.com/company/ingeia-tech">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.28 1.548h2.559v8.59H3.725v-8.59zM17.638 2H6.362A4.362 4.362 0 002 6.362v11.276A4.362 4.362 0 006.362 22h11.276A4.362 4.362 0 0022 17.638V6.362A4.362 4.362 0 0017.638 2z" clipRule="evenodd" /></svg>
               </SocialIcon>
             </div>
@@ -61,8 +61,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-bold text-white mb-4">Compañía</h3>
             <ul className="space-y-3">
-              <FooterLink href="#inicio">Nosotros</FooterLink>
-              <FooterLink href="#contacto">Carreras</FooterLink>
+              <FooterLink href="#nosotros">Nosotros</FooterLink>
               <FooterLink href="#contacto">Contacto</FooterLink>
             </ul>
           </div>

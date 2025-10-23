@@ -53,9 +53,10 @@ async function bootstrap() {
       
       // Enrich with Clearbit Reveal for ABM (Account-Based Marketing)
       // This will identify the company based on visitor's IP
-      enrichWithClearbit(window.__CONFIG__?.apiBaseUrl || apiOrigin).catch(err => {
-        console.log('[Analytics] Clearbit enrichment skipped:', err.message);
-      });
+      // TEMPORALMENTE DESHABILITADO: endpoint /api/reveal no existe
+      // enrichWithClearbit(window.__CONFIG__?.apiBaseUrl || apiOrigin).catch(err => {
+      //   console.log('[Analytics] Clearbit enrichment skipped:', err.message);
+      // });
     } else {
       console.error('❌ [Bootstrap] VITE_POSTHOG_KEY no está definida en .env');
     }
@@ -104,6 +105,8 @@ async function bootstrap() {
     }
 
     const auth0 = window.__CONFIG__?.auth0 || {};
+    
+    // Auth0 configuration loaded successfully
 
     root.render(
       <StrictMode>
@@ -113,7 +116,7 @@ async function bootstrap() {
             clientId={auth0.clientId || import.meta.env.VITE_AUTH0_CLIENT_ID}
             authorizationParams={{
               redirect_uri: window.location.origin,
-              audience: auth0.audience || import.meta.env.VITE_AUTH0_AUDIENCE,
+              audience: auth0.audience || import.meta.env.VITE_AUTH0_AUDIENCE, // Restaurado para generar JWT válido
               scope: 'openid profile email',
             }}
           >
@@ -125,7 +128,10 @@ async function bootstrap() {
       </StrictMode>
     );
   } catch (e) {
-    console.error('❌❌❌ [Bootstrap] ERROR FATAL en bootstrap:', e);
+    console.error('❌ [Bootstrap] Error en bootstrap:', e);
+    
+    // Using fallback Auth0 configuration
+    
     // En caso de falla, render con variables de entorno como fallback
     root.render(
       <StrictMode>
@@ -135,7 +141,7 @@ async function bootstrap() {
             clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
             authorizationParams={{
               redirect_uri: window.location.origin,
-              audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+              audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Restaurado para generar JWT válido
               scope: 'openid profile email',
             }}
           >

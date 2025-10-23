@@ -1,0 +1,63 @@
+headersOrigin = "config"
+redirectsOrigin = "config"
+plugins = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/cristian/1.MATERIAL/2025/2025.08.15 - AXSOL.AI/AXSOL.ai - viewer/axsol-viewer/apps/www/dist"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "/Users/cristian/1.MATERIAL/2025/2025.08.15 - AXSOL.AI/AXSOL.ai - viewer/axsol-viewer/apps/www"
+command = "npm install && npm run build"
+
+[build.environment]
+NODE_VERSION = "22"
+NODE_ENV = "production"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[headers]]
+for = "/*"
+
+[headers.values]
+X-Frame-Options = "DENY"
+X-XSS-Protection = "1; mode=block"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+for = "/static/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/assets/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

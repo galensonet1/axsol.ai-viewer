@@ -23,7 +23,8 @@ const Header: React.FC = () => {
   const navLinks = [
     { name: "Inicio", href: "#inicio" },
     { name: "Soluciones", href: "#soluciones" },
-    { name: "Tecnología", href: "#tecnologia" }
+    { name: "Tecnología", href: "#tecnologia" },
+    { name: "Nosotros", href: "#nosotros" }
   ];
 
   return (
@@ -34,30 +35,9 @@ const Header: React.FC = () => {
         </a>
         <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
-            link.dropdown ? (
-              <div 
-                key={link.name} 
-                className="relative"
-                onMouseEnter={() => setDropdownOpen(true)}
-                onMouseLeave={() => setDropdownOpen(false)}
-              >
-                <a href={link.href} className="text-white font-semibold hover:text-ing-teal transition-colors flex items-center">
-                  {link.name}
-                  <svg className={`w-4 h-4 ml-1 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                </a>
-                {isDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-ing-dark-secondary rounded-lg shadow-xl py-2">
-                    {link.dropdown.map(item => (
-                      <a key={item.name} href={item.href} className="block px-4 py-2 text-white hover:bg-ing-dark hover:text-ing-teal transition-colors">{item.name}</a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <a key={link.name} href={link.href} className="text-white font-semibold hover:text-ing-teal transition-colors">
-                {link.name}
-              </a>
-            )
+            <a key={link.name} href={link.href} className="text-white font-semibold hover:text-ing-teal transition-colors">
+              {link.name}
+            </a>
           ))}
         </nav>
         <div className="flex items-center space-x-4">

@@ -24,8 +24,17 @@ export const useProjectPermissions = (projectId) => {
         console.log('[ProjectPermissions] Project permissions:', projectPermissions);
         setPermissions(projectPermissions);
       } catch (error) {
-        console.error('[ProjectPermissions] Error fetching permissions:', error);
-        setPermissions(null);
+        console.warn('[ProjectPermissions] Error fetching permissions (non-blocking):', error.response?.status, error.message);
+        
+        // En caso de error, establecer permisos por defecto basados en roles globales
+        const defaultPermissions = {
+          permission_level: 'viewer', // Por defecto viewer
+          can_edit: false,
+          error: true,
+          errorMessage: `Error ${error.response?.status || 'unknown'}: ${error.message}`
+        };
+        
+        setPermissions(defaultPermissions);
       } finally {
         setLoading(false);
       }
@@ -36,22 +45,32 @@ export const useProjectPermissions = (projectId) => {
 
   // Función para verificar si el usuario puede editar el proyecto
   const canEditProject = () => {
-    if (!user) return false;
+    if (!user) {
+      console.log('[ProjectPermissions] No user found');
+      return false;
+    }
     
-    // 1. Verificar roles globales (Superadmin o Admin)
+    // 1. Verificar roles globales (Superadmin o Admin) - estos siempre tienen acceso
     const isSuperadmin = user?.roleIds?.includes(6) || user?.roles?.includes('Superadmin');
     const isAdmin = user?.roleIds?.includes(5) || user?.roles?.includes('Admin');
     
     if (isSuperadmin || isAdmin) {
-      console.log('[ProjectPermissions] User has global admin role');
+      console.log('[ProjectPermissions] User has global admin role (Superadmin:', isSuperadmin, 'Admin:', isAdmin, ')');
       return true;
     }
     
-    // 2. Verificar permisos específicos del proyecto
-    const hasProjectAdminPermission = permissions?.permission_level === 'admin';
+    // 2. Si hay error en permisos, denegar acceso pero no bloquear la UI
+    if (permissions?.error) {
+      console.log('[ProjectPermissions] Permissions error, denying edit access:', permissions.errorMessage);
+      return false;
+    }
     
-    if (hasProjectAdminPermission) {
-      console.log('[ProjectPermissions] User has project admin permission');
+    // 3. Verificar permisos específicos del proyecto
+    const hasProjectAdminPermission = permissions?.permission_level === 'admin';
+    const hasProjectEditPermission = permissions?.can_edit === true;
+    
+    if (hasProjectAdminPermission || hasProjectEditPermission) {
+      console.log('[ProjectPermissions] User has project edit permission (admin:', hasProjectAdminPermission, 'edit:', hasProjectEditPermission, ')');
       return true;
     }
     

@@ -5,19 +5,27 @@ import { useUser } from './context/UserContext.jsx';
 import api from './config/api';
 import App from './App';
 import { identify, segmentTrack, customerioTrack } from '@ingeia/analytics';
+import { trackEvent } from './utils/analytics';
+import AnalyticsMonitorProvider from './components/AnalyticsMonitorProvider';
 
 const AppWrapper = () => {
-  const { isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, isLoading, error } = useAuth0();
   const { setUser, setLoadingUser, loadingUser } = useUser();
   const navigate = useNavigate();
 
   // Establecer loadingUser a false inmediatamente para usuarios no autenticados
   useEffect(() => {
+    console.log('[AppWrapper] Estado Auth0 cambió:', { isLoading, isAuthenticated, error });
+    
+    if (error) {
+      console.error('[AppWrapper] ❌ Error de Auth0 detectado:', error);
+    }
+    
     if (!isLoading && !isAuthenticated) {
       console.log('[AppWrapper] Usuario no autenticado, estableciendo loadingUser a false');
       setLoadingUser(false);
     }
-  }, [isLoading, isAuthenticated, setLoadingUser]);
+  }, [isLoading, isAuthenticated, error, setLoadingUser]);
 
   // Manejar redirección post-login
   useEffect(() => {
@@ -65,10 +73,16 @@ const AppWrapper = () => {
     const getUserProfile = async () => {
       if (isAuthenticated) {
         try {
+          console.log('[AppWrapper] 🔑 Obteniendo token de Auth0...');
           const token = await getAccessTokenSilently();
+          console.log('[AppWrapper] 🔑 Token obtenido:', token ? `${token.substring(0, 20)}...` : 'NULL');
+          
           api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          console.log('[AppWrapper] 📡 Haciendo request a /api/user/me con token');
           const response = await api.get('/api/user/me');
           const userData = response.data;
+          
+          console.log('[AppWrapper] User loaded:', userData?.email, 'ID:', userData?.id, 'Roles:', userData?.roles);
           
           setUser(userData);
           
@@ -103,16 +117,13 @@ const AppWrapper = () => {
                 });
               }
               
-              if (typeof customerioTrack === 'function') {
-                customerioTrack('user_signed_up', {
-                  app: 'site',
-                  email: userData.email,
-                  name: userData.name,
-                  roles: userData.roles,
-                  timestamp: now,
-                  source: 'auth0'
-                });
-              }
+              // Track con función centralizada
+              trackEvent('user_signed_up', {
+                email: userData.email,
+                name: userData.name,
+                roles: userData.roles,
+                source: 'auth0'
+              });
             } else {
               // Track login event for EXISTING users
               const lastLogin = localStorage.getItem('last_login_tracked');
@@ -131,21 +142,25 @@ const AppWrapper = () => {
                   });
                 }
                 
-                if (typeof customerioTrack === 'function') {
-                  customerioTrack('user_logged_in', {
-                    app: 'site',
-                    email: userData.email,
-                    roles: userData.roles,
-                    timestamp: now
-                  });
-                }
+                // Track con función centralizada
+                console.log('🔥 [AppWrapper] Llamando trackEvent user_logged_in');
+                trackEvent('user_logged_in', {
+                  email: userData.email,
+                  roles: userData.roles
+                });
                 
                 localStorage.setItem('last_login_tracked', now);
               }
             }
           }
         } catch (error) {
-          console.error('Error fetching user profile:', error);
+          console.error('[AppWrapper] ❌ Error fetching user profile:', error);
+          console.error('[AppWrapper] ❌ Error details:', {
+            message: error.message,
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            data: error.response?.data
+          });
         } finally {
           setLoadingUser(false);
         }
@@ -180,7 +195,11 @@ const AppWrapper = () => {
      return <div className="loading-container">Cargando aplicación...</div>;
   }
 
-  return <App />;
+  return (
+    <AnalyticsMonitorProvider>
+      <App />
+    </AnalyticsMonitorProvider>
+  );
 };
 
 export default AppWrapper;

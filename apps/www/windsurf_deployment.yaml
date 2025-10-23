@@ -1,0 +1,7 @@
+project_id: "www-ingeia-tech"
+framework: "create-react-app"
+build_command: "npm run build"
+publish_directory: "dist"
+domain: "ingeia.tech"
+deployment_date: "2025-10-22"
+deployment_status: "success"

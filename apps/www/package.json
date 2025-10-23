@@ -12,6 +12,7 @@
     "@ingeia/analytics": "file:../../packages/analytics",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "netlify-cli": "^23.9.2",
     "posthog-js": "^1.277.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

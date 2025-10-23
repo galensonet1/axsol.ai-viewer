@@ -6,6 +6,7 @@
  */
 
 import { segmentTrack, customerioTrack } from '@ingeia/analytics';
+import { analyticsMonitor } from './analyticsMonitor';
 
 /**
  * Track event en todos los servicios de analytics
@@ -23,6 +24,19 @@ import { segmentTrack, customerioTrack } from '@ingeia/analytics';
  */
 export const trackEvent = (eventName, properties = {}, options = {}) => {
   try {
+    // Verificar si el evento está habilitado en el monitor
+    const isEnabled = analyticsMonitor?.isEventEnabled?.(eventName);
+    console.log(`🔍 [Analytics] Verificando evento ${eventName}:`, {
+      hasMonitor: !!analyticsMonitor,
+      isEnabled,
+      monitorFunction: typeof analyticsMonitor?.isEventEnabled
+    });
+    
+    if (analyticsMonitor && !isEnabled) {
+      console.log(`🚫 [Analytics] Evento ${eventName} deshabilitado por monitor`);
+      return;
+    }
+
     const timestamp = new Date().toISOString();
     
     // Enriquecer con contexto automático
@@ -41,6 +55,11 @@ export const trackEvent = (eventName, properties = {}, options = {}) => {
     // Log en desarrollo (siempre activo para debugging)
     const isDev = import.meta.env.DEV || import.meta.env.MODE === 'development' || !import.meta.env.PROD;
     console.log(`📊 [Analytics] ${eventName}`, enrichedProps);
+
+    // Registrar en el monitor ANTES de enviar
+    if (analyticsMonitor?.recordEvent) {
+      analyticsMonitor.recordEvent(eventName, enrichedProps, 'trackEvent');
+    }
 
     // Segment (CDP principal)
     if (typeof segmentTrack === 'function') {

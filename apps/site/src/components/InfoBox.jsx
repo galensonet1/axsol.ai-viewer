@@ -88,25 +88,18 @@ const InfoBox = ({ selectedElement, onClose, measurements, showMeasurements }) =
 
   return (
     <Box className="info-box">
-      <Paper elevation={6} className="info-box-surface">
+      <Paper className="info-box-paper">
         <Box className="info-box-header">
           <Box className="info-box-title">
             {getIcon()}
-            <Typography variant="subtitle2" className="info-box-title-text">
+            <Typography variant="h6" component="h2">
               {getTitle()}
             </Typography>
           </Box>
-          <IconButton 
-            size="small" 
-            onClick={onClose}
-            className="info-box-close"
-          >
-            <CloseIcon fontSize="small" />
+          <IconButton onClick={onClose} size="small" className="info-box-close">
+            <CloseIcon />
           </IconButton>
         </Box>
-        
-        <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
-        
         <Box className="info-box-content">
           {renderContent()}
         </Box>
@@ -145,7 +138,62 @@ const PhotoContent = ({ data, entity }) => {
     return `${url}${join}width=${width}`;
   };
 
-  const isPanoramaUrl = (u) => typeof u === 'string' && /images360/i.test(u);
+  const isPanoramaUrl = (u) => {
+    if (typeof u !== 'string') return false;
+    
+    console.log('[InfoBox] Verificando si es panorama:', u);
+    
+    // Detectar patrones comunes de imágenes 360°
+    const patterns = [
+      /images360/i,           // Carpeta images360
+      /panorama/i,            // Palabra panorama
+      /360/i,                 // Número 360
+      /equirectangular/i,     // Tipo técnico
+      /pano/i,                // Abreviación
+      /SIMAPPH/i,             // Patrón específico SIMAPPH (parece ser 360°)
+      /spherical/i,           // Imágenes esféricas
+      /omnidirectional/i      // Omnidireccionales
+    ];
+    
+    const isMatch = patterns.some(pattern => pattern.test(u));
+    console.log('[InfoBox] Es panorama:', isMatch);
+    
+    return isMatch;
+  };
+  
+  // Función para extraer el nombre de la imagen de la URL
+  const getImageNameFromUrl = (url) => {
+    if (!url) return 'Imagen';
+    try {
+      // Extraer el nombre del archivo de la URL
+      const urlParts = url.split('/');
+      const fileName = urlParts[urlParts.length - 1];
+      // Remover parámetros de query si los hay
+      const cleanFileName = fileName.split('?')[0];
+      // Remover la extensión
+      const nameWithoutExt = cleanFileName.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '');
+      return nameWithoutExt || 'Imagen';
+    } catch {
+      return 'Imagen';
+    }
+  };
+
+  // Función para extraer fecha del nombre de archivo DJI
+  const extractDateFromDJIFilename = (filename) => {
+    if (!filename) return null;
+    try {
+      // Patrón para archivos DJI: DJI_YYYYMMDDHHMMSS_XXXX_V
+      const match = filename.match(/DJI_(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour, minute, second] = match;
+        const date = new Date(year, month - 1, day, hour, minute, second);
+        return date.toISOString();
+      }
+    } catch (e) {
+      console.warn('[InfoBox] Error extrayendo fecha de nombre DJI:', e);
+    }
+    return null;
+  };
 
   const [galleryOpen, setGalleryOpen] = React.useState(false);
   const [galleryIndex, setGalleryIndex] = React.useState(0);
@@ -332,14 +380,14 @@ const PhotoContent = ({ data, entity }) => {
 
       {/* Información de la foto */}
       <Box className="photo-info">
-        {data.name && (
+        {data.thumbnail && (
           <Typography variant="body2" className="info-item">
-            <strong>Nombre:</strong> {data.name}
+            <strong>Nombre:</strong> {getImageNameFromUrl(data.thumbnail)}
           </Typography>
         )}
-        {data.date && (
+        {(data.date || data.fechaCaptura) && (
           <Typography variant="body2" className="info-item">
-            <strong>Fecha:</strong> {new Date(data.date).toLocaleDateString('es-AR')}
+            <strong>Fecha Captura:</strong> {new Date(data.date || data.fechaCaptura).toLocaleDateString('es-AR')}
           </Typography>
         )}
         {data.coordinates && (
@@ -362,10 +410,35 @@ const PhotoContent = ({ data, entity }) => {
       <MediaLightbox
         open={galleryOpen}
         onClose={closeGallery}
-        slides={images.map((src) => (isPanoramaUrl(src)
-          ? { src, axType: 'panorama', title: data.name }
-          : { src, type: 'image', title: data.name }
-        ))}
+        slides={images
+          .map((src) => {
+            const imageTitle = getImageNameFromUrl(src);
+            
+            // Extraer fecha individual de cada imagen
+            const filename = src.split('/').pop()?.split('?')[0];
+            const fechaCapturaIndividual = extractDateFromDJIFilename(filename);
+            
+            // console.log('[PhotoContent] Procesando imagen:', imageTitle, 'fechaCaptura individual:', fechaCapturaIndividual);
+            
+            const fullTitle = fechaCapturaIndividual 
+              ? `${imageTitle} - ${new Date(fechaCapturaIndividual).toLocaleDateString('es-AR')}`
+              : imageTitle;
+            
+            const slideData = isPanoramaUrl(src)
+              ? { src, axType: 'panorama', title: fullTitle, fechaCaptura: fechaCapturaIndividual }
+              : { src, type: 'image', title: fullTitle, fechaCaptura: fechaCapturaIndividual };
+            
+            return { ...slideData, sortDate: fechaCapturaIndividual };
+          })
+          .sort((a, b) => {
+            // Ordenar cronológicamente: más antigua primero
+            if (!a.sortDate && !b.sortDate) return 0;
+            if (!a.sortDate) return 1; // Sin fecha va al final
+            if (!b.sortDate) return -1; // Sin fecha va al final
+            return new Date(a.sortDate) - new Date(b.sortDate);
+          })
+          .map(({ sortDate, ...slide }) => slide) // Remover sortDate del objeto final
+        }
         index={galleryIndex}
         onIndexChange={setGalleryIndex}
       />
@@ -382,24 +455,63 @@ const Photo360Content = ({ data }) => {
     if (/([?&])width=/.test(url)) return url;
     return `${url}${join}width=${width}`;
   };
+  
+  // Función para extraer el nombre de la imagen de la URL
+  const getImageNameFromUrl = (url) => {
+    if (!url) return 'Imagen 360°';
+    try {
+      const urlParts = url.split('/');
+      const fileName = urlParts[urlParts.length - 1];
+      const cleanFileName = fileName.split('?')[0];
+      const nameWithoutExt = cleanFileName.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '');
+      return nameWithoutExt || 'Imagen 360°';
+    } catch {
+      return 'Imagen 360°';
+    }
+  };
+
+  // Función para extraer fecha del nombre de archivo DJI
+  const extractDateFromDJIFilename = (filename) => {
+    if (!filename) return null;
+    try {
+      // Patrón para archivos DJI: DJI_YYYYMMDDHHMMSS_XXXX_V
+      const match = filename.match(/DJI_(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour, minute, second] = match;
+        const date = new Date(year, month - 1, day, hour, minute, second);
+        return date.toISOString();
+      }
+    } catch (e) {
+      console.warn('[InfoBox] Error extrayendo fecha de nombre DJI:', e);
+    }
+    return null;
+  };
+  
   const [open, setOpen] = React.useState(false);
+  
+  // Usar imagen completa para el lightbox, thumbnail para el preview
+  const fullImageUrl = data.image || data.thumbnail;
+  const thumbnailUrl = data.thumbnail;
+  
+  console.log('[Photo360Content] 🖼️ URLs:', { fullImageUrl, thumbnailUrl });
+  
   return (
     <Box className="photo360-content">
-      {data.thumbnail && (
+      {thumbnailUrl && (
         <Box className="photo-thumbnail" onClick={() => setOpen(true)} style={{ cursor: 'zoom-in' }}>
-          <img src={withWidthParam(data.thumbnail, 200)} alt="Vista previa 360°" />
+          <img src={withWidthParam(thumbnailUrl, 200)} alt="Vista previa 360°" />
           <Box className="photo360-badge">360°</Box>
         </Box>
       )}
       <Box className="photo-info">
-        {data.name && (
+        {fullImageUrl && (
           <Typography variant="body2" className="info-item">
-            <strong>Nombre:</strong> {data.name}
+            <strong>Nombre:</strong> {getImageNameFromUrl(fullImageUrl)}
           </Typography>
         )}
-        {data.date && (
+        {(data.date || data.fechaCaptura) && (
           <Typography variant="body2" className="info-item">
-            <strong>Fecha:</strong> {new Date(data.date).toLocaleDateString('es-AR')}
+            <strong>Fecha Captura:</strong> {new Date(data.date || data.fechaCaptura).toLocaleDateString('es-AR')}
           </Typography>
         )}
         {data.coordinates && (
@@ -416,7 +528,27 @@ const Photo360Content = ({ data }) => {
       <MediaLightbox
         open={open}
         onClose={() => setOpen(false)}
-        slides={[{ src: data.thumbnail, axType: 'panorama', title: data.name }]}
+        slides={[{ 
+          src: fullImageUrl,  // ✅ CORREGIDO: Usar imagen completa
+          axType: 'panorama', 
+          title: (() => {
+            const imageTitle = getImageNameFromUrl(fullImageUrl);
+            
+            // Extraer fecha individual de la imagen 360°
+            const filename = fullImageUrl?.split('/').pop()?.split('?')[0];
+            const fechaCapturaIndividual = extractDateFromDJIFilename(filename) || data.fechaCaptura || data.date;
+            
+            console.log('[Photo360Content] 🎯 Slide creado:', { src: fullImageUrl, imageTitle, fechaCapturaIndividual });
+            
+            return fechaCapturaIndividual 
+              ? `${imageTitle} - ${new Date(fechaCapturaIndividual).toLocaleDateString('es-AR')}`
+              : imageTitle;
+          })(),
+          fechaCaptura: (() => {
+            const filename = fullImageUrl?.split('/').pop()?.split('?')[0];
+            return extractDateFromDJIFilename(filename) || data.fechaCaptura || data.date;
+          })()
+        }]}
         index={0}
       />
     </Box>

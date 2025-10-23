@@ -5,9 +5,11 @@ import { useClarityScreen } from './hooks/useClarity';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute'; // Importación correcta
 import ProjectDashboard from './components/ProjectDashboard';
 import ProjectVisualizer from './components/ProjectVisualizer';
+// import UserDebugInfo from './components/UserDebugInfo'; // Deshabilitado
 
 // Componente para manejar la redirección por defecto
 const ProjectRedirect = () => {
@@ -51,10 +53,12 @@ function App() {
           <Route index element={<ProjectRedirect />} />
           <Route path="dashboard" element={<ProjectDashboard />} />
           <Route path="viewer" element={<ProjectVisualizer />} />
+          <Route path="admin" element={<AdminDashboard />} />
         </Route>
         
         {/* Puedes añadir más rutas protegidas aquí */}
       </Routes>
+      {/* <UserDebugInfo /> */}
     </LayoutRoot>
   );
 }

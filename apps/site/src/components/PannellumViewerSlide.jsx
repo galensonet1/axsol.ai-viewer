@@ -51,22 +51,50 @@ export default function PannellumViewerSlide({ src, title }) {
             type: 'equirectangular',
             panorama: src,
             autoLoad: true,
-            compass: true,
+            compass: false, // Deshabilitar brújula para mejor UX
             northOffset: 0,
             yaw: 0,
             pitch: 0,
-            hfov: 100,
-            autoRotate: 18,
-            autoRotateDelay: 1000,
-            hfovMin: 30,
-            hfovMax: 120,
+            hfov: 90, // Campo de visión inicial más conservador
+            autoRotate: 0, // Deshabilitar auto-rotación por defecto
+            autoRotateDelay: 3000,
+            hfovMin: 50, // Zoom mínimo más restrictivo
+            hfovMax: 110, // Zoom máximo más restrictivo
             showControls: true,
             showZoomCtrl: true,
-            showFullscreenCtrl: true,
+            showFullscreenCtrl: false, // Deshabilitar fullscreen de Pannellum (conflicto con lightbox)
             mouseZoom: true,
             doubleClickZoom: true,
             keyboardZoom: true,
+            draggable: true,
+            disableKeyboardCtrl: false,
+            crossOrigin: 'anonymous', // Para evitar problemas de CORS
+            // Configuración mejorada para equirectangulares
+            vaov: 180, // Ángulo vertical completo para equirectangulares
+            vOffset: 0,
+            dynamicUpdate: true,
+            // Configuración de calidad
+            backgroundColor: [0, 0, 0], // Fondo negro
+            // Configuración de controles
+            orientationOnByDefault: false,
+            showZoomCtrl: true,
+            showFullscreenCtrl: false,
           });
+
+          // Agregar event listeners para mejor manejo
+          if (viewerRef.current) {
+            viewerRef.current.on('load', () => {
+              console.log('[PannellumViewerSlide] Panorama cargado exitosamente');
+            });
+            
+            viewerRef.current.on('error', (error) => {
+              console.warn('[PannellumViewerSlide] Error cargando panorama:', error);
+            });
+            
+            viewerRef.current.on('errorcleared', () => {
+              console.log('[PannellumViewerSlide] Error de panorama resuelto');
+            });
+          }
           // Ensure zoom controls are visible if CSS conflicts
           /*
           try {

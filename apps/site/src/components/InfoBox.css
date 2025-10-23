@@ -16,6 +16,32 @@ body.axslb-open .info-box {
   display: none !important;
 }
 
+/* Overlay translúcido con desenfoque cuando el lightbox está abierto */
+body.axslb-open::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999; /* Debajo del lightbox pero encima del resto */
+  pointer-events: none; /* No interfiere con la interacción del lightbox */
+}
+
+.info-box-paper {
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  color: rgba(255, 255, 255, 0.95);
+  overflow: hidden;
+}
+
 .info-box-surface {
   background: var(--ax-panel-bg) !important;
   backdrop-filter: blur(12px);

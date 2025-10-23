@@ -15,9 +15,12 @@ export const UserProvider = ({ children }) => {
     setLoadingUser,
     // Conveniencia para chequear roles y permisos
     hasRole: (role) => {
-      console.log('[UserContext] Checking role:', role, 'User:', user);
-      console.log('[UserContext] User roles:', user?.roles);
-      console.log('[UserContext] User roleIds:', user?.roleIds);
+      // Si role es un array de IDs, verificar si el usuario tiene alguno de esos roleIds
+      if (Array.isArray(role)) {
+        const hasAnyRoleId = role.some(roleId => user?.roleIds?.includes(roleId));
+        console.log('[UserContext] hasRole check:', role, '→', hasAnyRoleId);
+        return hasAnyRoleId;
+      }
       
       // Si es Admin, verificar:
       // 1. Rol Superadmin (roleId 6) o Admin (roleId 5)

@@ -13,23 +13,20 @@ import {
   Menu,
   MenuItem,
   Button,
-  ListItemIcon,
-  Avatar
+  ListItemIcon
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ThreeDRotationIcon from '@mui/icons-material/ThreeDRotation';
 import TodayIcon from '@mui/icons-material/Today';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import TerminalIcon from '@mui/icons-material/Terminal';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useLocation, Outlet, useParams } from 'react-router-dom';
 import { useProject } from '../context/ProjectContext';
 import { useUser } from '../context/UserContext.jsx';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../config/api';
+import UserMenu from './UserMenu';
 
 // Drawer eliminado: el menú principal ahora es un Menu anclado al botón hamburguesa
 
@@ -48,9 +45,7 @@ const ProjectLayout = () => {
   const theme = useTheme();
   // Menú principal anclado al botón hamburguesa
   const [mainMenuAnchor, setMainMenuAnchor] = React.useState(null);
-  const [adminAnchor, setAdminAnchor] = React.useState(null);
-  const { hasRole } = useUser();
-  const { logout } = useAuth0();
+  const { hasRole, user } = useUser();
   const navigate = useNavigate();
 
   // No hay Drawer persistente; el menú principal es un Menu anclado
@@ -68,7 +63,7 @@ const ProjectLayout = () => {
       path: '/',
     },
     {
-      text: 'Dashboard (próximamente)',
+      text: 'Dashboard (próx.)',
       path: `/projects/${projectId}/dashboard`,
       icon: <DashboardIcon fontSize="small" />,
       disabled: true,
@@ -79,8 +74,14 @@ const ProjectLayout = () => {
       icon: <ThreeDRotationIcon fontSize="small" />,
     },
     {
-      text: 'Plan (próximamente)',
+      text: 'Plan (próx.)',
       path: `/projects/${projectId}/plan`,
+      disabled: true,
+      icon: <TodayIcon fontSize="small" />,
+    },
+    {
+      text: 'Certificaciones (próx.)',
+      path: `/projects/${projectId}/certifications`,
       disabled: true,
       icon: <TodayIcon fontSize="small" />,
     },
@@ -88,24 +89,6 @@ const ProjectLayout = () => {
 
   const handleMainMenuOpen = (event) => setMainMenuAnchor(event.currentTarget);
   const handleMainMenuClose = () => setMainMenuAnchor(null);
-
-  const handleAdminMenu = (event) => {
-    setAdminAnchor(event.currentTarget);
-  };
-
-  const closeAdminMenu = () => {
-    setAdminAnchor(null);
-  };
-
-  const handleLogout = () => {
-    logout({ logoutParams: { returnTo: window.location.origin } });
-    closeAdminMenu();
-  };
-
-  const openAdminConsole = () => {
-    closeAdminMenu();
-    window.open(adminPanelUrl, '_blank', 'noopener,noreferrer');
-  };
 
   const isViewerRoute = location.pathname.includes('/viewer');
 
@@ -359,34 +342,7 @@ const ProjectLayout = () => {
 
             <Divider orientation="vertical" flexItem sx={{ mx: 1, borderColor: addAlpha(brand.text, 0.1) }} />
 
-            <Tooltip title="Menú de usuario">
-              <Avatar sx={{ width: 28, height: 28, cursor: 'pointer' }} onClick={handleAdminMenu}>
-                {(projectData?.client?.name || projectData?.client_name || projectData?.name || 'C').charAt(0).toUpperCase()}
-              </Avatar>
-            </Tooltip>
-
-            <Menu
-              anchorEl={adminAnchor}
-              open={Boolean(adminAnchor)}
-              onClose={closeAdminMenu}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            >
-              <MenuItem onClick={handleLogout}>
-                <ListItemIcon>
-                  <LogoutIcon fontSize="small" />
-                </ListItemIcon>
-                Cerrar Sesión
-              </MenuItem>
-              {hasRole('Admin') && (
-                <MenuItem onClick={openAdminConsole}>
-                  <ListItemIcon>
-                    <TerminalIcon fontSize="small" />
-                  </ListItemIcon>
-                  Consola Admin
-                </MenuItem>
-              )}
-            </Menu>
+            <UserMenu />
           </Box>
         </Toolbar>
       </AppBar>

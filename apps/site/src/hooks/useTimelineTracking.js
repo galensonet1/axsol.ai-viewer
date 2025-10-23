@@ -107,8 +107,19 @@ const useTimelineTracking = (viewer, projectId, options = {}) => {
    * Setup timeline tracking
    */
   useEffect(() => {
-    if (!viewer || !enabled || !viewer.clock) return;
+    console.log('[useTimelineTracking] Inicializando hook:', { 
+      hasViewer: !!viewer, 
+      enabled, 
+      hasClock: !!viewer?.clock,
+      projectId 
+    });
+    
+    if (!viewer || !enabled || !viewer.clock) {
+      console.log('[useTimelineTracking] Hook no inicializado - falta viewer o clock');
+      return;
+    }
 
+    console.log('[useTimelineTracking] ✅ Hook inicializado correctamente');
     const clock = viewer.clock;
     
     // Guardar estado inicial
@@ -122,12 +133,14 @@ const useTimelineTracking = (viewer, projectId, options = {}) => {
     const handleClockTick = () => {
       // Detectar cambios de velocidad
       if (clock.multiplier !== previousMultiplier) {
+        console.log('[useTimelineTracking] 🎬 Cambio de velocidad detectado:', previousMultiplier, '->', clock.multiplier);
         trackSpeedChange(clock.multiplier);
         previousMultiplier = clock.multiplier;
       }
 
       // Detectar play/pause
       if (clock.shouldAnimate !== previousShouldAnimate) {
+        console.log('[useTimelineTracking] ⏯️ Cambio de reproducción detectado:', previousShouldAnimate, '->', clock.shouldAnimate);
         if (clock.shouldAnimate) {
           trackPlaybackControl('play', clock.currentTime);
         } else {
